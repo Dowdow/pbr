@@ -15,4 +15,28 @@ class AppController extends Controller
     {
         return $this->render('base.html.twig');
     }
+
+    /**
+     * @Route("/songs", name="songs")
+     */
+    public function songsAction(): Response
+    {
+        return $this->render('base.html.twig');
+    }
+
+    /**
+     * @Route("/live", name="live")
+     */
+    public function liveAction(): Response
+    {
+        return $this->render('base.html.twig');
+    }
+
+    /**
+     * @Route("/shop", name="shop")
+     */
+    public function shopAction(): Response
+    {
+        return $this->render('base.html.twig');
+    }
 }
