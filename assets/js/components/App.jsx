@@ -9,7 +9,7 @@ import Shop from "./Shop";
 
 const App = () => {
     return (
-        <div>
+        <div className="app">
             <Header/>
             <Switch>
                 <Route exact path='/' component={Home}/>

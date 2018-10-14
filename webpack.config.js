@@ -3,10 +3,14 @@ const Encore = require('@symfony/webpack-encore');
 Encore
     .setOutputPath('public/build/')
     .setPublicPath('/build')
+
     .enableReactPreset()
-    .addEntry('app', './assets/index.js')
+    .enableSassLoader()
+    .addEntry('app', './assets/js/index.js')
+
     .cleanupOutputBeforeBuild()
     .enableBuildNotifications()
+
     .enableSourceMaps(!Encore.isProduction())
     .enableVersioning(Encore.isProduction())
 ;

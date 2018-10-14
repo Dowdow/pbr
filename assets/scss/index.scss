@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css?family=Monoton');
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: url("../img/bc.png") repeat fixed;
+}
+
+.app {
+  width: 70%;
+  margin: 0 auto;
+}
+
+@import "header";
+@import "home";
+@import "song";
+@import "live";
+@import "footer";

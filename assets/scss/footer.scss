@@ -1,0 +1,24 @@
+footer {
+  margin: 0 auto;
+  background: white;
+
+  & ul {
+    margin: 0;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    list-style: none;
+
+    & li {
+      font-family: 'Monoton', cursive;
+      font-weight: normal;
+      font-size: 30px;
+
+      & a {
+        text-decoration: none;
+        color: #313131;
+      }
+    }
+  }
+}
