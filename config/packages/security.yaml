@@ -1,0 +1,18 @@
+security:
+  providers:
+    main:
+      entity:
+        class: App\Entity\User
+        property: email
+
+  firewalls:
+    main:
+      anonymous: ~
+      logout: ~
+      guard:
+        authenticators:
+        - App\Security\TwitchAuthenticator
+
+  access_control:
+  - { path: ^/_wdt/.*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+  - { path: ^/_profiler/.*, roles: IS_AUTHENTICATED_ANONYMOUSLY }

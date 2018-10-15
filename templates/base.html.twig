@@ -10,6 +10,9 @@
 <noscript>
     You need to enable JavaScript to run this app.
 </noscript>
+<form method="post" action="{{ path('oauth_authorize') }}">
+    <button>Connect with Twitch</button>
+</form>
 <div id="root"></div>
 <script src="{{ asset('build/app.js') }}"></script>
 {% block body %}{% endblock %}
