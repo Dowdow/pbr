@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 
 class Header extends Component {
     render() {
@@ -8,10 +8,10 @@ class Header extends Component {
                 <h1>Pain Boudin Record</h1>
                 <nav>
                     <ul>
-                        <li><Link to='/'>Home</Link></li>
-                        <li><Link to='/songs'>Songs</Link></li>
-                        <li><Link to='/live'>Live</Link></li>
-                        <li><Link to='/shop'>Shop</Link></li>
+                        <li><NavLink to='/' exact={true} activeClassName="active">Home</NavLink></li>
+                        <li><NavLink to='/songs' activeClassName="active">Songs</NavLink></li>
+                        <li><NavLink to='/live' activeClassName="active">Live</NavLink></li>
+                        <li><NavLink to='/shop' activeClassName="active">Shop</NavLink></li>
                     </ul>
                 </nav>
             </header>

@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
+import Connect from './Connect';
 
 class Live extends Component {
     render() {
         return (
             <div className="live">
+                <Connect/>
                 <iframe
                     src="https://player.twitch.tv/?channel=painboudinrecord&muted=true"
                     height="500"

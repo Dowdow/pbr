@@ -1,12 +1,24 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import {hydrate} from 'react-dom';
+import {createStore, applyMiddleware} from 'redux'
+import {Provider} from 'react-redux'
+import thunkMiddleware from 'redux-thunk';
+import {composeWithDevTools} from 'redux-devtools-extension/developmentOnly';
 import {BrowserRouter} from 'react-router-dom';
+import appReducer from './reducers/index';
 import App from './components/App';
 import '../scss/index.scss';
 
-ReactDOM.render(
-    <BrowserRouter>
-        <App/>
-    </BrowserRouter>
+const preloadedState = window.__PRELOADED_STATE__;
+delete window.__PRELOADED_STATE__;
+
+const store = createStore(appReducer, preloadedState, composeWithDevTools(applyMiddleware(thunkMiddleware)));
+
+hydrate(
+    <Provider store={store}>
+        <BrowserRouter>
+            <App/>
+        </BrowserRouter>
+    </Provider>
     , document.getElementById('root'),
 );

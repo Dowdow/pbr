@@ -25,8 +25,14 @@ header {
     & li {
       & a {
         text-decoration: none;
-        color: #313131;
+        color: $textColor;
       }
     }
+  }
+
+  .active {
+    text-decoration: underline;
+    text-decoration-style: dashed;
+    text-decoration-color: #797979;
   }
 }

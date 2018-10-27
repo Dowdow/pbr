@@ -178,19 +178,21 @@ class TwitchAuthenticator extends AbstractGuardAuthenticator
             return null;
         }
 
-        $user = $this->entity_manager->getRepository(User::class)->findOneBy(['twitchId' => $twitch_user['data']['id']]);
+        $twitch_user = $twitch_user['data'][0];
+
+        $user = $this->entity_manager->getRepository(User::class)->findOneBy(['twitchId' => $twitch_user['id']]);
         if ($user === null) {
             $user = new User(
-                $twitch_user['data']['email'],
-                $twitch_user['data']['display_name'],
-                $twitch_user['data']['profile_image_url'],
-                $twitch_user['data']['id']
+                $twitch_user['email'],
+                $twitch_user['display_name'],
+                $twitch_user['profile_image_url'],
+                $twitch_user['id']
             );
             $this->entity_manager->persist($user);
         } else {
-            $user->setEmail($twitch_user['data']['email']);
-            $user->setUsername($twitch_user['data']['display_name']);
-            $user->setPicture($twitch_user['data']['profile_image_url']);
+            $user->setEmail($twitch_user['email']);
+            $user->setUsername($twitch_user['display_name']);
+            $user->setPicture($twitch_user['profile_image_url']);
         }
         $this->entity_manager->flush();
 
