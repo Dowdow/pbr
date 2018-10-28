@@ -11,7 +11,7 @@ const songs = [
 class Songs extends Component {
     render() {
         return (
-            <div className="song">
+            <div className="container song">
                 {songs.map(song => <iframe width="95%" height="166" scrolling="no" frameBorder="no" allow="autoplay"
                                            src={song}/>)}
             </div>

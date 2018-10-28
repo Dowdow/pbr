@@ -37,7 +37,7 @@ class Live extends Component {
 
     render() {
         return (
-            <div className="live">
+            <div className="container live">
                 <Connect user={this.props.user} playing={this.props.playing} handleScore={this.handleScore}/>
                 <div className="players">
                     <div id="twitch-embed"/>

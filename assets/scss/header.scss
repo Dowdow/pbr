@@ -1,14 +1,19 @@
 header {
   margin: 0 auto;
-  background: white;
+  background: $backgroundColor;
 
   & h1 {
     font-family: 'Monoton', cursive;
     font-weight: normal;
     font-size: 50px;
-    margin: 0;
     padding: 20px 0 0;
     text-align: center;
+    margin: 0 10px;
+
+    @media screen and (max-width: $breakSmall) {
+      padding-top: 5px;
+      font-size: 30px;
+    }
   }
 
   & ul {
@@ -21,6 +26,12 @@ header {
     list-style: none;
     margin: 0;
     padding: 20px 0;
+
+    @media screen and (max-width: $breakSmall) {
+      padding: 10px 0;
+      flex-wrap: wrap;
+      font-size: 25px;
+    }
 
     & li {
       & a {

@@ -1,6 +1,6 @@
 footer {
   margin: 0 auto;
-  background: white;
+  background: $backgroundColor;
 
   & ul {
     margin: 0;
@@ -10,10 +10,19 @@ footer {
     justify-content: space-around;
     list-style: none;
 
+    @media screen and (max-width: $breakMedium) {
+      flex-direction: column;
+    }
+
     & li {
       font-family: 'Monoton', cursive;
       font-weight: normal;
       font-size: 30px;
+
+      @media screen and (max-width: $breakMedium) {
+        font-size: 25px;
+        text-align: center;
+      }
 
       & a {
         text-decoration: none;

@@ -5,7 +5,6 @@ import Footer from './Footer';
 import Home from "./Home";
 import Songs from "./Songs";
 import Live from "./Live";
-import Shop from "./Shop";
 
 const App = () => {
     return (
@@ -15,7 +14,6 @@ const App = () => {
                 <Route exact path='/' component={Home}/>
                 <Route exact path='/songs' component={Songs}/>
                 <Route exact path='/live' component={Live}/>
-                <Route exact path='/shop' component={Shop}/>
             </Switch>
             <Footer/>
         </div>

@@ -1,20 +1,64 @@
 .home {
+  &_social {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 70%;
+    margin: 5px auto;
+
+    @media screen and (max-width: $breakSmall) {
+      flex-direction: column;
+    }
+
+    & div {
+      display: flex;
+      flex-direction: row;
+      font-family: 'Roboto', cursive;
+      color: $textColor;
+
+      & svg {
+        height: 50px !important;
+        width: 60px !important;
+      }
+
+      & a {
+        font-size: 20px;
+        color: $textColor;
+        align-self: center;
+        margin: 0 0 0 10px;
+        text-decoration: none;
+      }
+    }
+  }
+
+  &_songs {
+    & h3 {
+      font-family: 'Monoton', cursive;
+      font-weight: normal;
+      font-size: 25px;
+      margin: 0 0 0 30px;
+
+      @media screen and (max-width: $breakSmall) {
+        margin: 15px 0 0;
+        text-align: center;
+      }
+    }
+    & div {
+      display: flex;
+      flex-direction: column;
+
+      & iframe {
+        margin: 10px auto;
+      }
+    }
+  }
+
   & h2 {
     font-family: 'Monoton', cursive;
     font-weight: normal;
     font-size: 30px;
     text-align: center;
-  }
-
-  & section {
-    & h3 {
-      font-family: 'Monoton', cursive;
-      font-weight: normal;
-    }
-    & div {
-      & h4 {
-
-      }
-    }
+    margin: 0;
+    padding: 10px 0;
   }
 }
