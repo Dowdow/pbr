@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AppController extends Controller
 {
     /**
-     * @Route("/", name="home")
+     * @Route("/", name="home", host="%base_host%")
      */
     public function homeAction(): Response
     {
@@ -17,7 +17,7 @@ class AppController extends Controller
     }
 
     /**
-     * @Route("/songs", name="songs")
+     * @Route("/songs", name="songs", host="%base_host%")
      */
     public function songsAction(): Response
     {
@@ -25,7 +25,7 @@ class AppController extends Controller
     }
 
     /**
-     * @Route("/live", name="live")
+     * @Route("/live", name="live", host="%base_host%")
      */
     public function liveAction(): Response
     {
@@ -33,10 +33,10 @@ class AppController extends Controller
     }
 
     /**
-     * @Route("/shop", name="shop")
+     * @Route("/", name="shop", host="%shop_host%")
      */
     public function shopAction(): Response
     {
-        return $this->render('base.html.twig');
+        return $this->render('shop.html.twig');
     }
 }

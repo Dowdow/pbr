@@ -52,6 +52,20 @@ class User implements UserInterface
     private $twitchId;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="score", type="integer")
+     */
+    private $score;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="last_score_update", type="datetime")
+     */
+    private $lastScoreUpdate;
+
+    /**
      * User constructor.
      * @param string $email
      * @param string $name
@@ -64,6 +78,8 @@ class User implements UserInterface
         $this->username = $name;
         $this->picture = $picture;
         $this->twitchId = $twitchId;
+        $this->score = 0;
+        $this->lastScoreUpdate = new \DateTime();
     }
 
     /**
@@ -84,10 +100,12 @@ class User implements UserInterface
 
     /**
      * @param string $email
+     * @return User
      */
-    public function setEmail(string $email): void
+    public function setEmail(string $email): User
     {
         $this->email = $email;
+        return $this;
     }
 
     /**
@@ -100,10 +118,12 @@ class User implements UserInterface
 
     /**
      * @param string $username
+     * @return User
      */
-    public function setUsername(string $username): void
+    public function setUsername(string $username): User
     {
         $this->username = $username;
+        return $this;
     }
 
     /**
@@ -116,10 +136,12 @@ class User implements UserInterface
 
     /**
      * @param string $picture
+     * @return User
      */
-    public function setPicture(string $picture): void
+    public function setPicture(string $picture): User
     {
         $this->picture = $picture;
+        return $this;
     }
 
     /**
@@ -132,10 +154,48 @@ class User implements UserInterface
 
     /**
      * @param int $twitchId
+     * @return User
      */
-    public function setTwitchId(int $twitchId): void
+    public function setTwitchId(int $twitchId): User
     {
         $this->twitchId = $twitchId;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getScore(): int
+    {
+        return $this->score;
+    }
+
+    /**
+     * @param int $score
+     * @return User
+     */
+    public function setScore(int $score): User
+    {
+        $this->score = $score;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getLastScoreUpdate(): ?\DateTime
+    {
+        return $this->lastScoreUpdate;
+    }
+
+    /**
+     * @param \DateTime $lastScoreUpdate
+     * @return User
+     */
+    public function setLastScoreUpdate(\DateTime $lastScoreUpdate): User
+    {
+        $this->lastScoreUpdate = $lastScoreUpdate;
+        return $this;
     }
 
     /**
@@ -188,8 +248,7 @@ class User implements UserInterface
      * This is important if, at any given point, sensitive information like
      * the plain-text password is stored on this object.
      */
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
-        return null;
     }
 }

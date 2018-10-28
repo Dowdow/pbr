@@ -8,27 +8,49 @@
     height: 50px;
     background: white;
 
-    & img {
-      height: 40px;
-      width: 40px;
-      margin: 5px;
+    &_user {
+      display: flex;
+      flex-direction: row;
+      width: 70%;
+
+      & img {
+        height: 40px;
+        width: 40px;
+        margin: 5px;
+      }
+
+      & h4 {
+        font-family: 'Roboto', sans-serif;
+        font-size: 22px;
+        font-weight: 500;
+        align-self: center;
+        margin: 0;
+        color: $textColor;
+      }
+
+      & a {
+        font-family: 'Roboto', sans-serif;
+        align-self: center;
+        margin: 0 0 0 5px;
+        color: $textColor;
+        text-decoration: none;
+      }
     }
 
-    & h4 {
-      font-family: 'Roboto', sans-serif;
-      font-size: 22px;
-      font-weight: 500;
-      align-self: center;
-      margin: 0;
-      color: $textColor;
-    }
+    &_score {
+      display: flex;
+      width: 30%;
 
-    & a {
-      font-family: 'Roboto', sans-serif;
-      align-self: center;
-      margin: 0 0 0 5px;
-      color: $textColor;
-      text-decoration: none;
+      & p {
+        font-family: 'Roboto', sans-serif;
+        font-size: 22px;
+        font-weight: 500;
+        width: 100%;
+        margin: 0 10px 0 0;
+        text-align: right;
+        align-self: center;
+        color: $textColor;
+      }
     }
 
     & form {
@@ -44,6 +66,20 @@
         color: white;
         background: $twitchColor;
       }
+    }
+
+  }
+
+  & .players {
+    display: flex;
+    flex-direction: row;
+
+    #twitch-embed {
+      width: 70%;
+    }
+
+    #twitch-chat {
+      width: 30%;
     }
   }
 }

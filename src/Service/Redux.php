@@ -27,12 +27,14 @@ class Redux extends \Twig_Extension
         if ($token) {
             return [
                 'name' => $token->getUser()->getUsername(),
-                'picture' => $token->getUser()->getPicture()
+                'picture' => $token->getUser()->getPicture(),
+                'score' => $token->getUser()->getScore()
             ];
         }
         return [
             'email' => '',
-            'picture' => ''
+            'picture' => '',
+            'score' => 0
         ];
     }
 

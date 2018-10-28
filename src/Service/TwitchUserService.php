@@ -32,7 +32,7 @@ class TwitchUserService
     public function getUser($token)
     {
         return $this->caller->get(
-            $this->container->getParameter('url')['base_api'] . $this->container->getParameter('url')['user']['user'],
+            $this->container->getParameter('url')['base_api'] . $this->container->getParameter('url')['user'],
             ['Authorization' => 'Bearer ' . $token]
         );
     }

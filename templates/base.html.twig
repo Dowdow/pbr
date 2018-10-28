@@ -16,6 +16,7 @@
         'user': {% if app.user %} { {% for key,value in getTwitchConnectState() %} '{{ key }}': ' {{ value }}',{% endfor %} } {% else %} false {% endif %}
     };
 </script>
+<script src="https://embed.twitch.tv/embed/v1.js"></script>
 <script src="{{ asset('build/app.js') }}"></script>
 {% block body %}{% endblock %}
 </body>

@@ -11,14 +11,17 @@ parameters:
       token: '/oauth2/token'
 
     base_api: 'https://api.twitch.tv'
-    user:
-      user: '/helix/users'
+    user: '/helix/users'
+    stream: '/helix/streams'
 
   twitch:
     client_id: '%env(TWITCH_CLIENT_ID)%'
     client_secret: '%env(TWITCH_CLIENT_SECRET)%'
     redirect: '%env(TWITCH_REDIRECT)%'
     scope: ["user:read:email"]
+
+  base_host: '%env(BASE_HOST)%'
+  shop_host: '%env(SHOP_HOST)%'
 
 services:
   # default configuration for services in *this* file
