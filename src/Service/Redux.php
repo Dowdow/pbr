@@ -2,20 +2,26 @@
 
 namespace App\Service;
 
+use App\Entity\User;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class Redux extends \Twig_Extension
 {
     /** @var ContainerInterface */
     private $container;
+    /** @var EntityManagerInterface */
+    private $entityManager;
 
     /**
      * Redux constructor.
      * @param ContainerInterface $container
+     * @param EntityManagerInterface $entityManager
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(ContainerInterface $container, EntityManagerInterface $entityManager)
     {
         $this->container = $container;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -39,12 +45,29 @@ class Redux extends \Twig_Extension
     }
 
     /**
+     * @return array
+     */
+    public function getRanking(): array
+    {
+        $ranking = [];
+        $users = $this->entityManager->getRepository(User::class)->findRanking();
+        foreach ($users as $user) {
+            $ranking[] = [
+                'name' => $user->getUsername(),
+                'score' => $user->getScore()
+            ];
+        }
+        return $ranking;
+    }
+
+    /**
      * @return array|\Twig_Function[]
      */
     public function getFunctions(): array
     {
         return [
-            'getTwitchConnectState' => new \Twig_SimpleFunction('getTwitchConnectState', [$this, 'getTwitchConnectState'])
+            'getTwitchConnectState' => new \Twig_SimpleFunction('getTwitchConnectState', [$this, 'getTwitchConnectState']),
+            'getRanking' => new \Twig_SimpleFunction('getRanking', [$this, 'getRanking']),
         ];
     }
 

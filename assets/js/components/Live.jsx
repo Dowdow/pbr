@@ -39,7 +39,7 @@ class Live extends Component {
         return (
             <div className="container live">
                 <Connect user={this.props.user} playing={this.props.playing} handleScore={this.handleScore}/>
-                <div className="players">
+                <div className="live_players">
                     <div id="twitch-embed"/>
                     <div id="twitch-chat">
                         <iframe frameBorder="0"
@@ -51,6 +51,27 @@ class Live extends Component {
                         </iframe>
                     </div>
                 </div>
+                <div className="live_rank">
+                    <h3>Ranking</h3>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>User</th>
+                            <th>Pains Boudin</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {this.props.rank.map((rank, index) =>
+                            <tr>
+                                <td>{index + 1}</td>
+                                <td>{rank.name}</td>
+                                <td>{rank.score}</td>
+                            </tr>
+                        )}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         );
     }
@@ -59,6 +80,7 @@ class Live extends Component {
 function mapStateToProps(state) {
     return {
         playing: state.playing,
+        rank: state.rank,
         user: state.user,
     };
 }

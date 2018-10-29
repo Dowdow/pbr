@@ -1,9 +1,11 @@
-import { combineReducers } from 'redux';
+import {combineReducers} from 'redux';
 import playing from './playing';
+import rank from './rank';
 import user from './user';
 
 const appReducer = combineReducers({
     playing,
+    rank,
     user,
 });
 

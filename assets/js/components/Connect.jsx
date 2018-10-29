@@ -14,13 +14,13 @@ class Connect extends Component {
     render() {
         if (this.props.user) {
             return (
-                <div className="connect">
-                    <div className="connect_user">
+                <div className="live_connect">
+                    <div className="live_connect_user">
                         <img src={this.props.user.picture} alt={this.props.user.name}/>
                         <h4>{this.props.user.name}</h4>
                         <a href="/logout">(Sign Out)</a>
                     </div>
-                    <div className="connect_score">
+                    <div className="live_connect_score">
                         <p>{this.props.user.score} pains boudin</p>
                     </div>
                     <ReactInerval timeout={60000} enabled callback={this.handleTimer}/>
