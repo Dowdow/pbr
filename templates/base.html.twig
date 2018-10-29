@@ -15,7 +15,7 @@
 <script>
     window.__PRELOADED_STATE__ = {
         'user': {% if app.user %} { {% for key,value in getTwitchConnectState() %} '{{ key }}': '{{ value }}',{% endfor %} } {% else %} false {% endif %},
-        'rank': [ {% for rank in getRanking() %} { {% for key,value in rank %} '{{ key }}': '{{ value }}',{% endfor %} } {% endfor %} ]
+        'rank': [ {% for rank in getRanking() %} { {% for key,value in rank %} '{{ key }}': '{{ value }}',{% endfor %} }, {% endfor %} ]
     };
 </script>
 <script src="https://embed.twitch.tv/embed/v1.js"></script>
