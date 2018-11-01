@@ -28,7 +28,7 @@ class Connect extends Component {
             );
         } else {
             return (
-                <div className="connect">
+                <div className="live_connect">
                     <form method="post" action="/authorize">
                         <button>Connect with Twitch</button>
                     </form>
