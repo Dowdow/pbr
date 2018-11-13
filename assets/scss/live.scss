@@ -83,6 +83,10 @@
         cursor: pointer;
         color: white;
         background: $twitchColor;
+
+        @media screen and (max-width: $breakSmall) {
+          height: 65px;
+        }
       }
     }
 

@@ -10,6 +10,12 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class TwitchController
+ * @package App\Controller
+ *
+ * @Route(schemes={"%protocol%"})
+ */
 class TwitchController extends Controller
 {
     /**

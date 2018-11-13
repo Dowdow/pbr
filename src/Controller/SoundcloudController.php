@@ -6,6 +6,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class SoundcloudController
+ * @package App\Controller
+ *
+ * @Route(schemes={"%protocol%"})
+ */
 class SoundcloudController extends Controller
 {
     /**
@@ -13,9 +19,7 @@ class SoundcloudController extends Controller
      */
     public function tracksAction(): JsonResponse
     {
-        $tracks = [
-            'oui', 'non', 'ok'
-        ];
+        $tracks = [];
         return new JsonResponse($tracks);
     }
 

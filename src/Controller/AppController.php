@@ -6,6 +6,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class AppController
+ * @package App\Controller
+ *
+ * @Route(schemes={"%protocol%"})
+ */
 class AppController extends Controller
 {
     /**

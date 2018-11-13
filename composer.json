@@ -10,6 +10,7 @@
     "sensio/framework-extra-bundle": "^5.2",
     "symfony/cache": "*",
     "symfony/console": "*",
+    "symfony/dotenv": "4.1.*",
     "symfony/flex": "^1.1",
     "symfony/framework-bundle": "*",
     "symfony/orm-pack": "^1.0",
@@ -21,7 +22,6 @@
   },
   "require-dev": {
     "roave/security-advisories": "dev-master",
-    "symfony/dotenv": "*",
     "symfony/maker-bundle": "^1.8",
     "symfony/profiler-pack": "^1.0"
   },
