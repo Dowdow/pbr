@@ -14,7 +14,7 @@ const preloadedState = window.__PRELOADED_STATE__;
 delete window.__PRELOADED_STATE__;
 const store = createStore(appReducer, preloadedState, composeWithDevTools(applyMiddleware(thunkMiddleware)));
 
-ReactGA.initialize('TBD');
+ReactGA.initialize('UA-129187589-1');
 ReactGA.pageview(window.location.pathname + window.location.search);
 
 hydrate(
