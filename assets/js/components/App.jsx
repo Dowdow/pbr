@@ -30,7 +30,7 @@ class App extends Component {
                     <div className="app">
                         <Header/>
                         <PoseGroup>
-                            <RoutesContainer key={location.key} pose={this.state.isVisible ? 'open' : 'exit'}>
+                            <RoutesContainer key={location.pathname} pose={this.state.isVisible ? 'open' : 'exit'}>
                                 <Switch location={location}>
                                     <Route exact path='/' component={Home} key="home"/>
                                     <Route exact path='/songs' component={Songs} key="songs"/>
