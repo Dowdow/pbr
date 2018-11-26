@@ -1,6 +1,6 @@
 import React from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faTwitch, faSoundcloud} from '@fortawesome/free-brands-svg-icons';
+import {faSoundcloud, faTwitch} from '@fortawesome/free-brands-svg-icons';
 
 const songs = [
     'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/522349755&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true',

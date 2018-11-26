@@ -63,7 +63,7 @@ class Live extends Component {
                         </thead>
                         <tbody>
                         {this.props.rank.map((rank, index) =>
-                            <tr>
+                            <tr key={index}>
                                 <td>{index + 1}</td>
                                 <td>{rank.name}</td>
                                 <td>{rank.score}</td>
