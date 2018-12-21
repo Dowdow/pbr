@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <title>PBR Admin</title>
+</head>
+<body>
+<style>
+    html, body {
+        margin: 0 auto;
+        padding: 0;
+        width: 70%;
+        font-family: Arial, sans-serif;
+    }
+
+    table {
+        border-spacing: 10px;
+        margin-bottom: 50px;
+    }
+
+    td {
+        white-space: nowrap;
+    }
+
+    form {
+        margin: 0 auto;
+    }
+
+    label {
+        margin-right: 20px;
+    }
+
+    input[type=url] {
+        width: 100%;
+    }
+</style>
+<h1>PBR Admin</h1>
+<table>
+    <thead>
+    <tr>
+        <td>ID</td>
+        <td>Url</td>
+        <td>Activated</td>
+        <td>Delete</td>
+    </tr>
+    </thead>
+    <tbody>
+    {% for song in songs %}
+        <tr>
+            <td>{{ song.id }}</td>
+            <td>{{ song.url|slice(0, 90) }}</td>
+            <td>
+                <form method="post">
+                    <button type="submit" name="activation_song" value="{{ song.id }}">
+                        {% if song.activated %}
+                            Deactivate
+                        {% else %}
+                            Activate
+                        {% endif %}
+                    </button>
+                </form>
+            </td>
+            <td>
+                <form method="post">
+                    <button type="submit" name="delete_song" value="{{ song.id }}">Delete</button>
+                </form>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<h2>Add a song</h2>
+{{ form(songForm) }}
+</body>
+</html>

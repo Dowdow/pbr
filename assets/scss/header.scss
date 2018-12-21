@@ -3,6 +3,10 @@ header {
   padding: 30px 5% 0;
   background: $backgroundHeader;
 
+  @media screen and (max-width: $breakSmall) {
+    padding-top: 15px;
+  }
+
   & h1 {
     font-family: 'Helvetica', sans-serif;
     font-weight: bold;

@@ -55,6 +55,7 @@ class TwitchController extends Controller
      *
      * @param TwitchStreamService $streamService
      * @return JsonResponse
+     * @throws \Exception
      */
     public function scoreAction(TwitchStreamService $streamService): JsonResponse
     {

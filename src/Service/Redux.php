@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Song;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -61,6 +62,19 @@ class Redux extends \Twig_Extension
     }
 
     /**
+     * @return array
+     */
+    public function getSongs(): array
+    {
+        $urls = [];
+        $songs = $this->entityManager->getRepository(Song::class)->findBy(['activated' => true], ['id' => 'desc']);
+        foreach ($songs as $song) {
+            $urls[] = $song->getUrl();
+        }
+        return $urls;
+    }
+
+    /**
      * @return array|\Twig_Function[]
      */
     public function getFunctions(): array
@@ -68,6 +82,7 @@ class Redux extends \Twig_Extension
         return [
             'getTwitchConnectState' => new \Twig_SimpleFunction('getTwitchConnectState', [$this, 'getTwitchConnectState']),
             'getRanking' => new \Twig_SimpleFunction('getRanking', [$this, 'getRanking']),
+            'getSongs' => new \Twig_SimpleFunction('getSongs', [$this, 'getSongs']),
         ];
     }
 
