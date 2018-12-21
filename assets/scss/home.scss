@@ -1,64 +1,52 @@
 .home {
-  &_social {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    width: 70%;
-    margin: 5px auto;
+  background: $backgroundPrimary;
+  height: 400px;
+  padding: 50px 5% 80px;
 
-    @media screen and (max-width: $breakSmall) {
-      flex-direction: column;
-    }
-
-    & div {
-      display: flex;
-      flex-direction: row;
-      font-family: 'Roboto', cursive;
-      color: $textColor;
-
-      & svg {
-        height: 50px !important;
-        width: 60px !important;
-      }
-
-      & a {
-        font-size: 20px;
-        color: $textColor;
-        align-self: center;
-        margin: 0 0 0 10px;
-        text-decoration: none;
-      }
-    }
-  }
-
-  &_songs {
-    & h3 {
-      font-family: 'Monoton', cursive;
-      font-weight: normal;
-      font-size: 25px;
-      margin: 0 0 0 30px;
-
-      @media screen and (max-width: $breakSmall) {
-        margin: 15px 0 0;
-        text-align: center;
-      }
-    }
-    & div {
-      display: flex;
-      flex-direction: column;
-
-      & iframe {
-        margin: 10px auto;
-      }
-    }
+  @media screen and (max-width: $breakSmall) {
+    height: 200px;
   }
 
   & h2 {
-    font-family: 'Monoton', cursive;
-    font-weight: normal;
+    font-family: 'Helvetica', sans-serif;
+    font-weight: bold;
     font-size: 30px;
-    text-align: center;
-    margin: 0;
-    padding: 10px 0;
+    letter-spacing: -1px;
+    color: $textColor;
+    margin: 5px 0;
+
+    @media screen and (max-width: $breakSmall) {
+      font-size: 20px;
+    }
+  }
+
+  & div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    & h2 {
+      margin: 0;
+    }
+  }
+
+  .blink {
+    font-size: 35px;
+    margin: 0 0 0 10px;
+    animation: blink-animation 1s steps(5, start) infinite;
+    @keyframes blink-animation {
+      to {
+        visibility: hidden;
+      }
+    }
+    @-webkit-keyframes blink-animation {
+      to {
+        visibility: hidden;
+      }
+    }
+
+    @media screen and (max-width: $breakSmall) {
+      font-size: 25px;
+    }
   }
 }

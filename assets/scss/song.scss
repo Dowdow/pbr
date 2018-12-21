@@ -1,7 +1,25 @@
 .song {
+  background: $backgroundPrimary;
   display: flex;
   flex-direction: column;
-  padding: 15px 0;
+  padding: 50px 5%;
+
+  @media screen and (max-width: $breakSmall) {
+    padding: 20px 5% 50px;
+  }
+
+  & h3 {
+    font-family: 'Helvetica', sans-serif;
+    font-weight: bold;
+    font-size: 30px;
+    letter-spacing: -1px;
+    color: $textColor;
+    margin: 5px 0 20px;
+
+    @media screen and (max-width: $breakSmall) {
+      font-size: 20px;
+    }
+  }
 
   & iframe {
     margin: 10px auto;

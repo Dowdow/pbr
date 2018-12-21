@@ -1,40 +1,47 @@
 header {
-  margin: 0 auto;
-  background: $backgroundColor;
+  margin: 0;
+  padding: 30px 5% 0;
+  background: $backgroundHeader;
 
   & h1 {
-    font-family: 'Monoton', cursive;
-    font-weight: normal;
+    font-family: 'Helvetica', sans-serif;
+    font-weight: bold;
     font-size: 50px;
-    padding: 20px 0 0;
-    text-align: center;
-    margin: 0 10px;
+    letter-spacing: -2px;
+    color: $textColor;
+    text-transform: uppercase;
+    margin: 10px 0;
+    border-top: 2px solid $textColor;
 
     @media screen and (max-width: $breakSmall) {
-      padding-top: 5px;
+      margin-top: 5px;
       font-size: 30px;
     }
   }
 
   & ul {
-    font-family: 'Monoton', cursive;
-    font-weight: normal;
+    font-family: 'Helvetica', cursive;
+    font-weight: bold;
     font-size: 30px;
+    letter-spacing: -2px;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: flex-start;
     list-style: none;
     margin: 0;
-    padding: 20px 0;
+    padding: 10px 0 50px;
 
     @media screen and (max-width: $breakSmall) {
-      padding: 10px 0;
+      padding: 5px 0 20px;
       flex-wrap: wrap;
-      font-size: 25px;
+      font-size: 20px;
     }
 
     & li {
+      margin-right: 30px;
+
       & a {
+        border-top: 2px solid $textColor;
         text-decoration: none;
         color: $textColor;
       }
@@ -42,8 +49,7 @@ header {
   }
 
   .active {
-    text-decoration: underline;
-    text-decoration-style: dashed;
-    text-decoration-color: #797979;
+    border-top: none;
+    border-bottom: 2px solid $textColor;
   }
 }

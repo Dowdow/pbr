@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import Connect from './Connect';
+import ReactInerval from 'react-interval';
 import {setPlayerPlaying} from '../actions/playing';
 import {grantScore} from '../actions/user';
 
@@ -38,7 +38,12 @@ class Live extends Component {
     render() {
         return (
             <div className="container live">
-                <Connect user={this.props.user} playing={this.props.playing} handleScore={this.handleScore}/>
+                {this.props.user ? '' :
+                    <div className="live_connect">
+                        <form method="post" action="/authorize">
+                            <button>Connect with Twitch</button>
+                        </form>
+                    </div>}
                 <div className="live_players">
                     <div id="twitch-embed"/>
                     <div id="twitch-chat">
@@ -51,7 +56,17 @@ class Live extends Component {
                         </iframe>
                     </div>
                 </div>
+                {this.props.user ?
+                    <div className="live_user">
+                        <div className="divider"/>
+                        <h3>{this.props.user.name}</h3>
+                        <img src={this.props.user.picture} alt={this.props.user.name}/>
+                        <p>{this.props.user.score} pains boudin</p>
+                        <a href="/logout">Sign Out</a>
+                        <ReactInerval timeout={60000} enabled callback={this.handleScore}/>
+                    </div> : ''}
                 <div className="live_rank">
+                    <div className="divider"/>
                     <h3>Ranking</h3>
                     <table>
                         <thead>

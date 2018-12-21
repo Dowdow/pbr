@@ -1,8 +1,10 @@
-@import url('https://fonts.googleapis.com/css?family=Monoton');
-@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import '../font/Helvetica.ttf';
+@import '../font/Helvetica-Bold.ttf';
 
-$backgroundColor: white;
-$textColor: #313131;
+$backgroundHeader: black;
+$backgroundPrimary: #9c091d;
+$backgroundFooter: #555;
+$textColor: white;
 $twitchColor: #6441A4;
 $breakSmall: 768px;
 $breakMedium: 1024px;
@@ -10,21 +12,17 @@ $breakMedium: 1024px;
 html, body {
   margin: 0;
   padding: 0;
-  background: url("../img/bc.png") repeat fixed;
 }
 
-.app {
-  width: 70%;
-  margin: 0 auto;
+.divider {
+  height: 3px;
+  width: 50px;
+  background: $textColor;
 
-  @media screen and (max-width: $breakMedium) {
-    width: 100%;
+  @media screen and (max-width: $breakSmall) {
+    height: 2px;
+    width: 30px;
   }
-}
-
-.container {
-  margin: 50px 0;
-  background: $backgroundColor;
 }
 
 @import "header";
