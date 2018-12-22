@@ -31,6 +31,14 @@ class AppController extends Controller
     }
 
     /**
+     * @Route("/studio", name="studio", host="%base_host%")
+     */
+    public function studioAction(): Response
+    {
+        return $this->render('base.html.twig');
+    }
+
+    /**
      * @Route("/live", name="live", host="%base_host%")
      */
     public function liveAction(): Response

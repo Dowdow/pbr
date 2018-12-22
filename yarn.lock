@@ -4910,6 +4910,15 @@ query-string@^4.1.0:
     object-assign "^4.1.0"
     strict-uri-encode "^1.0.0"
 
+query-string@^5.1.0:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/query-string/-/query-string-5.1.1.tgz#a78c012b71c17e05f2e3fa2319dd330682efb3cb"
+  integrity sha512-gjWOsm2SoGlgLEdAGt7a6slVOk9mGiXmPFMqrEhLQ68rhQuBnpfs3+EmlvqKyxnCo9/PPlF+9MtY02S1aFg+Jw==
+  dependencies:
+    decode-uri-component "^0.2.0"
+    object-assign "^4.1.0"
+    strict-uri-encode "^1.0.0"
+
 querystring-es3@^0.2.0:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/querystring-es3/-/querystring-es3-0.2.1.tgz#9ec61f79049875707d69414596fd907a4d711e73"
@@ -4988,6 +4997,13 @@ react-ga@^2.5.3:
   version "2.5.6"
   resolved "https://registry.yarnpkg.com/react-ga/-/react-ga-2.5.6.tgz#5a2e2fa78ae298e5b0a4498210eeec631ef1b562"
   integrity sha512-g04dz6zrbdHRxVaURPWT3RUbjLflh74sS6dCuhGeZupj7ii+UEt9lwTjALb2ST2w+7wAmzG1YqYlNX4yvRXe1g==
+
+react-instagram-embed@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/react-instagram-embed/-/react-instagram-embed-1.4.1.tgz#57032ff965cf8806549c2f1d3bb713635b48e407"
+  integrity sha512-uEq2cAUGjN70R3g+thHE7j/DW0CoxWrfLqxINZMkSStATe6h8fLgqcy+Tv/N2xOpNlayCTSNugozOpp9osUwkQ==
+  dependencies:
+    query-string "^5.1.0"
 
 react-interval@^2.0.2:
   version "2.0.2"

@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Post;
 use App\Entity\Song;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
@@ -75,6 +76,19 @@ class Redux extends \Twig_Extension
     }
 
     /**
+     * @return array
+     */
+    public function getPosts(): array
+    {
+        $instaIds = [];
+        $posts = $this->entityManager->getRepository(Post::class)->findBy(['activated' => true], ['id' => 'desc']);
+        foreach ($posts as $post) {
+            $instaIds[] = $post->getInstaId();
+        }
+        return $instaIds;
+    }
+
+    /**
      * @return array|\Twig_Function[]
      */
     public function getFunctions(): array
@@ -83,6 +97,7 @@ class Redux extends \Twig_Extension
             'getTwitchConnectState' => new \Twig_SimpleFunction('getTwitchConnectState', [$this, 'getTwitchConnectState']),
             'getRanking' => new \Twig_SimpleFunction('getRanking', [$this, 'getRanking']),
             'getSongs' => new \Twig_SimpleFunction('getSongs', [$this, 'getSongs']),
+            'getPosts' => new \Twig_SimpleFunction('getPosts', [$this, 'getPosts']),
         ];
     }
 

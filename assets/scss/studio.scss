@@ -1,0 +1,75 @@
+.studio {
+  padding: 50px 5% 80px;
+  background: $backgroundPrimary;
+
+  & h2 {
+    font-family: 'Helvetica', sans-serif;
+    font-weight: bold;
+    font-size: 30px;
+    letter-spacing: -1px;
+    color: $textColor;
+    margin: 5px 0 20px;
+
+    @media screen and (max-width: $breakSmall) {
+      font-size: 20px;
+    }
+  }
+
+  &_title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  &_feed {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    min-height: 550px;
+
+    @media screen and (max-width: $breakSmall) {
+      justify-content: center;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    & .previous, & .next {
+      font-family: 'Helvetica', sans-serif;
+      font-size: 80px;
+      color: $textColor;
+      width: 20%;
+      border: none;
+      background: $backgroundPrimary;
+      cursor: pointer;
+      outline: none;
+      transition: ease 2s;
+
+      @media screen and (max-width: $breakSmall) {
+        display: none;
+      }
+    }
+
+    & .previous:hover {
+      padding-right: 50px;
+    }
+
+    & .next:hover {
+      padding-left: 50px;
+    }
+  }
+
+  & .previous_small, & .next_small {
+    font-family: 'Helvetica', sans-serif;
+    font-size: 30px;
+    color: $textColor;
+    border: none;
+    background: $backgroundPrimary;
+    cursor: pointer;
+    outline: none;
+    align-self: flex-start;
+
+    @media screen and (min-width: 769px) {
+      display: none;
+    }
+  }
+}

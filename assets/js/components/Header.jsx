@@ -8,6 +8,7 @@ const Header = () =>
             <ul>
                 <li><NavLink to='/' exact={true} activeClassName="active">Home</NavLink></li>
                 <li><NavLink to='/songs' activeClassName="active">Songs</NavLink></li>
+                <li><NavLink to='/studio' activeClassName="active">Studio</NavLink></li>
                 <li><NavLink to='/live' activeClassName="active">Live</NavLink></li>
                 <li>
                     <a href={process.env.NODE_ENV === 'production' ? 'https://shop.painboudinrecord.fr' : 'http://shop.pbr.local'}>Shop</a>

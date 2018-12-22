@@ -59,7 +59,7 @@ class Live extends Component {
                 {this.props.user ?
                     <div className="live_user">
                         <div className="divider"/>
-                        <h3>{this.props.user.name}</h3>
+                        <h2>{this.props.user.name}</h2>
                         <img src={this.props.user.picture} alt={this.props.user.name}/>
                         <p>{this.props.user.score} pains boudin</p>
                         <a href="/logout">Sign Out</a>
@@ -67,7 +67,7 @@ class Live extends Component {
                     </div> : ''}
                 <div className="live_rank">
                     <div className="divider"/>
-                    <h3>Ranking</h3>
+                    <h2>Ranking</h2>
                     <table>
                         <thead>
                         <tr>
