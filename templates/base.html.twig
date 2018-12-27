@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/png" href="favicon.png" />
+    <meta name="Description" content="Pain Boudin Record">
+    <meta name="theme-color" content="#000000">
+    <link rel="icon" type="image/png" href="favicon.png">
     <link rel="manifest" href="{{ asset('build/manifest.json') }}">
     <link rel="stylesheet" href="{{ asset('build/app.css') }}">
     <title>{% block title %}Pain Boudin Record{% endblock %}</title>
@@ -21,8 +23,8 @@
         'posts': { {% for insta in getPosts() %} '{{ loop.index }}': '{{ insta }}', {% endfor %} }
     };
 </script>
-<script src="https://embed.twitch.tv/embed/v1.js"></script>
-<script src="{{ asset('build/app.js') }}"></script>
+<script type="text/javascript" src="https://embed.twitch.tv/embed/v1.js"></script>
+<script type="text/javascript" src="{{ asset('build/app.js') }}"></script>
 {% block body %}{% endblock %}
 </body>
 </html>
