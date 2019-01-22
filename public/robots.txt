@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://painboudinrecord.fr/sitemaps.xml
