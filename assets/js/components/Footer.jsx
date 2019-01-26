@@ -6,6 +6,10 @@ const Footer = () =>
             <div className="divider"/>
             <h2>Social Networks</h2>
             <h3>
+                <a href="https://open.spotify.com/artist/74FhxjKBLi7hYdTCm0r28w?si=vVbnBgVBTt6UJKYQviPpzQ"
+                   target="_blank" rel="noopener">Spotify</a>
+            </h3>
+            <h3>
                 <a href="https://www.facebook.com/PainBoudinRecord/" target="_blank" rel="noopener">Facebook</a>
             </h3>
             <h3>
