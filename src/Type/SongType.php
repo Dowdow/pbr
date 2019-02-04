@@ -5,6 +5,8 @@ namespace App\Type;
 use App\Entity\Song;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,6 +23,13 @@ class SongType extends AbstractType
         $builder
             ->add('url', UrlType::class)
             ->add('activated', CheckboxType::class)
+            ->add('category', ChoiceType::class, [
+                'choices' => [
+                    'Song' => Song::CATEGORY_SONG,
+                    'Mix' => Song::CATEGORY_MIX
+                ]
+            ])
+            ->add('sort', IntegerType::class)
             ->add('save', SubmitType::class);
     }
 

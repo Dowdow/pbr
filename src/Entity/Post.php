@@ -40,11 +40,19 @@ class Post
     private $activated;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="sort", type="integer", nullable=false)
+     */
+    private $sort;
+
+    /**
      * Song constructor.
      */
     public function __construct()
     {
         $this->activated = true;
+        $this->sort = 0;
     }
 
     /**
@@ -88,6 +96,24 @@ class Post
     public function setActivated(bool $activated): Post
     {
         $this->activated = $activated;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSort(): int
+    {
+        return $this->sort;
+    }
+
+    /**
+     * @param int $sort
+     * @return Post
+     */
+    public function setSort(int $sort): Post
+    {
+        $this->sort = $sort;
         return $this;
     }
 }

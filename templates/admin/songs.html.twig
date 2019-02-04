@@ -1,0 +1,131 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block content %}
+    <h2>Add a song</h2>
+    <div class="row">
+        {{ form_start(songForm) }}
+        <div class="form-group">
+            {{ form_label(songForm.url) }}
+            {{ form_widget(songForm.url, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(songForm.category) }}
+            {{ form_widget(songForm.category, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(songForm.sort) }}
+            {{ form_widget(songForm.sort, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group form-check">
+            {{ form_widget(songForm.activated, {'attr': {'class': 'form-check-input'}}) }}
+            {{ form_label(songForm.activated, 'Activated', {'label_attr': {'class': 'form-check-label'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_widget(songForm.save, {'attr': {'class': 'btn btn-primary'}}) }}
+        </div>
+        {{ form_end(songForm) }}
+    </div>
+    <h2>Songs</h2>
+    <div class="row">
+        <table class="table">
+            <thead>
+            <tr>
+                <td>ID</td>
+                <td>Url</td>
+                <td>Category</td>
+                <td>Sort</td>
+                <td>Activated</td>
+                <td>Delete</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for song in songs %}
+                <tr>
+                    <td>{{ song.id }}</td>
+                    <td>{{ song.url|slice(0, 90) }}</td>
+                    <td>
+                        <select class="form-control category_select" name="{{ song.id }}">
+                            <option value="{{ constant('App\\Entity\\Song::CATEGORY_SONG') }}"
+                                    {% if song.category == constant('App\\Entity\\Song::CATEGORY_SONG') %}selected{% endif %}
+                            >Song
+                            </option>
+                            <option value="{{ constant('App\\Entity\\Song::CATEGORY_MIX') }}"
+                                    {% if song.category == constant('App\\Entity\\Song::CATEGORY_MIX') %}selected{% endif %}
+                            >Mix
+                            </option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="number" class="form-control sort" name="{{ song.id }}" value="{{ song.sort }}">
+                    </td>
+                    <td>
+                        <form method="post">
+                            <button type="submit" name="activation_song" value="{{ song.id }}" class="btn btn-primary">
+                                {% if song.activated %}
+                                    Deactivate
+                                {% else %}
+                                    Activate
+                                {% endif %}
+                            </button>
+                        </form>
+                    </td>
+                    <td>
+                        <form method="post">
+                            <button type="submit" name="delete_song" value="{{ song.id }}" class="btn btn-danger">Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script>
+        const $select = document.getElementsByClassName('category_select');
+        for (let i = 0; i < $select.length; i++) {
+            if ($select.hasOwnProperty(i)) {
+                $select[i].onchange = (e) => {
+                    const id = e.target.name;
+                    const value = e.target.value;
+                    fetch(`{{ path('admin_songs_category') }}?id=${id}&category=${value}`)
+                        .then(response => {
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data.message === 'Ok') {
+                                e.target.classList.add('border-success');
+                            }
+                        })
+                        .catch(() => {
+                            e.target.classList.add('border-danger');
+                        });
+                };
+            }
+        }
+
+        const $sort = document.getElementsByClassName('sort');
+        for (let i = 0; i < $sort.length; i++) {
+            if ($sort.hasOwnProperty(i)) {
+                $sort[i].onchange = (e) => {
+                    const id = e.target.name;
+                    const value = e.target.value;
+                    fetch(`{{ path('admin_songs_sort') }}?id=${id}&sort=${value}`)
+                        .then(response => {
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data.message === 'Ok') {
+                                e.target.classList.add('border-success');
+                            }
+                        })
+                        .catch(() => {
+                            e.target.classList.add('border-danger');
+                        });
+                }
+            }
+        }
+    </script>
+{% endblock %}

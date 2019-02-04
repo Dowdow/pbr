@@ -68,9 +68,32 @@ class Redux extends \Twig_Extension
     public function getSongs(): array
     {
         $urls = [];
-        $songs = $this->entityManager->getRepository(Song::class)->findBy(['activated' => true], ['id' => 'desc']);
+        $songs = $this->entityManager->getRepository(Song::class)->findBy([
+            'activated' => true,
+            'category' => Song::CATEGORY_SONG
+        ], [
+            'sort' => 'desc'
+        ]);
         foreach ($songs as $song) {
             $urls[] = $song->getUrl();
+        }
+        return $urls;
+    }
+
+    /**
+     * @return array
+     */
+    public function getMixes(): array
+    {
+        $urls = [];
+        $mixes = $this->entityManager->getRepository(Song::class)->findBy([
+            'activated' => true,
+            'category' => Song::CATEGORY_MIX
+        ], [
+            'sort' => 'desc'
+        ]);
+        foreach ($mixes as $mix) {
+            $urls[] = $mix->getUrl();
         }
         return $urls;
     }
@@ -81,7 +104,7 @@ class Redux extends \Twig_Extension
     public function getPosts(): array
     {
         $instaIds = [];
-        $posts = $this->entityManager->getRepository(Post::class)->findBy(['activated' => true], ['id' => 'desc']);
+        $posts = $this->entityManager->getRepository(Post::class)->findBy(['activated' => true], ['sort' => 'desc']);
         foreach ($posts as $post) {
             $instaIds[] = $post->getInstaId();
         }
@@ -97,6 +120,7 @@ class Redux extends \Twig_Extension
             'getTwitchConnectState' => new \Twig_SimpleFunction('getTwitchConnectState', [$this, 'getTwitchConnectState']),
             'getRanking' => new \Twig_SimpleFunction('getRanking', [$this, 'getRanking']),
             'getSongs' => new \Twig_SimpleFunction('getSongs', [$this, 'getSongs']),
+            'getMixes' => new \Twig_SimpleFunction('getMixes', [$this, 'getMixes']),
             'getPosts' => new \Twig_SimpleFunction('getPosts', [$this, 'getPosts']),
         ];
     }

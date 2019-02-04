@@ -14,6 +14,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Song
 {
+    public const CATEGORY_SONG = 'song';
+    public const CATEGORY_MIX = 'mix';
+
     /**
      * @var int
      *
@@ -40,11 +43,27 @@ class Song
     private $activated;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="category", type="string", nullable=false)
+     */
+    private $category;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="sort", type="integer", nullable=false)
+     */
+    private $sort;
+
+    /**
      * Song constructor.
      */
     public function __construct()
     {
         $this->activated = true;
+        $this->category = self::CATEGORY_SONG;
+        $this->sort = 0;
     }
 
     /**
@@ -88,6 +107,42 @@ class Song
     public function setActivated(bool $activated): Song
     {
         $this->activated = $activated;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCategory(): string
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param string $category
+     * @return Song
+     */
+    public function setCategory(string $category): Song
+    {
+        $this->category = $category;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSort(): int
+    {
+        return $this->sort;
+    }
+
+    /**
+     * @param int $sort
+     * @return Song
+     */
+    public function setSort(int $sort): Song
+    {
+        $this->sort = $sort;
         return $this;
     }
 }

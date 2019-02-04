@@ -20,6 +20,7 @@
         'user': {% if app.user %} { {% for key,value in getTwitchConnectState() %} '{{ key }}': '{{ value }}',{% endfor %} } {% else %} false {% endif %},
         'rank': [ {% for rank in getRanking() %} { {% for key,value in rank %} '{{ key }}': '{{ value }}',{% endfor %} }, {% endfor %} ],
         'songs': [ {% for url in getSongs() %} '{{ url }}', {% endfor %} ],
+        'mixes': [ {% for url in getMixes() %} '{{ url }}', {% endfor %} ],
         'posts': { {% for insta in getPosts() %} '{{ loop.index }}': '{{ insta }}', {% endfor %} }
     };
 </script>

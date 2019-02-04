@@ -3,6 +3,7 @@ import playing from './playing';
 import posts from './posts';
 import rank from './rank';
 import songs from './songs';
+import mixes from './mixes';
 import user from './user';
 
 const appReducer = combineReducers({
@@ -10,6 +11,7 @@ const appReducer = combineReducers({
     posts,
     rank,
     songs,
+    mixes,
     user,
 });
 
