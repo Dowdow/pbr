@@ -4,6 +4,7 @@ Encore
     .setOutputPath('public/build/')
     .setPublicPath('/build')
 
+    .enableSingleRuntimeChunk()
     .enableReactPreset()
     .enableSassLoader()
     .addEntry('app', './assets/js/index.js')

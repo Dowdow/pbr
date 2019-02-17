@@ -8,7 +8,7 @@ use App\Entity\User;
 use App\Type\PostType;
 use App\Type\SongType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,7 +23,7 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @Route(schemes={"%protocol%"})
  */
-class AdminController extends Controller
+class AdminController extends AbstractController
 {
     public const AUTHORIZED_USERS = ['101146454', '240406653'];
 

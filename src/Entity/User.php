@@ -71,6 +71,7 @@ class User implements UserInterface
      * @param string $name
      * @param string $picture
      * @param string $twitchId
+     * @throws \Exception
      */
     public function __construct(string $email, string $name, string $picture, string $twitchId)
     {

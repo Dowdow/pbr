@@ -170,6 +170,7 @@ class TwitchAuthenticator extends AbstractGuardAuthenticator
      * @return UserInterface|null
      *
      * @throws GuzzleException
+     * @throws \Exception
      */
     public function getUser($credentials, UserProviderInterface $userProvider): UserInterface
     {

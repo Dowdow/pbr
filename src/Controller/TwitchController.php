@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Service\TwitchStreamService;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @Route(schemes={"%protocol%"})
  */
-class TwitchController extends Controller
+class TwitchController extends AbstractController
 {
     /**
      * @Route("/authorize", name="oauth_authorize", host="%base_host%")
@@ -28,7 +28,7 @@ class TwitchController extends Controller
     {
         if ($request->getMethod() === Request::METHOD_POST) {
             $csrf = $this->get('security.csrf.token_manager');
-            $twitchParameters = $this->container->getParameter('twitch');
+            $twitchParameters = $this->getParameter('twitch');
             return $this->redirect(
                 'https://id.twitch.tv/oauth2/authorize?response_type=code' .
                 '&client_id=' . $twitchParameters['client_id'] .
