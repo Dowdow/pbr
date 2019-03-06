@@ -2,7 +2,6 @@ import React from 'react';
 
 const Home = () =>
     <div className="home">
-        <div className="divider"/>
         <h2>Welcome</h2>
         <h2>to</h2>
         <h2>the</h2>

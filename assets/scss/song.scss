@@ -1,16 +1,16 @@
 .song {
-  background: $backgroundPrimary;
-  padding: 50px 5%;
+  background: $backgroundColor;
+  padding: 40px 5%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 
   @media screen and (max-width: $breakSmall) {
-    padding: 50px 5%;
+    padding: 30px 5%;
     flex-direction: column;
 
     & > :nth-child(2) {
-      padding-top: 50px;
+      padding-top: 40px;
     }
   }
 
@@ -22,10 +22,9 @@
     }
 
     & h2 {
-      font-family: 'Helvetica', sans-serif;
+      font-family: 'Montserrat', sans-serif;
       font-weight: bold;
       font-size: 30px;
-      letter-spacing: -1px;
       color: $textColor;
       margin: 5px 0 20px;
 

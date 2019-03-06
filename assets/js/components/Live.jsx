@@ -58,7 +58,6 @@ class Live extends Component {
                 </div>
                 {this.props.user ?
                     <div className="live_user">
-                        <div className="divider"/>
                         <h2>{this.props.user.name}</h2>
                         <img src={this.props.user.picture} alt={this.props.user.name}/>
                         <p>{this.props.user.score} pains boudin</p>
@@ -66,7 +65,6 @@ class Live extends Component {
                         <ReactInerval timeout={60000} enabled callback={this.handleScore}/>
                     </div> : ''}
                 <div className="live_rank">
-                    <div className="divider"/>
                     <h2>Ranking</h2>
                     <table>
                         <thead>

@@ -39,7 +39,6 @@ class Studio extends Component {
     render() {
         return (
             <div className="studio">
-                <div className="divider"/>
                 <div className="studio_title">
                     <h2>Studio</h2>
                     <button type="button" className="previous_small" onClick={this.handlePrevious}>&lt;</button>

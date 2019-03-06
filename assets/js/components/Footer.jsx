@@ -3,8 +3,6 @@ import React from 'react';
 const Footer = () =>
     <footer>
         <section>
-            <div className="divider"/>
-            <h2>Social Networks</h2>
             <h3>
                 <a href="https://open.spotify.com/artist/74FhxjKBLi7hYdTCm0r28w?si=vVbnBgVBTt6UJKYQviPpzQ"
                    target="_blank" rel="noopener">Spotify</a>
@@ -23,8 +21,6 @@ const Footer = () =>
             </h3>
         </section>
         <section>
-            <div className="divider"/>
-            <h2>Contact</h2>
             <h3>
                 <a href="mailto:jlou@painboudinrecord.fr" title="jlou@painboudinrecord.fr">Mail</a>
             </h3>

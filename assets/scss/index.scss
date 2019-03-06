@@ -1,10 +1,10 @@
-@import '../font/Helvetica.ttf';
-@import '../font/Helvetica-Bold.ttf';
+@import url('https://fonts.googleapis.com/css?family=Baloo');
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
 
-$backgroundHeader: black;
-$backgroundPrimary: #9c091d;
-$backgroundFooter: #555;
-$textColor: white;
+$backgroundHeaderFooter: #383838;
+$backgroundColor: #eef0f2;
+$titleColor: #F7EFDC;
+$textColor: #383838;
 $twitchColor: #6441A4;
 $breakSmall: 768px;
 $breakMedium: 1024px;
@@ -12,17 +12,6 @@ $breakMedium: 1024px;
 html, body {
   margin: 0;
   padding: 0;
-}
-
-.divider {
-  height: 3px;
-  width: 50px;
-  background: $textColor;
-
-  @media screen and (max-width: $breakSmall) {
-    height: 2px;
-    width: 30px;
-  }
 }
 
 @import "header";

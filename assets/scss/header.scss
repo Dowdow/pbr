@@ -1,33 +1,31 @@
 header {
   margin: 0;
-  padding: 30px 5% 0;
-  background: $backgroundHeader;
+  padding: 20px 5% 0;
+  background: $backgroundHeaderFooter;
 
   @media screen and (max-width: $breakSmall) {
     padding-top: 15px;
   }
 
   & h1 {
-    font-family: 'Helvetica', sans-serif;
+    font-family: 'Baloo', sans-serif;
     font-weight: bold;
-    font-size: 50px;
-    letter-spacing: -2px;
-    color: $textColor;
+    font-size: 64px;
+    letter-spacing: 2px;
+    color: $titleColor;
     text-transform: uppercase;
-    margin: 10px 0;
-    border-top: 2px solid $textColor;
+    margin: 0;
 
     @media screen and (max-width: $breakSmall) {
-      margin-top: 5px;
-      font-size: 30px;
+      font-size: 40px;
+      line-height: 45px;
     }
   }
 
   & ul {
-    font-family: 'Helvetica', cursive;
-    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: normal;
     font-size: 30px;
-    letter-spacing: -2px;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -36,7 +34,7 @@ header {
     padding: 0 0 50px;
 
     @media screen and (max-width: $breakSmall) {
-      padding: 0 0 20px;
+      padding: 0 0 30px;
       flex-wrap: wrap;
       font-size: 20px;
     }
@@ -46,15 +44,13 @@ header {
       padding: 10px 0 0;
 
       & a {
-        border-top: 2px solid $textColor;
         text-decoration: none;
-        color: $textColor;
+        color: $titleColor;
       }
     }
   }
 
   .active {
-    border-top: none;
-    border-bottom: 2px solid $textColor;
+    font-weight: bold;
   }
 }

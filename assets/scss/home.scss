@@ -1,17 +1,16 @@
 .home {
-  background: $backgroundPrimary;
-  height: 400px;
-  padding: 50px 5% 80px;
+  background: $backgroundColor;
+  height: 300px;
+  padding: 40px 5% 80px;
 
   @media screen and (max-width: $breakSmall) {
     height: 200px;
   }
 
   & h2 {
-    font-family: 'Helvetica', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-weight: bold;
     font-size: 30px;
-    letter-spacing: -1px;
     color: $textColor;
     margin: 5px 0;
 

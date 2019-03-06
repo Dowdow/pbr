@@ -5,35 +5,28 @@ footer {
   height: 300px;
   margin: 0;
   padding: 50px 5%;
-  background: $backgroundFooter;
+  background: $backgroundHeaderFooter url("../img/footer.svg") no-repeat center;
+  background-size: 75%;
+  background-position-y: 30px;
+
+  @media screen and (max-width: $breakSmall) {
+    padding-top: 20px;
+    height: 160px;
+  }
 
   & section {
-    & h2 {
-      font-family: 'Helvetica', sans-serif;
-      font-weight: bold;
-      font-size: 30px;
-      letter-spacing: -1px;
-      color: $textColor;
-      margin: 5px 0;
-
-      @media screen and (max-width: $breakSmall) {
-        font-size: 20px;
-      }
-    }
-
     & h3 {
-      margin: 5px 0;
+      margin: 10px 0;
 
       & a {
-        font-family: 'Helvetica', sans-serif;
+        font-family: 'Montserrat', sans-serif;
         font-weight: bold;
-        font-size: 20px;
-        letter-spacing: -1px;
-        color: white;
+        font-size: 25px;
+        color: $titleColor;
         text-decoration: none;
 
         @media screen and (max-width: $breakSmall) {
-          font-size: 16px;
+          font-size: 18px;
         }
       }
     }

@@ -1,10 +1,9 @@
 .studio {
-  padding: 50px 5% 80px;
-  background: $backgroundPrimary;
+  padding: 40px 5% 40px;
+  background: $backgroundColor;
 
   & h2 {
-    font-family: 'Helvetica', sans-serif;
-    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
     font-size: 30px;
     letter-spacing: -1px;
     color: $textColor;
@@ -34,12 +33,12 @@
     }
 
     & .previous, & .next {
-      font-family: 'Helvetica', sans-serif;
+      font-family: 'Montserrat', sans-serif;
       font-size: 80px;
       color: $textColor;
       width: 20%;
       border: none;
-      background: $backgroundPrimary;
+      background: $backgroundColor;
       cursor: pointer;
       outline: none;
       transition: ease 2s;
@@ -59,11 +58,11 @@
   }
 
   & .previous_small, & .next_small {
-    font-family: 'Helvetica', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 30px;
     color: $textColor;
     border: none;
-    background: $backgroundPrimary;
+    background: $backgroundColor;
     cursor: pointer;
     outline: none;
     align-self: flex-start;
