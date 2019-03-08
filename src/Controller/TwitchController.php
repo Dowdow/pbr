@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Service\RankingService;
 use App\Service\TwitchStreamService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -54,10 +55,11 @@ class TwitchController extends AbstractController
      * @Route("/score", name="score", host="%base_host%")
      *
      * @param TwitchStreamService $streamService
+     * @param RankingService $rankingService
      * @return JsonResponse
      * @throws \Exception
      */
-    public function scoreAction(TwitchStreamService $streamService): JsonResponse
+    public function scoreAction(TwitchStreamService $streamService, RankingService $rankingService): JsonResponse
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         /** @var User $user */
@@ -70,7 +72,8 @@ class TwitchController extends AbstractController
         }
 
         return new JsonResponse([
-            'score' => $user->getScore()
+            'score' => $user->getScore(),
+            'rank' => $rankingService->getTop10()
         ]);
     }
 

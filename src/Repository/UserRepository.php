@@ -14,7 +14,7 @@ class UserRepository extends EntityRepository
     {
         return $this->createQueryBuilder('u')
             ->orderBy('u.score', 'desc')
-            ->setMaxResults(5)
+            ->setMaxResults(10)
             ->getQuery()
             ->getResult();
     }

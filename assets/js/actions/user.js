@@ -1,3 +1,5 @@
+import {setRank} from './rank';
+
 export const SET_SCORE = 'SET_SCORE';
 
 export function setScore(s) {
@@ -12,7 +14,8 @@ export function grantScore() {
         fetch('/score', {method: 'GET'})
             .then((response) => response.json())
             .then((data) => {
-                dispatch(setScore(data.score))
+                dispatch(setScore(data.score));
+                dispatch(setRank(data.rank));
             })
             .catch(() => {
                 console.log('Error while trying to grant score');

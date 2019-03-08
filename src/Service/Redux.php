@@ -4,7 +4,6 @@ namespace App\Service;
 
 use App\Entity\Post;
 use App\Entity\Song;
-use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -14,16 +13,20 @@ class Redux extends \Twig_Extension
     private $container;
     /** @var EntityManagerInterface */
     private $entityManager;
+    /** @var RankingService */
+    private $rankingService;
 
     /**
      * Redux constructor.
      * @param ContainerInterface $container
      * @param EntityManagerInterface $entityManager
+     * @param RankingService $rankingService
      */
-    public function __construct(ContainerInterface $container, EntityManagerInterface $entityManager)
+    public function __construct(ContainerInterface $container, EntityManagerInterface $entityManager, RankingService $rankingService)
     {
         $this->container = $container;
         $this->entityManager = $entityManager;
+        $this->rankingService = $rankingService;
     }
 
     /**
@@ -51,15 +54,7 @@ class Redux extends \Twig_Extension
      */
     public function getRanking(): array
     {
-        $ranking = [];
-        $users = $this->entityManager->getRepository(User::class)->findRanking();
-        foreach ($users as $user) {
-            $ranking[] = [
-                'name' => $user->getUsername(),
-                'score' => $user->getScore()
-            ];
-        }
-        return $ranking;
+        return $this->rankingService->getTop10();
     }
 
     /**
