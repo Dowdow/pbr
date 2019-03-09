@@ -184,14 +184,14 @@ class TwitchAuthenticator extends AbstractGuardAuthenticator
         $user = $this->entity_manager->getRepository(User::class)->findOneBy(['twitchId' => $twitch_user['id']]);
         if ($user === null) {
             $user = new User(
-                $twitch_user['email'],
+                $twitch_user['email'] ?? $twitch_user['display_name'],
                 $twitch_user['display_name'],
                 $twitch_user['profile_image_url'],
                 $twitch_user['id']
             );
             $this->entity_manager->persist($user);
         } else {
-            $user->setEmail($twitch_user['email']);
+            $user->setEmail($twitch_user['email'] ?? $twitch_user['display_name']);
             $user->setUsername($twitch_user['display_name']);
             $user->setPicture($twitch_user['profile_image_url']);
         }
