@@ -1,4 +1,4 @@
-export default function mixes(state = {}, action = {}) {
+export default function mixes(state = [], action = {}) {
     switch (action.type) {
         default:
             return state;
