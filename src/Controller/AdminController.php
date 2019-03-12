@@ -5,8 +5,10 @@ namespace App\Controller;
 use App\Entity\Post;
 use App\Entity\Song;
 use App\Entity\User;
+use App\Entity\Video;
 use App\Type\PostType;
 use App\Type\SongType;
+use App\Type\VideoType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -67,6 +69,7 @@ class AdminController extends AbstractController
         }
 
         $em = $this->getDoctrine()->getManager();
+        $songRepo = $em->getRepository(Song::class);
 
         // SONG FORM
         $song = new Song();
@@ -81,7 +84,7 @@ class AdminController extends AbstractController
             // SONG DELETE
             if ($request->request->has('delete_song')) {
                 $songId = $request->request->get('delete_song');
-                $songToDelete = $em->getRepository(Song::class)->find($songId);
+                $songToDelete = $songRepo->find($songId);
                 if ($songToDelete !== null) {
                     $em->remove($songToDelete);
                 }
@@ -89,7 +92,7 @@ class AdminController extends AbstractController
             // SONG ACTIVATION
             if ($request->request->has('activation_song')) {
                 $songId = $request->request->get('activation_song');
-                $songToChangeState = $em->getRepository(Song::class)->find($songId);
+                $songToChangeState = $songRepo->find($songId);
                 if ($songToChangeState !== null) {
                     $songToChangeState->setActivated(!$songToChangeState->isActivated());
                 }
@@ -98,7 +101,7 @@ class AdminController extends AbstractController
 
         $em->flush();
 
-        $songs = $em->getRepository(Song::class)->findBy([], ['id' => 'desc']);
+        $songs = $songRepo->findBy([], ['id' => 'desc']);
 
         return $this->render('admin/songs.html.twig', [
             'songForm' => $songForm->createView(),
@@ -192,6 +195,7 @@ class AdminController extends AbstractController
         }
 
         $em = $this->getDoctrine()->getManager();
+        $postRepo = $em->getRepository(Post::class);
 
         // POST FORM
         $post = new Post();
@@ -206,7 +210,7 @@ class AdminController extends AbstractController
             // POST DELETE
             if ($request->request->has('delete_post')) {
                 $postId = $request->request->get('delete_post');
-                $postToDelete = $em->getRepository(Post::class)->find($postId);
+                $postToDelete = $postRepo->find($postId);
                 if ($postToDelete !== null) {
                     $em->remove($postToDelete);
                 }
@@ -214,7 +218,7 @@ class AdminController extends AbstractController
             // POST ACTIVATION
             if ($request->request->has('activation_post')) {
                 $postId = $request->request->get('activation_post');
-                $postToChangeState = $em->getRepository(Post::class)->find($postId);
+                $postToChangeState = $postRepo->find($postId);
                 if ($postToChangeState !== null) {
                     $postToChangeState->setActivated(!$postToChangeState->isActivated());
                 }
@@ -223,7 +227,7 @@ class AdminController extends AbstractController
 
         $em->flush();
 
-        $posts = $em->getRepository(Post::class)->findBy([], ['id' => 'desc']);
+        $posts = $postRepo->findBy([], ['id' => 'desc']);
 
         return $this->render('admin/posts.html.twig', [
             'postForm' => $postForm->createView(),
@@ -259,6 +263,95 @@ class AdminController extends AbstractController
         }
 
         $post->setSort($sort);
+
+        $em->flush();
+
+        return new JsonResponse(['message' => 'Ok']);
+    }
+
+    /**
+     * @Route("/admin/videos", name="admin_videos")
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
+     *
+     * @param Request $request
+     *
+     * @return RedirectResponse|Response
+     */
+    public function videoAdminAction(Request $request)
+    {
+        if (!$this->checkUserPermissions()) {
+            return $this->redirectToRoute('live');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $videoRepo = $em->getRepository(Video::class);
+
+        // VIDEO FORM
+        $video = new Video();
+        $videoForm = $this->createForm(VideoType::class, $video);
+        $videoForm->handleRequest($request);
+        if ($videoForm->isSubmitted() && $videoForm->isValid()) {
+            $em->persist($video);
+        }
+
+        // HANDLE CHANGES
+        if ($request->isMethod(Request::METHOD_POST)) {
+            // VIDEO DELETE
+            if ($request->request->has('delete_video')) {
+                $videoId = $request->request->get('delete_video');
+                $videoToDelete = $videoRepo->find($videoId);
+                if ($videoToDelete !== null) {
+                    $em->remove($videoToDelete);
+                }
+            }
+            // VIDEO ACTIVATION
+            if ($request->request->has('activation_video')) {
+                $videoId = $request->request->get('activation_video');
+                $videoToChangeState = $videoRepo->find($videoId);
+                if ($videoToChangeState !== null) {
+                    $videoToChangeState->setActivated(!$videoToChangeState->isActivated());
+                }
+            }
+        }
+
+        $em->flush();
+
+        $videos = $videoRepo->findBy([], ['id' => 'desc']);
+
+        return $this->render('admin/videos.html.twig', [
+            'videoForm' => $videoForm->createView(),
+            'videos' => $videos,
+        ]);
+    }
+
+    /**
+     * @Route("/admin/vides/sort", name="admin_videos_sort")
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
+     *
+     * @param Request $request
+     * @return JsonResponse|RedirectResponse
+     */
+    public function videoSortAction(Request $request)
+    {
+        if (!$this->checkUserPermissions()) {
+            throw new AccessDeniedHttpException();
+        }
+
+        if (!$request->query->has('id') || !$request->query->has('sort')) {
+            throw new AccessDeniedHttpException();
+        }
+
+        $id = $request->query->get('id');
+        $sort = (int)$request->query->get('sort');
+
+        $em = $this->getDoctrine()->getManager();
+
+        $video = $em->getRepository(Video::class)->find($id);
+        if ($video === null) {
+            throw new NotFoundHttpException();
+        }
+
+        $video->setSort($sort);
 
         $em->flush();
 

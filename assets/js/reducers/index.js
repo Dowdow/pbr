@@ -5,6 +5,7 @@ import rank from './rank';
 import songs from './songs';
 import mixes from './mixes';
 import user from './user';
+import videos from './videos';
 
 const appReducer = combineReducers({
     playing,
@@ -13,6 +14,7 @@ const appReducer = combineReducers({
     songs,
     mixes,
     user,
+    videos
 });
 
 export default appReducer;

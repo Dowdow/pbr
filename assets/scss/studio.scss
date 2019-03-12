@@ -1,35 +1,68 @@
 .studio {
-  padding: 40px 5% 40px;
+  padding: 40px 5% 60px;
   background: $backgroundColor;
 
-  & h2 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 30px;
-    letter-spacing: -1px;
-    color: $textColor;
-    margin: 5px 0 20px;
+  @media screen and (max-width: $breakSmall) {
+    padding-top: 30px;
+    padding-bottom: 40px;
+  }
+
+  & > :nth-child(2) {
+    padding: 60px 0 0;
 
     @media screen and (max-width: $breakSmall) {
-      font-size: 20px;
+      padding-top: 40px;
     }
   }
 
-  &_title {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
+  & section {
 
-  &_feed {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    min-height: 550px;
+    & h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 30px;
+      letter-spacing: -1px;
+      color: $textColor;
+      margin: 5px 0 20px;
 
-    @media screen and (max-width: $breakSmall) {
-      justify-content: center;
-      margin: 0 auto;
-      width: 100%;
+      @media screen and (max-width: $breakSmall) {
+        font-size: 20px;
+      }
+    }
+
+    & .title {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    & .feed {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      min-height: 550px;
+
+      @media screen and (max-width: $breakSmall) {
+        justify-content: center;
+        margin: 0 auto;
+        width: 100%;
+      }
+    }
+
+    & .video {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+
+      @media screen and (max-width: $breakSmall) {
+        justify-content: center;
+        margin: 0 auto;
+        width: 100%;
+
+        & iframe {
+          width: 100%;
+          height: auto;
+        }
+      }
     }
 
     & .previous, & .next {
@@ -55,20 +88,20 @@
     & .next:hover {
       padding-left: 50px;
     }
-  }
 
-  & .previous_small, & .next_small {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 30px;
-    color: $textColor;
-    border: none;
-    background: $backgroundColor;
-    cursor: pointer;
-    outline: none;
-    align-self: flex-start;
+    & .previous_small, & .next_small {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 30px;
+      color: $textColor;
+      border: none;
+      background: $backgroundColor;
+      cursor: pointer;
+      outline: none;
+      align-self: flex-start;
 
-    @media screen and (min-width: 769px) {
-      display: none;
+      @media screen and (min-width: 769px) {
+        display: none;
+      }
     }
   }
 }

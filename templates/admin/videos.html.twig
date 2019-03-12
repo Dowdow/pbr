@@ -1,0 +1,94 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block content %}
+    <h2>Add a video</h2>
+    <div class="row">
+        {{ form_start(videoForm) }}
+        <div class="form-group">
+            {{ form_label(videoForm.youtubeId) }}
+            {{ form_widget(videoForm.youtubeId, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(videoForm.sort) }}
+            {{ form_widget(videoForm.sort, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group form-check">
+            {{ form_widget(videoForm.activated, {'attr': {'class': 'form-check-input'}}) }}
+            {{ form_label(videoForm.activated, 'Activated', {'label_attr': {'class': 'form-check-label'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_widget(videoForm.save, {'attr': {'class': 'btn btn-primary'}}) }}
+        </div>
+        {{ form_end(videoForm) }}
+    </div>
+    <h2>Videos</h2>
+    <div class="row">
+        <table class="table">
+            <thead>
+            <tr>
+                <td>ID</td>
+                <td>YouTube ID</td>
+                <td>Sort</td>
+                <td>Activated</td>
+                <td>Delete</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for video in videos %}
+                <tr>
+                    <td>{{ video.id }}</td>
+                    <td>{{ video.youtubeId }}</td>
+                    <td>
+                        <input type="number" class="form-control sort" name="{{ video.id }}" value="{{ video.sort }}">
+                    </td>
+                    <td>
+                        <form method="post">
+                            <button type="submit" name="activation_video" value="{{ video.id }}"
+                                    class="btn btn-primary">
+                                {% if video.activated %}
+                                    Deactivate
+                                {% else %}
+                                    Activate
+                                {% endif %}
+                            </button>
+                        </form>
+                    </td>
+                    <td>
+                        <form method="post">
+                            <button type="submit" name="delete_video" value="{{ video.id }}" class="btn btn-danger">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script>
+        const $sort = document.getElementsByClassName('sort');
+        for (let i = 0; i < $sort.length; i++) {
+            if ($sort.hasOwnProperty(i)) {
+                $sort[i].onchange = (e) => {
+                    const id = e.target.name;
+                    const value = e.target.value;
+                    fetch(`{{ path('admin_videos_sort') }}?id=${id}&sort=${value}`)
+                        .then(response => {
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data.message === 'Ok') {
+                                e.target.classList.add('border-success');
+                            }
+                        })
+                        .catch(() => {
+                            e.target.classList.add('border-danger');
+                        });
+                }
+            }
+        }
+    </script>
+{% endblock %}

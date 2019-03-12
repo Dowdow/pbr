@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Entity\Post;
 use App\Entity\Song;
+use App\Entity\Video;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -107,6 +108,19 @@ class Redux extends \Twig_Extension
     }
 
     /**
+     * @return array
+     */
+    public function getVideos(): array
+    {
+        $youtubeIds = [];
+        $videos = $this->entityManager->getRepository(Video::class)->findBy(['activated' => true], ['sort' => 'desc']);
+        foreach ($videos as $video) {
+            $youtubeIds[] = $video->getYoutubeId();
+        }
+        return $youtubeIds;
+    }
+
+    /**
      * @return array|\Twig_Function[]
      */
     public function getFunctions(): array
@@ -117,6 +131,7 @@ class Redux extends \Twig_Extension
             'getSongs' => new \Twig_SimpleFunction('getSongs', [$this, 'getSongs']),
             'getMixes' => new \Twig_SimpleFunction('getMixes', [$this, 'getMixes']),
             'getPosts' => new \Twig_SimpleFunction('getPosts', [$this, 'getPosts']),
+            'getVideos' => new \Twig_SimpleFunction('getVideos', [$this, 'getVideos']),
         ];
     }
 

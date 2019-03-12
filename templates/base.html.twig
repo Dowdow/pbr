@@ -21,7 +21,8 @@
         'rank': [ {% for rank in getRanking() %} { {% for key,value in rank %} '{{ key }}': '{{ value }}',{% endfor %} }, {% endfor %} ],
         'songs': [ {% for url in getSongs() %} '{{ url }}', {% endfor %} ],
         'mixes': [ {% for url in getMixes() %} '{{ url }}', {% endfor %} ],
-        'posts': { {% for insta in getPosts() %} '{{ loop.index }}': '{{ insta }}', {% endfor %} }
+        'posts': { {% for insta in getPosts() %} '{{ loop.index }}': '{{ insta }}', {% endfor %} },
+        'videos': { {% for youtube in getVideos() %} '{{ loop.index }}': '{{ youtube }}', {% endfor %} }
     };
 </script>
 <script type="text/javascript" src="https://embed.twitch.tv/embed/v1.js"></script>

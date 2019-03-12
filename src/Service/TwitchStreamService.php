@@ -56,7 +56,7 @@ class TwitchStreamService
             $isOnline->set(true);
         }
 
-        $isOnline->expiresAfter(1800);
+        $isOnline->expiresAfter(600);
         $cache->save($isOnline);
 
         return $isOnline->get();

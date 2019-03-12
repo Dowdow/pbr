@@ -1,6 +1,6 @@
 import React from 'react';
 import {hydrate} from 'react-dom';
-import {createStore, applyMiddleware} from 'redux'
+import {applyMiddleware, createStore} from 'redux'
 import {Provider} from 'react-redux'
 import thunkMiddleware from 'redux-thunk';
 import {composeWithDevTools} from 'redux-devtools-extension/developmentOnly';
