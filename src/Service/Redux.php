@@ -71,7 +71,7 @@ class Redux extends \Twig_Extension
             'sort' => 'desc'
         ]);
         foreach ($songs as $song) {
-            $urls[] = $song->getUrl();
+            $urls[] = $song->getSoundcloudId();
         }
         return $urls;
     }
@@ -89,7 +89,7 @@ class Redux extends \Twig_Extension
             'sort' => 'desc'
         ]);
         foreach ($mixes as $mix) {
-            $urls[] = $mix->getUrl();
+            $urls[] = $mix->getSoundcloudId();
         }
         return $urls;
     }

@@ -17,7 +17,7 @@ const Home = (props) =>
                             scrolling="no"
                             frameBorder="no"
                             allow="autoplay"
-                            src={props.songs[0]}/>
+                            src={`https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/${props.songs[0]}&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true`}/>
                 </div> : ''}
             {props.mixes.length > 0 ?
                 <div>
@@ -27,7 +27,7 @@ const Home = (props) =>
                             scrolling="no"
                             frameBorder="no"
                             allow="autoplay"
-                            src={props.mixes[0]}/>
+                            src={`https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/${props.mixes[0]}&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true`}/>
                 </div> : ''}
         </section>
         <section className="home_video">

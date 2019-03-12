@@ -29,11 +29,11 @@ class Song
     /**
      * @var string
      *
-     * @ORM\Column(name="url", type="string", nullable=false)
+     * @ORM\Column(name="soundcloud_id", type="string", nullable=false)
      *
      * @Assert\NotBlank()
      */
-    private $url;
+    private $soundcloudId;
 
     /**
      * @var boolean
@@ -77,18 +77,18 @@ class Song
     /**
      * @return string
      */
-    public function getUrl(): ?string
+    public function getSoundcloudId(): ?string
     {
-        return $this->url;
+        return $this->soundcloudId;
     }
 
     /**
-     * @param string $url
+     * @param string $soundcloudId
      * @return Song
      */
-    public function setUrl(string $url): Song
+    public function setSoundcloudId(string $soundcloudId): Song
     {
-        $this->url = $url;
+        $this->soundcloudId = $soundcloudId;
         return $this;
     }
 
