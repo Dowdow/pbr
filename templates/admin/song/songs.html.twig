@@ -1,41 +1,22 @@
 {% extends 'admin/base.html.twig' %}
 
 {% block content %}
-    <h2>Add a song</h2>
-    <div class="row">
-        {{ form_start(songForm) }}
-        <div class="form-group">
-            {{ form_label(songForm.soundcloudId) }}
-            {{ form_widget(songForm.soundcloudId, {'attr': {'class': 'form-control'}}) }}
-        </div>
-        <div class="form-group">
-            {{ form_label(songForm.category) }}
-            {{ form_widget(songForm.category, {'attr': {'class': 'form-control'}}) }}
-        </div>
-        <div class="form-group">
-            {{ form_label(songForm.sort) }}
-            {{ form_widget(songForm.sort, {'attr': {'class': 'form-control'}}) }}
-        </div>
-        <div class="form-group form-check">
-            {{ form_widget(songForm.activated, {'attr': {'class': 'form-check-input'}}) }}
-            {{ form_label(songForm.activated, 'Activated', {'label_attr': {'class': 'form-check-label'}}) }}
-        </div>
-        <div class="form-group">
-            {{ form_widget(songForm.save, {'attr': {'class': 'btn btn-primary'}}) }}
-        </div>
-        {{ form_end(songForm) }}
+    <div style="display: flex; flex-direction: row; justify-content: space-between">
+        <h2>Songs</h2>
+        <a href="{{ path('admin_songs_create') }}" style="align-self: center;"
+           class="btn btn-primary active" role="button" aria-pressed="true">Add a song</a>
     </div>
-    <h2>Songs</h2>
     <div class="row">
         <table class="table">
             <thead>
             <tr>
-                <td>ID</td>
-                <td>Soundcloud ID</td>
-                <td>Category</td>
-                <td>Sort</td>
-                <td>Activated</td>
-                <td>Delete</td>
+                <th>ID</th>
+                <th>Soundcloud ID</th>
+                <th>Category</th>
+                <th>Sort</th>
+                <th>Activated</th>
+                <th>Edit</th>
+                <th>Delete</th>
             </tr>
             </thead>
             <tbody>
@@ -68,6 +49,10 @@
                                 {% endif %}
                             </button>
                         </form>
+                    </td>
+                    <td>
+                        <a href="{{ path('admin_songs_edit', {'id': song.id}) }}"
+                           class="btn btn-primary" role="button" aria-pressed="true">Edit</a>
                     </td>
                     <td>
                         <form method="post">

@@ -30,18 +30,10 @@ class AdminPostController extends AbstractController
      * @param Request $request
      * @return RedirectResponse|Response
      */
-    public function postAdminAction(Request $request)
+    public function postsAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $postRepo = $em->getRepository(Post::class);
-
-        // POST FORM
-        $post = new Post();
-        $postForm = $this->createForm(PostType::class, $post);
-        $postForm->handleRequest($request);
-        if ($postForm->isSubmitted() && $postForm->isValid()) {
-            $em->persist($post);
-        }
 
         // HANDLE CHANGES
         if ($request->isMethod(Request::METHOD_POST)) {
@@ -68,8 +60,63 @@ class AdminPostController extends AbstractController
         $posts = $postRepo->findBy([], ['id' => 'desc']);
 
         return $this->render('admin/post/posts.html.twig', [
-            'postForm' => $postForm->createView(),
             'posts' => $posts,
+        ]);
+    }
+
+    /**
+     * @Route("/admin/posts/create", name="admin_posts_create")
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
+     * @IsGranted("TWITCH_ID")
+     *
+     * @param Request $request
+     * @return RedirectResponse|Response
+     */
+    public function createPostAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $post = new Post();
+        $postForm = $this->createForm(PostType::class, $post);
+
+        $postForm->handleRequest($request);
+        if ($postForm->isSubmitted() && $postForm->isValid()) {
+            $em->persist($post);
+            $em->flush();
+
+            return $this->redirectToRoute('admin_posts');
+        }
+
+        return $this->render('admin/post/create.html.twig', [
+            'postForm' => $postForm->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/admin/posts/edit/{id}", name="admin_posts_edit")
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
+     * @IsGranted("TWITCH_ID")
+     *
+     * @param Request $request
+     * @param Post $post
+     * @return RedirectResponse|Response
+     */
+    public function editPostAction(Request $request, Post $post)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $postForm = $this->createForm(PostType::class, $post);
+
+        $postForm->handleRequest($request);
+        if ($postForm->isSubmitted() && $postForm->isValid()) {
+            $em->flush();
+
+            return $this->redirectToRoute('admin_posts');
+        }
+
+        return $this->render('admin/post/update.html.twig', [
+            'post' => $post,
+            'postForm' => $postForm->createView(),
         ]);
     }
 

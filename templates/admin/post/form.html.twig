@@ -1,0 +1,19 @@
+<div class="row">
+    {{ form_start(postForm) }}
+    <div class="form-group">
+        {{ form_label(postForm.instaId) }}
+        {{ form_widget(postForm.instaId, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(postForm.sort) }}
+        {{ form_widget(postForm.sort, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group form-check">
+        {{ form_widget(postForm.activated, {'attr': {'class': 'form-check-input'}}) }}
+        {{ form_label(postForm.activated, 'Activated', {'label_attr': {'class': 'form-check-label'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_widget(postForm.save, {'attr': {'class': 'btn btn-primary'}}) }}
+    </div>
+    {{ form_end(postForm) }}
+</div>

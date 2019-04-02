@@ -1,43 +1,29 @@
 {% extends 'admin/base.html.twig' %}
 
 {% block content %}
-    <h2>Add a video</h2>
-    <div class="row">
-        {{ form_start(videoForm) }}
-        <div class="form-group">
-            {{ form_label(videoForm.youtubeId) }}
-            {{ form_widget(videoForm.youtubeId, {'attr': {'class': 'form-control'}}) }}
-        </div>
-        <div class="form-group">
-            {{ form_label(videoForm.sort) }}
-            {{ form_widget(videoForm.sort, {'attr': {'class': 'form-control'}}) }}
-        </div>
-        <div class="form-group form-check">
-            {{ form_widget(videoForm.activated, {'attr': {'class': 'form-check-input'}}) }}
-            {{ form_label(videoForm.activated, 'Activated', {'label_attr': {'class': 'form-check-label'}}) }}
-        </div>
-        <div class="form-group">
-            {{ form_widget(videoForm.save, {'attr': {'class': 'btn btn-primary'}}) }}
-        </div>
-        {{ form_end(videoForm) }}
+    <div style="display: flex; flex-direction: row; justify-content: space-between">
+        <h2>Videos</h2>
+        <a href="{{ path('admin_videos_create') }}" style="align-self: center;"
+           class="btn btn-primary active" role="button" aria-pressed="true">Add a video</a>
     </div>
-    <h2>Videos</h2>
     <div class="row">
         <table class="table">
             <thead>
             <tr>
-                <td>ID</td>
-                <td>YouTube ID</td>
-                <td>Sort</td>
-                <td>Activated</td>
-                <td>Delete</td>
+                <th>ID</th>
+                <th>YouTube ID</th>
+                <th>Sort</th>
+                <th>Activated</th>
+                <th>Edit</th>
+                <th>Delete</th>
             </tr>
             </thead>
             <tbody>
             {% for video in videos %}
                 <tr>
                     <td>{{ video.id }}</td>
-                    <td>{{ video.youtubeId }}</td>
+                    <td><a href="https://www.youtube.com/watch?v={{ video.youtubeId }}" target="_blank"
+                           rel="noopener">{{ video.youtubeId }}</a></td>
                     <td>
                         <input type="number" class="form-control sort" name="{{ video.id }}" value="{{ video.sort }}">
                     </td>
@@ -52,6 +38,10 @@
                                 {% endif %}
                             </button>
                         </form>
+                    </td>
+                    <td>
+                        <a href="{{ path('admin_videos_edit', {'id': video.id}) }}"
+                           class="btn btn-primary" role="button" aria-pressed="true">Edit</a>
                     </td>
                     <td>
                         <form method="post">

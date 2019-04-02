@@ -1,43 +1,30 @@
 {% extends 'admin/base.html.twig' %}
 
 {% block content %}
-    <h2>Add a post</h2>
-    <div class="row">
-        {{ form_start(postForm) }}
-        <div class="form-group">
-            {{ form_label(postForm.instaId) }}
-            {{ form_widget(postForm.instaId, {'attr': {'class': 'form-control'}}) }}
-        </div>
-        <div class="form-group">
-            {{ form_label(postForm.sort) }}
-            {{ form_widget(postForm.sort, {'attr': {'class': 'form-control'}}) }}
-        </div>
-        <div class="form-group form-check">
-            {{ form_widget(postForm.activated, {'attr': {'class': 'form-check-input'}}) }}
-            {{ form_label(postForm.activated, 'Activated', {'label_attr': {'class': 'form-check-label'}}) }}
-        </div>
-        <div class="form-group">
-            {{ form_widget(postForm.save, {'attr': {'class': 'btn btn-primary'}}) }}
-        </div>
-        {{ form_end(postForm) }}
+    <div style="display: flex; flex-direction: row; justify-content: space-between">
+        <h2>Posts</h2>
+        <a href="{{ path('admin_posts_create') }}" style="align-self: center;"
+           class="btn btn-primary active" role="button" aria-pressed="true">Add a post</a>
     </div>
-    <h2>Posts</h2>
     <div class="row">
         <table class="table">
             <thead>
             <tr>
-                <td>ID</td>
-                <td>Insta ID</td>
-                <td>Sort</td>
-                <td>Activated</td>
-                <td>Delete</td>
+                <th>ID</th>
+                <th>Insta ID</th>
+                <th>Sort</th>
+                <th>Activated</th>
+                <th>Edit</th>
+                <th>Delete</th>
             </tr>
             </thead>
             <tbody>
             {% for post in posts %}
                 <tr>
                     <td>{{ post.id }}</td>
-                    <td>{{ post.instaId }}</td>
+                    <td><a href="https://www.instagram.com/p/{{ post.instaId }}/"
+                           target="_blank"
+                           rel="noopener">{{ post.instaId }}</a></td>
                     <td>
                         <input type="number" class="form-control sort" name="{{ post.id }}" value="{{ post.sort }}">
                     </td>
@@ -51,6 +38,10 @@
                                 {% endif %}
                             </button>
                         </form>
+                    </td>
+                    <td>
+                        <a href="{{ path('admin_posts_edit', {'id': post.id}) }}"
+                           class="btn btn-primary" role="button" aria-pressed="true">Edit</a>
                     </td>
                     <td>
                         <form method="post">

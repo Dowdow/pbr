@@ -1,7 +1,20 @@
 {% extends 'admin/base.html.twig' %}
 
 {% block content %}
-    <h2><a href="{{ path('admin_songs') }}">Songs</a></h2>
-    <h2><a href="{{ path('admin_posts') }}">Posts</a></h2>
-    <h2><a href="{{ path('admin_videos') }}">Videos</a></h2>
+    <div class="jumbotron">
+        <h1 class="display-4">Dispositif Pain Boudin Record Admin</h1>
+        <p class="lead">This is the ultimate PBR Admin Interface.</p>
+        <hr class="my-4">
+        <div class="row justify-content-around flex-wrap">
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" href="{{ path('admin_songs') }}" role="button">Manage Songs</a>
+            </p>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" href="{{ path('admin_posts') }}" role="button">Manage Posts</a>
+            </p>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" href="{{ path('admin_videos') }}" role="button">Manage Videos</a>
+            </p>
+        </div>
+    </div>
 {% endblock %}

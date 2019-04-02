@@ -30,18 +30,10 @@ class AdminSongController extends AbstractController
      * @param Request $request
      * @return RedirectResponse|Response
      */
-    public function songAdminAction(Request $request)
+    public function songsAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $songRepo = $em->getRepository(Song::class);
-
-        // SONG FORM
-        $song = new Song();
-        $songForm = $this->createForm(SongType::class, $song);
-        $songForm->handleRequest($request);
-        if ($songForm->isSubmitted() && $songForm->isValid()) {
-            $em->persist($song);
-        }
 
         // HANDLE CHANGES
         if ($request->isMethod(Request::METHOD_POST)) {
@@ -68,8 +60,63 @@ class AdminSongController extends AbstractController
         $songs = $songRepo->findBy([], ['id' => 'desc']);
 
         return $this->render('admin/song/songs.html.twig', [
-            'songForm' => $songForm->createView(),
             'songs' => $songs,
+        ]);
+    }
+
+    /**
+     * @Route("/admin/songs/create", name="admin_songs_create")
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
+     * @IsGranted("TWITCH_ID")
+     *
+     * @param Request $request
+     * @return Response|RedirectResponse
+     */
+    public function createSongAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $song = new Song();
+        $songForm = $this->createForm(SongType::class, $song);
+
+        $songForm->handleRequest($request);
+        if ($songForm->isSubmitted() && $songForm->isValid()) {
+            $em->persist($song);
+            $em->flush();
+
+            return $this->redirectToRoute('admin_songs');
+        }
+
+        return $this->render('admin/song/create.html.twig', [
+            'songForm' => $songForm->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/admin/songs/edit/{id}", name="admin_songs_edit")
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
+     * @IsGranted("TWITCH_ID")
+     *
+     * @param Request $request
+     * @param Song $song
+     * @return Response|RedirectResponse
+     */
+    public function updateSongAction(Request $request, Song $song)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $songForm = $this->createForm(SongType::class, $song);
+
+        $songForm->handleRequest($request);
+        if ($songForm->isSubmitted() && $songForm->isValid()) {
+            $em->flush();
+
+            return $this->redirectToRoute('admin_songs');
+        }
+
+        return $this->render('admin/song/update.html.twig', [
+            'song' => $song,
+            'songForm' => $songForm->createView(),
         ]);
     }
 
