@@ -32,7 +32,8 @@
             'visual': '{{ mix.visual }}'
         }, {% endfor %} ],
         'posts': { {% for insta in getPosts() %} '{{ loop.index }}': '{{ insta }}', {% endfor %} },
-        'videos': { {% for youtube in getVideos() %} '{{ loop.index }}': '{{ youtube }}', {% endfor %} }
+        'videos': { {% for youtube in getVideos() %} '{{ loop.index }}': '{{ youtube }}', {% endfor %} },
+        'admin': {% if isAdmin() == true %}true{% else %}false{% endif %}
     };
 </script>
 <script type="text/javascript" src="https://embed.twitch.tv/embed/v1.js"></script>

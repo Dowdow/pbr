@@ -1,7 +1,8 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
+import {connect} from 'react-redux';
 
-const Header = () =>
+const Header = (props) =>
     <header>
         <h1>Pain Boudin Record</h1>
         <nav>
@@ -13,9 +14,19 @@ const Header = () =>
                 <li>
                     <a href={process.env.NODE_ENV === 'production' ? 'https://shop.painboudinrecord.fr' : 'http://shop.pbr.local'}>Shop</a>
                 </li>
+                {props.admin ?
+                    <li>
+                        <a href="/admin" target="_blank" rel="noopener">Admin</a>
+                    </li> : ''}
             </ul>
         </nav>
     </header>
 ;
 
-export default Header;
+function mapStateToProps(state) {
+    return {
+        admin: state.admin
+    };
+}
+
+export default connect(mapStateToProps, {})(Header);

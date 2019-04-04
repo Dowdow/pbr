@@ -6,31 +6,41 @@ use App\Entity\Post;
 use App\Entity\Song;
 use App\Entity\Video;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Security;
 use Twig_Extension;
 use Twig_Function;
 use Twig_SimpleFunction;
 
 class Redux extends Twig_Extension
 {
-    /** @var ContainerInterface */
-    private $container;
+    /** @var TokenStorageInterface */
+    private $tokenStorage;
     /** @var EntityManagerInterface */
     private $entityManager;
     /** @var RankingService */
     private $rankingService;
+    /** @var Security */
+    private $security;
 
     /**
      * Redux constructor.
-     * @param ContainerInterface $container
+     * @param TokenStorageInterface $tokenStorage
      * @param EntityManagerInterface $entityManager
      * @param RankingService $rankingService
+     * @param Security $security
      */
-    public function __construct(ContainerInterface $container, EntityManagerInterface $entityManager, RankingService $rankingService)
+    public function __construct(
+        TokenStorageInterface $tokenStorage,
+        EntityManagerInterface $entityManager,
+        RankingService $rankingService,
+        Security $security
+    )
     {
-        $this->container = $container;
+        $this->tokenStorage = $tokenStorage;
         $this->entityManager = $entityManager;
         $this->rankingService = $rankingService;
+        $this->security = $security;
     }
 
     /**
@@ -38,7 +48,7 @@ class Redux extends Twig_Extension
      */
     public function getTwitchConnectState(): array
     {
-        $token = $this->container->get('security.token_storage')->getToken();
+        $token = $this->tokenStorage->getToken();
         if ($token) {
             return [
                 'name' => $token->getUser()->getUsername(),
@@ -132,6 +142,14 @@ class Redux extends Twig_Extension
     }
 
     /**
+     * @return bool
+     */
+    public function isAdmin(): bool
+    {
+        return $this->security->isGranted('TWITCH_ID');
+    }
+
+    /**
      * @return array|Twig_Function[]
      */
     public function getFunctions(): array
@@ -143,6 +161,7 @@ class Redux extends Twig_Extension
             'getMixes' => new Twig_SimpleFunction('getMixes', [$this, 'getMixes']),
             'getPosts' => new Twig_SimpleFunction('getPosts', [$this, 'getPosts']),
             'getVideos' => new Twig_SimpleFunction('getVideos', [$this, 'getVideos']),
+            'isAdmin' => new Twig_SimpleFunction('isAdmin', [$this, 'isAdmin'])
         ];
     }
 

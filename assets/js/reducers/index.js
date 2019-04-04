@@ -1,4 +1,5 @@
 import {combineReducers} from 'redux';
+import admin from './admin';
 import mixes from './mixes';
 import playing from './playing';
 import posts from './posts';
@@ -8,6 +9,7 @@ import user from './user';
 import videos from './videos';
 
 const appReducer = combineReducers({
+    admin,
     mixes,
     playing,
     posts,
