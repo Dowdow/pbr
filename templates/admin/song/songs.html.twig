@@ -12,8 +12,10 @@
             <tr>
                 <th>ID</th>
                 <th>Soundcloud ID</th>
+                <th>Type</th>
                 <th>Category</th>
                 <th>Sort</th>
+                <th>Visual</th>
                 <th>Activated</th>
                 <th>Edit</th>
                 <th>Delete</th>
@@ -24,6 +26,18 @@
                 <tr>
                     <td>{{ song.id }}</td>
                     <td>{{ song.soundcloudId }}</td>
+                    <td>
+                        <select class="form-control type_select" name="{{ song.id }}">
+                            <option value="{{ constant('App\\Entity\\Song::TYPE_TRACK') }}"
+                                    {% if song.type == constant('App\\Entity\\Song::TYPE_TRACK') %}selected{% endif %}
+                            >Track
+                            </option>
+                            <option value="{{ constant('App\\Entity\\Song::TYPE_PLAYLIST') }}"
+                                    {% if song.type == constant('App\\Entity\\Song::TYPE_PLAYLIST') %}selected{% endif %}
+                            >Playlist
+                            </option>
+                        </select>
+                    </td>
                     <td>
                         <select class="form-control category_select" name="{{ song.id }}">
                             <option value="{{ constant('App\\Entity\\Song::CATEGORY_SONG') }}"
@@ -38,6 +52,17 @@
                     </td>
                     <td>
                         <input type="number" class="form-control sort" name="{{ song.id }}" value="{{ song.sort }}">
+                    </td>
+                    <td>
+                        <form method="post">
+                            <button type="submit" name="visual_song" value="{{ song.id }}" class="btn btn-primary">
+                                {% if song.visual %}
+                                    Visual
+                                {% else %}
+                                    Classic
+                                {% endif %}
+                            </button>
+                        </form>
                     </td>
                     <td>
                         <form method="post">
@@ -69,10 +94,32 @@
 
 {% block js %}
     <script>
-        const $select = document.getElementsByClassName('category_select');
-        for (let i = 0; i < $select.length; i++) {
-            if ($select.hasOwnProperty(i)) {
-                $select[i].onchange = (e) => {
+        const $selectType = document.getElementsByClassName('type_select');
+        for (let i = 0; i < $selectType.length; i++) {
+            if ($selectType.hasOwnProperty(i)) {
+                $selectType[i].onchange = (e) => {
+                    const id = e.target.name;
+                    const value = e.target.value;
+                    fetch(`{{ path('admin_songs_type') }}?id=${id}&type=${value}`)
+                        .then(response => {
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data.message === 'Ok') {
+                                e.target.classList.add('border-success');
+                            }
+                        })
+                        .catch(() => {
+                            e.target.classList.add('border-danger');
+                        });
+                };
+            }
+        }
+
+        const $selectCategory = document.getElementsByClassName('category_select');
+        for (let i = 0; i < $selectCategory.length; i++) {
+            if ($selectCategory.hasOwnProperty(i)) {
+                $selectCategory[i].onchange = (e) => {
                     const id = e.target.name;
                     const value = e.target.value;
                     fetch(`{{ path('admin_songs_category') }}?id=${id}&category=${value}`)

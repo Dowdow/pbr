@@ -17,6 +17,9 @@ class Song
     public const CATEGORY_SONG = 'song';
     public const CATEGORY_MIX = 'mix';
 
+    public const TYPE_TRACK = 'tracks';
+    public const TYPE_PLAYLIST = 'playlists';
+
     /**
      * @var int
      *
@@ -45,9 +48,23 @@ class Song
     /**
      * @var string
      *
+     * @ORM\Column(name="type", type="string", nullable=false)
+     */
+    private $type;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="category", type="string", nullable=false)
      */
     private $category;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="visual", type="boolean")
+     */
+    private $visual;
 
     /**
      * @var int
@@ -62,7 +79,9 @@ class Song
     public function __construct()
     {
         $this->activated = true;
+        $this->type = self::TYPE_TRACK;
         $this->category = self::CATEGORY_SONG;
+        $this->visual = false;
         $this->sort = 0;
     }
 
@@ -113,6 +132,24 @@ class Song
     /**
      * @return string
      */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     * @return Song
+     */
+    public function setType(string $type): Song
+    {
+        $this->type = $type;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
     public function getCategory(): string
     {
         return $this->category;
@@ -125,6 +162,24 @@ class Song
     public function setCategory(string $category): Song
     {
         $this->category = $category;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isVisual(): bool
+    {
+        return $this->visual;
+    }
+
+    /**
+     * @param bool $visual
+     * @return Song
+     */
+    public function setVisual(bool $visual): Song
+    {
+        $this->visual = $visual;
         return $this;
     }
 

@@ -7,8 +7,11 @@ use App\Entity\Song;
 use App\Entity\Video;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Twig_Extension;
+use Twig_Function;
+use Twig_SimpleFunction;
 
-class Redux extends \Twig_Extension
+class Redux extends Twig_Extension
 {
     /** @var ContainerInterface */
     private $container;
@@ -63,7 +66,7 @@ class Redux extends \Twig_Extension
      */
     public function getSongs(): array
     {
-        $urls = [];
+        $songObjs = [];
         $songs = $this->entityManager->getRepository(Song::class)->findBy([
             'activated' => true,
             'category' => Song::CATEGORY_SONG
@@ -71,9 +74,13 @@ class Redux extends \Twig_Extension
             'sort' => 'desc'
         ]);
         foreach ($songs as $song) {
-            $urls[] = $song->getSoundcloudId();
+            $songObjs[] = [
+                'id' => $song->getSoundcloudId(),
+                'type' => $song->getType(),
+                'visual' => $song->isVisual(),
+            ];
         }
-        return $urls;
+        return $songObjs;
     }
 
     /**
@@ -81,7 +88,7 @@ class Redux extends \Twig_Extension
      */
     public function getMixes(): array
     {
-        $urls = [];
+        $mixObjs = [];
         $mixes = $this->entityManager->getRepository(Song::class)->findBy([
             'activated' => true,
             'category' => Song::CATEGORY_MIX
@@ -89,9 +96,13 @@ class Redux extends \Twig_Extension
             'sort' => 'desc'
         ]);
         foreach ($mixes as $mix) {
-            $urls[] = $mix->getSoundcloudId();
+            $mixObjs[] = [
+                'id' => $mix->getSoundcloudId(),
+                'type' => $mix->getType(),
+                'visual' => $mix->isVisual(),
+            ];
         }
-        return $urls;
+        return $mixObjs;
     }
 
     /**
@@ -121,17 +132,17 @@ class Redux extends \Twig_Extension
     }
 
     /**
-     * @return array|\Twig_Function[]
+     * @return array|Twig_Function[]
      */
     public function getFunctions(): array
     {
         return [
-            'getTwitchConnectState' => new \Twig_SimpleFunction('getTwitchConnectState', [$this, 'getTwitchConnectState']),
-            'getRanking' => new \Twig_SimpleFunction('getRanking', [$this, 'getRanking']),
-            'getSongs' => new \Twig_SimpleFunction('getSongs', [$this, 'getSongs']),
-            'getMixes' => new \Twig_SimpleFunction('getMixes', [$this, 'getMixes']),
-            'getPosts' => new \Twig_SimpleFunction('getPosts', [$this, 'getPosts']),
-            'getVideos' => new \Twig_SimpleFunction('getVideos', [$this, 'getVideos']),
+            'getTwitchConnectState' => new Twig_SimpleFunction('getTwitchConnectState', [$this, 'getTwitchConnectState']),
+            'getRanking' => new Twig_SimpleFunction('getRanking', [$this, 'getRanking']),
+            'getSongs' => new Twig_SimpleFunction('getSongs', [$this, 'getSongs']),
+            'getMixes' => new Twig_SimpleFunction('getMixes', [$this, 'getMixes']),
+            'getPosts' => new Twig_SimpleFunction('getPosts', [$this, 'getPosts']),
+            'getVideos' => new Twig_SimpleFunction('getVideos', [$this, 'getVideos']),
         ];
     }
 

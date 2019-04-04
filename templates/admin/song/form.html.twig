@@ -5,12 +5,20 @@
         {{ form_widget(songForm.soundcloudId, {'attr': {'class': 'form-control'}}) }}
     </div>
     <div class="form-group">
+        {{ form_label(songForm.type) }}
+        {{ form_widget(songForm.type, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
         {{ form_label(songForm.category) }}
         {{ form_widget(songForm.category, {'attr': {'class': 'form-control'}}) }}
     </div>
     <div class="form-group">
         {{ form_label(songForm.sort) }}
         {{ form_widget(songForm.sort, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group form-check">
+        {{ form_widget(songForm.visual, {'attr': {'class': 'form-check-input'}}) }}
+        {{ form_label(songForm.visual, 'Visual', {'label_attr': {'class': 'form-check-label'}}) }}
     </div>
     <div class="form-group form-check">
         {{ form_widget(songForm.activated, {'attr': {'class': 'form-check-input'}}) }}

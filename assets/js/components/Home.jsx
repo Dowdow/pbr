@@ -1,4 +1,5 @@
 import React from 'react';
+import Soundcloud from './Soundcloud';
 import YouTube from 'react-youtube';
 import {connect} from 'react-redux';
 
@@ -12,22 +13,12 @@ const Home = (props) =>
             {props.songs.length > 0 ?
                 <div>
                     <h2>Last Song</h2>
-                    <iframe width="80%"
-                            height="166"
-                            scrolling="no"
-                            frameBorder="no"
-                            allow="autoplay"
-                            src={`https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/${props.songs[0]}&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true`}/>
+                    <Soundcloud width="80%" height="166" song={props.songs[0]}/>
                 </div> : ''}
             {props.mixes.length > 0 ?
                 <div>
                     <h2>Last Mix</h2>
-                    <iframe width="80%"
-                            height="166"
-                            scrolling="no"
-                            frameBorder="no"
-                            allow="autoplay"
-                            src={`https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/${props.mixes[0]}&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true`}/>
+                    <Soundcloud width="80%" height="166" song={props.mixes[0]}/>
                 </div> : ''}
         </section>
         <section className="home_video">

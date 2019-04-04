@@ -1,18 +1,18 @@
 import {combineReducers} from 'redux';
+import mixes from './mixes';
 import playing from './playing';
 import posts from './posts';
 import rank from './rank';
 import songs from './songs';
-import mixes from './mixes';
 import user from './user';
 import videos from './videos';
 
 const appReducer = combineReducers({
+    mixes,
     playing,
     posts,
     rank,
     songs,
-    mixes,
     user,
     videos
 });

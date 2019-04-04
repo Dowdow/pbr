@@ -53,6 +53,14 @@ class AdminSongController extends AbstractController
                     $songToChangeState->setActivated(!$songToChangeState->isActivated());
                 }
             }
+            // SONG VISUAL
+            if ($request->request->has('visual_song')) {
+                $songId = $request->request->get('visual_song');
+                $songToChangeVisual = $songRepo->find($songId);
+                if ($songToChangeVisual !== null) {
+                    $songToChangeVisual->setVisual(!$songToChangeVisual->isVisual());
+                }
+            }
         }
 
         $em->flush();
@@ -118,6 +126,40 @@ class AdminSongController extends AbstractController
             'song' => $song,
             'songForm' => $songForm->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/admin/songs/type", name="admin_songs_type")
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
+     * @IsGranted("TWITCH_ID")
+     *
+     * @param Request $request
+     * @return JsonResponse|RedirectResponse
+     */
+    public function songTypeAction(Request $request)
+    {
+        if (!$request->query->has('id') || !$request->query->has('type')) {
+            throw new AccessDeniedHttpException();
+        }
+
+        $id = $request->query->get('id');
+        $type = $request->query->get('type');
+        if (!in_array($type, [Song::TYPE_TRACK, Song::TYPE_PLAYLIST])) {
+            throw new NotFoundHttpException();
+        }
+
+        $em = $this->getDoctrine()->getManager();
+
+        $song = $em->getRepository(Song::class)->find($id);
+        if ($song === null) {
+            throw new NotFoundHttpException();
+        }
+
+        $song->setType($type);
+
+        $em->flush();
+
+        return new JsonResponse(['message' => 'Ok']);
     }
 
     /**

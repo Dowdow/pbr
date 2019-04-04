@@ -23,11 +23,20 @@ class SongType extends AbstractType
         $builder
             ->add('soundcloudId', TextType::class)
             ->add('activated', CheckboxType::class)
+            ->add('type', ChoiceType::class, [
+                'choices' => [
+                    'Track' => Song::TYPE_TRACK,
+                    'Playlist' => Song::TYPE_PLAYLIST
+                ]
+            ])
             ->add('category', ChoiceType::class, [
                 'choices' => [
                     'Song' => Song::CATEGORY_SONG,
                     'Mix' => Song::CATEGORY_MIX
                 ]
+            ])
+            ->add('visual', CheckboxType::class, [
+                'required' => false
             ])
             ->add('sort', IntegerType::class)
             ->add('save', SubmitType::class);
