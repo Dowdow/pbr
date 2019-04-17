@@ -18,12 +18,12 @@ use Symfony\Component\Routing\Annotation\Route;
  * Class AdminSongController
  * @package App\Controller
  *
- * @Route(schemes={"%protocol%"})
+ * @Route("/admin/songs", schemes={"%protocol%"})
  */
 class AdminSongController extends AbstractController
 {
     /**
-     * @Route("/admin/songs", name="admin_songs")
+     * @Route("/", name="admin_songs")
      * @IsGranted("IS_AUTHENTICATED_FULLY")
      * @IsGranted("TWITCH_ID")
      *
@@ -73,7 +73,7 @@ class AdminSongController extends AbstractController
     }
 
     /**
-     * @Route("/admin/songs/create", name="admin_songs_create")
+     * @Route("/create", name="admin_songs_create")
      * @IsGranted("IS_AUTHENTICATED_FULLY")
      * @IsGranted("TWITCH_ID")
      *
@@ -101,7 +101,7 @@ class AdminSongController extends AbstractController
     }
 
     /**
-     * @Route("/admin/songs/edit/{id}", name="admin_songs_edit")
+     * @Route("/edit/{id}", name="admin_songs_edit")
      * @IsGranted("IS_AUTHENTICATED_FULLY")
      * @IsGranted("TWITCH_ID")
      *
@@ -129,7 +129,7 @@ class AdminSongController extends AbstractController
     }
 
     /**
-     * @Route("/admin/songs/type", name="admin_songs_type")
+     * @Route("/type", name="admin_songs_type")
      * @IsGranted("IS_AUTHENTICATED_FULLY")
      * @IsGranted("TWITCH_ID")
      *
@@ -163,7 +163,7 @@ class AdminSongController extends AbstractController
     }
 
     /**
-     * @Route("/admin/songs/category", name="admin_songs_category")
+     * @Route("/category", name="admin_songs_category")
      * @IsGranted("IS_AUTHENTICATED_FULLY")
      * @IsGranted("TWITCH_ID")
      *
@@ -197,7 +197,7 @@ class AdminSongController extends AbstractController
     }
 
     /**
-     * @Route("/admin/songs/sort", name="admin_songs_sort")
+     * @Route("/sort", name="admin_songs_sort")
      * @IsGranted("IS_AUTHENTICATED_FULLY")
      * @IsGranted("TWITCH_ID")
      *

@@ -13,12 +13,16 @@ const Home = (props) =>
             {props.songs.length > 0 ?
                 <div>
                     <h2>Last Song</h2>
-                    <Soundcloud width="80%" height="166" song={props.songs[0]}/>
+                    <Soundcloud width="80%"
+                                height={props.songs[0].type === 'tracks' ? '166' : '250'}
+                                song={props.songs[0]}/>
                 </div> : ''}
             {props.mixes.length > 0 ?
                 <div>
                     <h2>Last Mix</h2>
-                    <Soundcloud width="80%" height="166" song={props.mixes[0]}/>
+                    <Soundcloud width="80%"
+                                height={props.mixes[0].type === 'tracks' ? '166' : '250'}
+                                song={props.mixes[0]}/>
                 </div> : ''}
         </section>
         <section className="home_video">

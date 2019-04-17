@@ -14,6 +14,7 @@
     </div>
     <div class="form-group">
         {{ form_widget(videoForm.save, {'attr': {'class': 'btn btn-primary'}}) }}
+        <a href="{{ path('admin_videos') }}">Back</a>
     </div>
     {{ form_end(videoForm) }}
 </div>

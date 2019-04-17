@@ -18,12 +18,12 @@ use Symfony\Component\Routing\Annotation\Route;
  * Class AdminPostController
  * @package App\Controller
  *
- * @Route(schemes={"%protocol%"})
+ * @Route("/admin/posts", schemes={"%protocol%"})
  */
 class AdminPostController extends AbstractController
 {
     /**
-     * @Route("/admin/posts", name="admin_posts")
+     * @Route("/", name="admin_posts")
      * @IsGranted("IS_AUTHENTICATED_FULLY")
      * @IsGranted("TWITCH_ID")
      *
@@ -65,7 +65,7 @@ class AdminPostController extends AbstractController
     }
 
     /**
-     * @Route("/admin/posts/create", name="admin_posts_create")
+     * @Route("/create", name="admin_posts_create")
      * @IsGranted("IS_AUTHENTICATED_FULLY")
      * @IsGranted("TWITCH_ID")
      *
@@ -93,7 +93,7 @@ class AdminPostController extends AbstractController
     }
 
     /**
-     * @Route("/admin/posts/edit/{id}", name="admin_posts_edit")
+     * @Route("/edit/{id}", name="admin_posts_edit")
      * @IsGranted("IS_AUTHENTICATED_FULLY")
      * @IsGranted("TWITCH_ID")
      *
@@ -121,7 +121,7 @@ class AdminPostController extends AbstractController
     }
 
     /**
-     * @Route("/admin/posts/sort", name="admin_posts_sort")
+     * @Route("/sort", name="admin_posts_sort")
      * @IsGranted("IS_AUTHENTICATED_FULLY")
      * @IsGranted("TWITCH_ID")
      *

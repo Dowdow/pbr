@@ -18,12 +18,12 @@ use Symfony\Component\Routing\Annotation\Route;
  * Class AdminVideoController
  * @package App
  *
- * @Route(schemes={"%protocol%"})
+ * @Route("/admin/videos", schemes={"%protocol%"})
  */
 class AdminVideoController extends AbstractController
 {
     /**
-     * @Route("/admin/videos", name="admin_videos")
+     * @Route("/", name="admin_videos")
      * @IsGranted("IS_AUTHENTICATED_FULLY")
      * @IsGranted("TWITCH_ID")
      *
@@ -65,7 +65,7 @@ class AdminVideoController extends AbstractController
     }
 
     /**
-     * @Route("/admin/videos/create", name="admin_videos_create")
+     * @Route("/create", name="admin_videos_create")
      * @IsGranted("IS_AUTHENTICATED_FULLY")
      * @IsGranted("TWITCH_ID")
      *
@@ -93,7 +93,7 @@ class AdminVideoController extends AbstractController
     }
 
     /**
-     * @Route("/admin/videos/edit/{id}", name="admin_videos_edit")
+     * @Route("/edit/{id}", name="admin_videos_edit")
      * @IsGranted("IS_AUTHENTICATED_FULLY")
      * @IsGranted("TWITCH_ID")
      *
@@ -121,7 +121,7 @@ class AdminVideoController extends AbstractController
     }
 
     /**
-     * @Route("/admin/vides/sort", name="admin_videos_sort")
+     * @Route("/sort", name="admin_videos_sort")
      * @IsGranted("IS_AUTHENTICATED_FULLY")
      * @IsGranted("TWITCH_ID")
      *

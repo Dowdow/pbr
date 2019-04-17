@@ -8,11 +8,10 @@ use App\Entity\Video;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Security;
-use Twig_Extension;
-use Twig_Function;
-use Twig_SimpleFunction;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class Redux extends Twig_Extension
+class Redux extends AbstractExtension
 {
     /** @var TokenStorageInterface */
     private $tokenStorage;
@@ -150,18 +149,18 @@ class Redux extends Twig_Extension
     }
 
     /**
-     * @return array|Twig_Function[]
+     * @return array|TwigFunction[]
      */
     public function getFunctions(): array
     {
         return [
-            'getTwitchConnectState' => new Twig_SimpleFunction('getTwitchConnectState', [$this, 'getTwitchConnectState']),
-            'getRanking' => new Twig_SimpleFunction('getRanking', [$this, 'getRanking']),
-            'getSongs' => new Twig_SimpleFunction('getSongs', [$this, 'getSongs']),
-            'getMixes' => new Twig_SimpleFunction('getMixes', [$this, 'getMixes']),
-            'getPosts' => new Twig_SimpleFunction('getPosts', [$this, 'getPosts']),
-            'getVideos' => new Twig_SimpleFunction('getVideos', [$this, 'getVideos']),
-            'isAdmin' => new Twig_SimpleFunction('isAdmin', [$this, 'isAdmin'])
+            'getTwitchConnectState' => new TwigFunction('getTwitchConnectState', [$this, 'getTwitchConnectState']),
+            'getRanking' => new TwigFunction('getRanking', [$this, 'getRanking']),
+            'getSongs' => new TwigFunction('getSongs', [$this, 'getSongs']),
+            'getMixes' => new TwigFunction('getMixes', [$this, 'getMixes']),
+            'getPosts' => new TwigFunction('getPosts', [$this, 'getPosts']),
+            'getVideos' => new TwigFunction('getVideos', [$this, 'getVideos']),
+            'isAdmin' => new TwigFunction('isAdmin', [$this, 'isAdmin'])
         ];
     }
 

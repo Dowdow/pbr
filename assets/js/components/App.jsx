@@ -9,7 +9,7 @@ import Live from './Live';
 
 const App = () =>
     <div className="app">
-        <Header/>
+        <Route component={Header}/>
         <Switch location={location}>
             <Route exact path='/' component={Home} key="home"/>
             <Route exact path='/songs' component={Songs} key="songs"/>
