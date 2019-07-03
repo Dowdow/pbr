@@ -117,6 +117,28 @@ class Redux extends AbstractExtension
     /**
      * @return array
      */
+    public function getEPs(): array
+    {
+        $epObjs = [];
+        $eps = $this->entityManager->getRepository(Song::class)->findBy([
+            'activated' => true,
+            'category' => Song::CATEGORY_EP
+        ], [
+            'sort' => 'desc'
+        ]);
+        foreach ($eps as $ep) {
+            $epObjs[] = [
+                'id' => $ep->getSoundcloudId(),
+                'type' => $ep->getType(),
+                'visual' => $ep->isVisual(),
+            ];
+        }
+        return $epObjs;
+    }
+
+    /**
+     * @return array
+     */
     public function getPosts(): array
     {
         $instaIds = [];
@@ -158,6 +180,7 @@ class Redux extends AbstractExtension
             'getRanking' => new TwigFunction('getRanking', [$this, 'getRanking']),
             'getSongs' => new TwigFunction('getSongs', [$this, 'getSongs']),
             'getMixes' => new TwigFunction('getMixes', [$this, 'getMixes']),
+            'getEPs' => new TwigFunction('getEPs', [$this, 'getEPs']),
             'getPosts' => new TwigFunction('getPosts', [$this, 'getPosts']),
             'getVideos' => new TwigFunction('getVideos', [$this, 'getVideos']),
             'isAdmin' => new TwigFunction('isAdmin', [$this, 'isAdmin'])

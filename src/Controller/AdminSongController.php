@@ -178,7 +178,7 @@ class AdminSongController extends AbstractController
 
         $id = $request->query->get('id');
         $category = $request->query->get('category');
-        if (!in_array($category, [Song::CATEGORY_MIX, Song::CATEGORY_SONG])) {
+        if (!in_array($category, [Song::CATEGORY_MIX, Song::CATEGORY_SONG, Song::CATEGORY_EP])) {
             throw new NotFoundHttpException();
         }
 

@@ -16,6 +16,7 @@ class Song
 {
     public const CATEGORY_SONG = 'song';
     public const CATEGORY_MIX = 'mix';
+    public const CATEGORY_EP = 'ep';
 
     public const TYPE_TRACK = 'tracks';
     public const TYPE_PLAYLIST = 'playlists';

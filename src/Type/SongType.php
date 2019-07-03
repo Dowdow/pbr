@@ -32,7 +32,8 @@ class SongType extends AbstractType
             ->add('category', ChoiceType::class, [
                 'choices' => [
                     'Song' => Song::CATEGORY_SONG,
-                    'Mix' => Song::CATEGORY_MIX
+                    'Mix' => Song::CATEGORY_MIX,
+                    'EP' => Song::CATEGORY_EP
                 ]
             ])
             ->add('visual', CheckboxType::class, [

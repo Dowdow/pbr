@@ -31,6 +31,11 @@
             'type': '{{ mix.type }}',
             'visual': '{{ mix.visual }}'
         }, {% endfor %} ],
+        'eps': [ {% for ep in getEPs() %} {
+            'id': '{{ ep.id }}',
+            'type': '{{ ep.type }}',
+            'visual': '{{ ep.visual }}'
+        }, {% endfor %} ],
         'posts': { {% for insta in getPosts() %} '{{ loop.index }}': '{{ insta }}', {% endfor %} },
         'videos': { {% for youtube in getVideos() %} '{{ loop.index }}': '{{ youtube }}', {% endfor %} },
         'admin': {% if isAdmin() == true %}true{% else %}false{% endif %}

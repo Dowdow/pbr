@@ -48,6 +48,10 @@
                                     {% if song.category == constant('App\\Entity\\Song::CATEGORY_MIX') %}selected{% endif %}
                             >Mix
                             </option>
+                            <option value="{{ constant('App\\Entity\\Song::CATEGORY_EP') }}"
+                                    {% if song.category == constant('App\\Entity\\Song::CATEGORY_EP') %}selected{% endif %}
+                            >EP
+                            </option>
                         </select>
                     </td>
                     <td>

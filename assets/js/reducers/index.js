@@ -1,5 +1,6 @@
 import {combineReducers} from 'redux';
 import admin from './admin';
+import eps from './eps';
 import mixes from './mixes';
 import playing from './playing';
 import posts from './posts';
@@ -10,6 +11,7 @@ import videos from './videos';
 
 const appReducer = combineReducers({
     admin,
+    eps,
     mixes,
     playing,
     posts,

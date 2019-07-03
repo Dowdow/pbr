@@ -45,10 +45,14 @@
     }
   }
 
-  &_news {
+  &_line {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+
+    &.second {
+      padding: 50px 0 0;
+    }
 
     @media screen and (max-width: $breakSmall) {
       flex-direction: column;
@@ -60,7 +64,7 @@
       }
     }
 
-    & div {
+    & > div {
       width: 50%;
 
       @media screen and (max-width: $breakSmall) {
@@ -72,25 +76,12 @@
       }
 
       & iframe {
-        @media screen and (max-width: $breakSmall) {
+        &.video {
           width: 100%;
         }
-      }
-    }
-  }
 
-  &_video {
-    padding: 50px 0 0;
-
-    & div {
-      & h2 {
-        margin-bottom: 20px;
-      }
-
-      @media screen and (max-width: $breakSmall) {
-        & iframe {
+        @media screen and (max-width: $breakSmall) {
           width: 100%;
-          height: 350px;
         }
       }
     }

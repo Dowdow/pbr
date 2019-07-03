@@ -10,16 +10,16 @@
     "sensio/framework-extra-bundle": "^5.2",
     "symfony/cache": "*",
     "symfony/console": "*",
-    "symfony/dotenv": "4.2.*",
-    "symfony/flex": "^1.1",
-    "symfony/form": "4.2.*",
+    "symfony/dotenv": "4.3.*",
+    "symfony/flex": "^1.4",
+    "symfony/form": "4.3.*",
     "symfony/framework-bundle": "*",
     "symfony/orm-pack": "^1.0",
     "symfony/security-bundle": "*",
     "symfony/serializer": "*",
     "symfony/twig-bundle": "*",
-    "symfony/validator": "4.2.*",
-    "symfony/webpack-encore-pack": "^1.0",
+    "symfony/validator": "4.3.*",
+    "symfony/webpack-encore-bundle": "^1.6",
     "symfony/yaml": "*"
   },
   "require-dev": {
@@ -69,7 +69,7 @@
   "extra": {
     "symfony": {
       "allow-contrib": false,
-      "require": "4.2.*"
+      "require": "4.3.*"
     }
   }
 }
