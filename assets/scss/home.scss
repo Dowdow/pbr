@@ -77,7 +77,11 @@
 
       & iframe {
         &.video {
-          width: 100%;
+          width: 80%;
+
+          @media screen and (max-width: $breakSmall) {
+            width: 100%;
+          }
         }
 
         @media screen and (max-width: $breakSmall) {
