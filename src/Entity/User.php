@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -59,7 +61,7 @@ class User implements UserInterface
     private $score;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      *
      * @ORM\Column(name="last_score_update", type="datetime")
      */
@@ -71,7 +73,7 @@ class User implements UserInterface
      * @param string $name
      * @param string $picture
      * @param string $twitchId
-     * @throws \Exception
+     * @throws Exception
      */
     public function __construct(string $email, string $name, string $picture, string $twitchId)
     {
@@ -80,7 +82,7 @@ class User implements UserInterface
         $this->picture = $picture;
         $this->twitchId = $twitchId;
         $this->score = 0;
-        $this->lastScoreUpdate = new \DateTime();
+        $this->lastScoreUpdate = new DateTime();
     }
 
     /**
@@ -182,18 +184,18 @@ class User implements UserInterface
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
-    public function getLastScoreUpdate(): ?\DateTime
+    public function getLastScoreUpdate(): ?DateTime
     {
         return $this->lastScoreUpdate;
     }
 
     /**
-     * @param \DateTime $lastScoreUpdate
+     * @param DateTime $lastScoreUpdate
      * @return User
      */
-    public function setLastScoreUpdate(\DateTime $lastScoreUpdate): User
+    public function setLastScoreUpdate(DateTime $lastScoreUpdate): User
     {
         $this->lastScoreUpdate = $lastScoreUpdate;
         return $this;

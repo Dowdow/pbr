@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Service\RankingService;
 use App\Service\TwitchStreamService;
+use DateTime;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -57,7 +59,7 @@ class TwitchController extends AbstractController
      * @param TwitchStreamService $streamService
      * @param RankingService $rankingService
      * @return JsonResponse
-     * @throws \Exception
+     * @throws Exception
      */
     public function scoreAction(TwitchStreamService $streamService, RankingService $rankingService): JsonResponse
     {
@@ -65,9 +67,9 @@ class TwitchController extends AbstractController
         /** @var User $user */
         $user = $this->getUser();
 
-        if ($streamService->isStreamOnline() && $user->getLastScoreUpdate() < (new \DateTime())->modify('-50 seconds')) {
+        if ($streamService->isStreamOnline() && $user->getLastScoreUpdate() < (new DateTime())->modify('-50 seconds')) {
             $user->setScore($user->getScore() + 1);
-            $user->setLastScoreUpdate(new \DateTime());
+            $user->setLastScoreUpdate(new DateTime());
             $this->getDoctrine()->getManager()->flush();
         }
 

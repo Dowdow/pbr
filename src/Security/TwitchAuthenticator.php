@@ -6,14 +6,15 @@ use App\Entity\User;
 use App\Service\TwitchOauthService;
 use App\Service\TwitchUserService;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use GuzzleHttp\Exception\GuzzleException;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -21,14 +22,15 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
+use UnexpectedValueException;
 
 class TwitchAuthenticator extends AbstractGuardAuthenticator
 {
     /** @var EntityManagerInterface */
     private $entity_manager;
 
-    /** @var ContainerInterface */
-    private $container;
+    /** @var RouterInterface */
+    private $router;
 
     /** @var CsrfTokenManagerInterface */
     private $csrf_token_manager;
@@ -45,7 +47,7 @@ class TwitchAuthenticator extends AbstractGuardAuthenticator
     /**
      * TwitchAuthenticator constructor.
      * @param EntityManagerInterface $entity_manager
-     * @param ContainerInterface $container
+     * @param RouterInterface $router
      * @param CsrfTokenManagerInterface $csrf_token_manager
      * @param SessionInterface $session
      * @param TwitchOauthService $twitch_oauth_service
@@ -53,7 +55,7 @@ class TwitchAuthenticator extends AbstractGuardAuthenticator
      */
     public function __construct(
         EntityManagerInterface $entity_manager,
-        ContainerInterface $container,
+        RouterInterface $router,
         CsrfTokenManagerInterface $csrf_token_manager,
         SessionInterface $session,
         TwitchOauthService $twitch_oauth_service,
@@ -61,7 +63,7 @@ class TwitchAuthenticator extends AbstractGuardAuthenticator
     )
     {
         $this->entity_manager = $entity_manager;
-        $this->container = $container;
+        $this->router = $router;
         $this->csrf_token_manager = $csrf_token_manager;
         $this->session = $session;
         $this->twitch_oauth_service = $twitch_oauth_service;
@@ -89,12 +91,12 @@ class TwitchAuthenticator extends AbstractGuardAuthenticator
      * @param AuthenticationException $authException The exception that started the authentication process
      *
      * @return RedirectResponse
-     * @throws \Exception
+     * @throws Exception
      */
     public function start(Request $request, AuthenticationException $authException = null): RedirectResponse
     {
         return new RedirectResponse(
-            $this->container->get('router')->generate('oauth_authorize', [], UrlGeneratorInterface::ABSOLUTE_PATH)
+            $this->router->generate('oauth_authorize', [], UrlGeneratorInterface::ABSOLUTE_PATH)
         );
     }
 
@@ -133,7 +135,7 @@ class TwitchAuthenticator extends AbstractGuardAuthenticator
      *
      * @return mixed Any non-null value
      *
-     * @throws \UnexpectedValueException If null is returned
+     * @throws UnexpectedValueException If null is returned
      * @throws GuzzleException
      */
     public function getCredentials(Request $request)
@@ -170,7 +172,7 @@ class TwitchAuthenticator extends AbstractGuardAuthenticator
      * @return UserInterface|null
      *
      * @throws GuzzleException
-     * @throws \Exception
+     * @throws Exception
      */
     public function getUser($credentials, UserProviderInterface $userProvider): UserInterface
     {

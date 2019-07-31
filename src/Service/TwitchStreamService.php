@@ -2,8 +2,8 @@
 
 namespace App\Service;
 
+use Exception;
 use GuzzleHttp\Exception\GuzzleException;
-use Psr\Cache\InvalidArgumentException;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -34,7 +34,7 @@ class TwitchStreamService
         $cache = new FilesystemAdapter();
         try {
             $isOnline = $cache->getItem('stream.is_online');
-        } catch (InvalidArgumentException $e) {
+        } catch (Exception $e) {
             return false;
         }
 
