@@ -19,19 +19,19 @@ footer {
   }
 
   & section {
-    & h3 {
+    display: flex;
+    flex-direction: column;
+
+    & a {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: bold;
+      font-size: 25px;
+      color: $titleColor;
+      text-decoration: none;
       margin: 10px 0;
 
-      & a {
-        font-family: 'Montserrat', sans-serif;
-        font-weight: bold;
-        font-size: 25px;
-        color: $titleColor;
-        text-decoration: none;
-
-        @media screen and (max-width: $breakSmall) {
-          font-size: 18px;
-        }
+      @media screen and (max-width: $breakSmall) {
+        font-size: 18px;
       }
     }
   }

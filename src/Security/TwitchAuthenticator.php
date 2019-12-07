@@ -111,7 +111,7 @@ class TwitchAuthenticator extends AbstractGuardAuthenticator
      */
     public function supports(Request $request): bool
     {
-        return !(!$request->query->has('state') || !$request->query->has('code'));
+        return $request->query->has('state') && $request->query->has('code');
     }
 
     /**
