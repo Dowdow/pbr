@@ -89,6 +89,9 @@
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
+    "laminas/laminas-zendframework-bridge": {
+        "version": "1.0.3"
+    },
     "nikic/php-parser": {
         "version": "v4.1.0"
     },
@@ -99,12 +102,15 @@
         "version": "2.2.2"
     },
     "php": {
-        "version": "7.2"
+        "version": "7.4"
     },
     "psr/cache": {
         "version": "1.0.1"
     },
     "psr/container": {
+        "version": "1.0.0"
+    },
+    "psr/event-dispatcher": {
         "version": "1.0.0"
     },
     "psr/http-message": {
@@ -126,7 +132,10 @@
             "branch": "master",
             "version": "5.2",
             "ref": "fb7e19da7f013d0d422fa9bce16f5c510e27609b"
-        }
+        },
+        "files": [
+            "config/packages/sensio_framework_extra.yaml"
+        ]
     },
     "symfony/asset": {
         "version": "v4.3.2"
@@ -148,9 +157,6 @@
             "version": "3.3",
             "ref": "e3868d2f4a5104f19f844fe551099a00c6562527"
         }
-    },
-    "symfony/debug": {
-        "version": "v4.1.6"
     },
     "symfony/dependency-injection": {
         "version": "v4.1.6"
@@ -234,9 +240,6 @@
         "version": "v1.11.0"
     },
     "symfony/polyfill-mbstring": {
-        "version": "v1.9.0"
-    },
-    "symfony/polyfill-php72": {
         "version": "v1.9.0"
     },
     "symfony/polyfill-php73": {
@@ -349,6 +352,9 @@
     },
     "twig/twig": {
         "version": "v2.5.0"
+    },
+    "webimpress/safe-writer": {
+        "version": "2.0.1"
     },
     "zendframework/zend-code": {
         "version": "3.3.1"
