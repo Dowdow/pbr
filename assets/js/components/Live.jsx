@@ -52,7 +52,7 @@ const Live = () => {
                 <div id="twitch-chat">
                     <iframe frameBorder="0"
                         scrolling="no"
-                        src="https://www.twitch.tv/embed/painboudinrecord/chat?parent=painboudinrecord.fr&parent=pbr.local"
+                        src="https://www.twitch.tv/embed/painboudinrecord/chat?parent=www.painboudinrecord.fr&parent=pbr.local"
                         height="500"
                         width="100%">
                     </iframe>
