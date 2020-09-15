@@ -19,7 +19,8 @@ const Live = () => {
                 width: '100%',
                 height: 500,
                 layout: 'video',
-                channel: 'painboudinrecord'
+                channel: 'painboudinrecord',
+                parent: ['painboudinrecord.fr', 'pbr.local'],
             });
 
             embed.addEventListener(Twitch.Embed.VIDEO_PLAY, () => {
@@ -51,8 +52,7 @@ const Live = () => {
                 <div id="twitch-chat">
                     <iframe frameBorder="0"
                         scrolling="no"
-                        id="chat_embed"
-                        src="https://www.twitch.tv/embed/painboudinrecord/chat"
+                        src="https://www.twitch.tv/embed/painboudinrecord/chat?parent=painboudinrecord.fr&parent=pbr.local"
                         height="500"
                         width="100%">
                     </iframe>
