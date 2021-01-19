@@ -3,11 +3,9 @@
 namespace App\Security;
 
 use App\Entity\User;
-use App\Service\TwitchOauthService;
-use App\Service\TwitchUserService;
+use App\Service\TwitchService;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
-use GuzzleHttp\Exception\GuzzleException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,47 +25,40 @@ use UnexpectedValueException;
 class TwitchAuthenticator extends AbstractGuardAuthenticator
 {
     /** @var EntityManagerInterface */
-    private $entity_manager;
+    private $entityManager;
 
     /** @var RouterInterface */
     private $router;
 
     /** @var CsrfTokenManagerInterface */
-    private $csrf_token_manager;
+    private $csrfTokenManager;
 
     /** @var SessionInterface */
     private $session;
 
-    /** @var TwitchOauthService */
-    private $twitch_oauth_service;
-
-    /** @var TwitchUserService */
-    private $twitch_user_service;
+    /** @var TwitchService */
+    private $twitchService;
 
     /**
      * TwitchAuthenticator constructor.
-     * @param EntityManagerInterface $entity_manager
+     * @param EntityManagerInterface $entityManager
      * @param RouterInterface $router
-     * @param CsrfTokenManagerInterface $csrf_token_manager
+     * @param CsrfTokenManagerInterface $csrfTokenManager
      * @param SessionInterface $session
-     * @param TwitchOauthService $twitch_oauth_service
-     * @param TwitchUserService $twitch_user_service
+     * @param TwitchService $twitchService
      */
     public function __construct(
-        EntityManagerInterface $entity_manager,
+        EntityManagerInterface $entityManager,
         RouterInterface $router,
-        CsrfTokenManagerInterface $csrf_token_manager,
+        CsrfTokenManagerInterface $csrfTokenManager,
         SessionInterface $session,
-        TwitchOauthService $twitch_oauth_service,
-        TwitchUserService $twitch_user_service
-    )
-    {
-        $this->entity_manager = $entity_manager;
+        TwitchService $twitchService
+    ) {
+        $this->entityManager = $entityManager;
         $this->router = $router;
-        $this->csrf_token_manager = $csrf_token_manager;
+        $this->csrfTokenManager = $csrfTokenManager;
         $this->session = $session;
-        $this->twitch_oauth_service = $twitch_oauth_service;
-        $this->twitch_user_service = $twitch_user_service;
+        $this->twitchService = $twitchService;
     }
 
     /**
@@ -136,17 +127,16 @@ class TwitchAuthenticator extends AbstractGuardAuthenticator
      * @return mixed Any non-null value
      *
      * @throws UnexpectedValueException If null is returned
-     * @throws GuzzleException
      */
     public function getCredentials(Request $request)
     {
-        if (!$this->csrf_token_manager->isTokenValid(new CsrfToken('oauth_authorize_state', $request->query->get('state')))) {
+        if (!$this->csrfTokenManager->isTokenValid(new CsrfToken('oauth_authorize_state', $request->query->get('state')))) {
             return null;
         }
 
-        $res = $this->twitch_oauth_service->getAccessToken(
+        $res = $this->twitchService->getAccessToken(
             $request->query->get('code'),
-            $this->csrf_token_manager->refreshToken('oauth_access_state')->getValue()
+            $this->csrfTokenManager->refreshToken('oauth_access_state')->getValue()
         );
 
         if (!isset($res['access_token'])) {
@@ -171,33 +161,32 @@ class TwitchAuthenticator extends AbstractGuardAuthenticator
      *
      * @return UserInterface|null
      *
-     * @throws GuzzleException
      * @throws Exception
      */
     public function getUser($credentials, UserProviderInterface $userProvider): UserInterface
     {
-        $twitch_user = $this->twitch_user_service->getUser($credentials['token']);
-        if ($twitch_user === null) {
+        $twitchUser = $this->twitchService->getUser($credentials['token']);
+        if ($twitchUser === null) {
             return null;
         }
 
-        $twitch_user = $twitch_user['data'][0];
+        $twitchUser = $twitchUser['data'][0];
 
-        $user = $this->entity_manager->getRepository(User::class)->findOneBy(['twitchId' => $twitch_user['id']]);
+        $user = $this->entityManager->getRepository(User::class)->findOneBy(['twitchId' => $twitchUser['id']]);
         if ($user === null) {
             $user = new User(
-                $twitch_user['email'] ?? $twitch_user['display_name'],
-                $twitch_user['display_name'],
-                $twitch_user['profile_image_url'],
-                $twitch_user['id']
+                $twitchUser['email'] ?? $twitchUser['display_name'],
+                $twitchUser['display_name'],
+                $twitchUser['profile_image_url'],
+                $twitchUser['id']
             );
-            $this->entity_manager->persist($user);
+            $this->entityManager->persist($user);
         } else {
-            $user->setEmail($twitch_user['email'] ?? $twitch_user['display_name']);
-            $user->setUsername($twitch_user['display_name']);
-            $user->setPicture($twitch_user['profile_image_url']);
+            $user->setEmail($twitchUser['email'] ?? $twitchUser['display_name']);
+            $user->setUsername($twitchUser['display_name']);
+            $user->setPicture($twitchUser['profile_image_url']);
         }
-        $this->entity_manager->flush();
+        $this->entityManager->flush();
 
         $this->session->set('access_token', $credentials['token']);
         return $userProvider->loadUserByUsername($user->getEmail());

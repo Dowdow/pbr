@@ -14,13 +14,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Song
 {
-    public const CATEGORY_SONG = 'song';
-    public const CATEGORY_MIX = 'mix';
-    public const CATEGORY_EP = 'ep';
-
-    public const TYPE_TRACK = 'tracks';
-    public const TYPE_PLAYLIST = 'playlists';
-
     /**
      * @var int
      *
@@ -40,6 +33,24 @@ class Song
     private $soundcloudId;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", nullable=false)
+     *
+     * @Assert\NotBlank()
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="image", type="string", nullable=false)
+     *
+     * @Assert\NotBlank()
+     */
+    private $image;
+
+    /**
      * @var boolean
      *
      * @ORM\Column(name="activated", type="boolean", nullable=false)
@@ -47,43 +58,11 @@ class Song
     private $activated;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="type", type="string", nullable=false)
-     */
-    private $type;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="category", type="string", nullable=false)
-     */
-    private $category;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="visual", type="boolean")
-     */
-    private $visual;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="sort", type="integer", nullable=false)
-     */
-    private $sort;
-
-    /**
      * Song constructor.
      */
     public function __construct()
     {
         $this->activated = true;
-        $this->type = self::TYPE_TRACK;
-        $this->category = self::CATEGORY_SONG;
-        $this->visual = false;
-        $this->sort = 0;
     }
 
     /**
@@ -133,72 +112,36 @@ class Song
     /**
      * @return string
      */
-    public function getType(): string
+    public function getName(): ?string
     {
-        return $this->type;
+        return $this->name;
     }
 
     /**
-     * @param string $type
+     * @param string $name
      * @return Song
      */
-    public function setType(string $type): Song
+    public function setName(string $name): Song
     {
-        $this->type = $type;
+        $this->name = $name;
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getCategory(): string
+    public function getImage(): ?string
     {
-        return $this->category;
+        return $this->image;
     }
 
     /**
-     * @param string $category
+     * @param string $image
      * @return Song
      */
-    public function setCategory(string $category): Song
+    public function setImage(string $image): Song
     {
-        $this->category = $category;
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isVisual(): bool
-    {
-        return $this->visual;
-    }
-
-    /**
-     * @param bool $visual
-     * @return Song
-     */
-    public function setVisual(bool $visual): Song
-    {
-        $this->visual = $visual;
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getSort(): int
-    {
-        return $this->sort;
-    }
-
-    /**
-     * @param int $sort
-     * @return Song
-     */
-    public function setSort(int $sort): Song
-    {
-        $this->sort = $sort;
+        $this->image = $image;
         return $this;
     }
 }

@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ReactInerval from 'react-interval';
-import { setPlayerPlaying } from '../actions/playing';
 import { grantScore } from '../actions/user';
 
 let embed = null;
@@ -9,7 +8,8 @@ let embed = null;
 const Live = () => {
     const dispatch = useDispatch();
 
-    const playing = useSelector(state => state.playing);
+    const [playing, setPlaying] = useState(false);
+
     const rank = useSelector(state => state.rank);
     const user = useSelector(state => state.user);
 
@@ -24,11 +24,11 @@ const Live = () => {
             });
 
             embed.addEventListener(Twitch.Embed.VIDEO_PLAY, () => {
-                dispatch(setPlayerPlaying(true));
+                setPlaying(true);
             });
 
             embed.addEventListener(Twitch.Embed.VIDEO_PAUSE, () => {
-                dispatch(setPlayerPlaying(false));
+                setPlaying(false);
             });
         }
     });

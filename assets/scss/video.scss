@@ -1,0 +1,84 @@
+.videos {
+  & h2 {
+    font-size: 30px;
+    color: $textColor;
+    margin: 0;
+
+    @media screen and (max-width: $breakSmall) {
+      font-size: 20px;
+    }
+  }
+
+  & .title {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    margin: 0 auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    @media screen and (max-width: $breakSmall) {
+      justify-content: space-between;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+  }
+
+  & .video {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    @media screen and (max-width: $breakSmall) {
+      justify-content: center;
+      margin: 0 auto;
+      width: 100%;
+
+      & iframe {
+        width: 100%;
+        height: 350px;
+      }
+    }
+  }
+
+  & .previous,
+  & .next {
+    font-size: 80px;
+    color: $textColor;
+    width: 20%;
+    border: none;
+    background: $primaryColor;
+    cursor: pointer;
+    outline: none;
+    transition: ease 2s;
+
+    @media screen and (max-width: $breakSmall) {
+      display: none;
+    }
+  }
+
+  & .previous:hover {
+    padding-right: 50px;
+  }
+
+  & .next:hover {
+    padding-left: 50px;
+  }
+
+  & .previous_small,
+  & .next_small {
+    font-size: 30px;
+    color: $textColor;
+    border: none;
+    background: $primaryColor;
+    cursor: pointer;
+    outline: none;
+    align-self: flex-start;
+
+    @media screen and (min-width: 769px) {
+      display: none;
+    }
+  }
+}

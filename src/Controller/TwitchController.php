@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Service\RankingService;
-use App\Service\TwitchStreamService;
+use App\Service\TwitchService;
 use DateTime;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 /**
  * Class TwitchController
@@ -25,21 +26,23 @@ class TwitchController extends AbstractController
      * @Route("/authorize", name="oauth_authorize", host="%base_host%")
      *
      * @param Request $request
+     * @param CsrfTokenManagerInterface $csrfTokenManager
      * @return mixed
      */
-    public function oauthAuthorizeAction(Request $request)
+    public function oauthAuthorizeAction(Request $request, CsrfTokenManagerInterface $csrfTokenManager)
     {
         if ($request->getMethod() === Request::METHOD_POST) {
-            $csrf = $this->get('security.csrf.token_manager');
             $twitchParameters = $this->getParameter('twitch');
+
             return $this->redirect(
                 'https://id.twitch.tv/oauth2/authorize?response_type=code' .
-                '&client_id=' . $twitchParameters['client_id'] .
-                '&redirect_uri=' . $twitchParameters['redirect'] .
-                '&scope=' . implode('+', $twitchParameters['scope']) .
-                '&state=' . $csrf->refreshToken('oauth_authorize_state')->getValue()
+                    '&client_id=' . $twitchParameters['client_id'] .
+                    '&redirect_uri=' . $twitchParameters['redirect'] .
+                    '&scope=' . implode(' ', $twitchParameters['scope']) .
+                    '&state=' . $csrfTokenManager->refreshToken('oauth_authorize_state')->getValue()
             );
         }
+
         return $this->redirect($this->generateUrl('live'));
     }
 
@@ -56,18 +59,18 @@ class TwitchController extends AbstractController
     /**
      * @Route("/score", name="score", host="%base_host%")
      *
-     * @param TwitchStreamService $streamService
+     * @param TwitchService $twitchService
      * @param RankingService $rankingService
      * @return JsonResponse
      * @throws Exception
      */
-    public function scoreAction(TwitchStreamService $streamService, RankingService $rankingService): JsonResponse
+    public function scoreAction(TwitchService $twitchService, RankingService $rankingService): JsonResponse
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         /** @var User $user */
         $user = $this->getUser();
 
-        if ($streamService->isStreamOnline() && $user->getLastScoreUpdate() < (new DateTime())->modify('-50 seconds')) {
+        if ($twitchService->isStreamOnline() && $user->getLastScoreUpdate() < (new DateTime())->modify('-50 seconds')) {
             $user->setScore($user->getScore() + 1);
             $user->setLastScoreUpdate(new DateTime());
             $this->getDoctrine()->getManager()->flush();
@@ -78,5 +81,4 @@ class TwitchController extends AbstractController
             'rank' => $rankingService->getTop10()
         ]);
     }
-
 }

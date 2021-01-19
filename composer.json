@@ -12,24 +12,23 @@
     "doctrine/doctrine-bundle": "^2.1",
     "doctrine/doctrine-migrations-bundle": "^3.0",
     "doctrine/orm": "^2.7",
-    "guzzlehttp/guzzle": "^6.3",
     "sensio/framework-extra-bundle": "^5.2",
     "symfony/cache": "*",
-    "symfony/console": "^5.1",
-    "symfony/dotenv": "^5.1",
-    "symfony/flex": "^1.4",
+    "symfony/console": "^5.2",
+    "symfony/dotenv": "^5.2",
+    "symfony/flex": "^1.9",
     "symfony/form": "^5.1",
-    "symfony/framework-bundle": "^5.1",
+    "symfony/framework-bundle": "^5.2",
+    "symfony/http-client": "^5.2",
     "symfony/security-bundle": "*",
     "symfony/serializer": "*",
     "symfony/twig-bundle": "*",
-    "symfony/validator": "^5.1",
+    "symfony/validator": "^5.2",
     "symfony/webpack-encore-bundle": "^1.7",
-    "symfony/yaml": "^5.1"
+    "symfony/yaml": "^5.2"
   },
   "require-dev": {
     "doctrine/doctrine-fixtures-bundle": "^3.3",
-    "roave/security-advisories": "dev-master",
     "symfony/maker-bundle": "^1.8",
     "symfony/profiler-pack": "^1.0"
   },
@@ -76,7 +75,7 @@
   "extra": {
     "symfony": {
       "allow-contrib": false,
-      "require": "^5.1"
+      "require": "^5.2"
     }
   }
 }

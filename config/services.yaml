@@ -4,16 +4,6 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-  url:
-    base_auth: 'https://id.twitch.tv'
-    oauth:
-      authorize: '/oauth2/authorize'
-      token: '/oauth2/token'
-
-    base_api: 'https://api.twitch.tv'
-    user: '/helix/users'
-    stream: '/helix/streams'
-
   twitch:
     client_id: '%env(TWITCH_CLIENT_ID)%'
     client_secret: '%env(TWITCH_CLIENT_SECRET)%'
@@ -43,3 +33,7 @@ services:
 
   # add more service definitions when explicit configuration is needed
   # please note that last definitions always *replace* previous ones
+
+  App\Service\TwitchService:
+    arguments:
+      $twitchParameters: '%twitch%'

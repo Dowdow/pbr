@@ -20,31 +20,9 @@
 </noscript>
 <div id="root"></div>
 <script>
-    window.__PRELOADED_STATE__ = {
-        'user': {% if app.user %} { {% for key,value in getTwitchConnectState() %}
-            '{{ key }}': '{{ value }}',{% endfor %} } {% else %} false {% endif %},
-        'rank': [ {% for rank in getRanking() %} { {% for key,value in rank %}
-            '{{ key }}': '{{ value }}',{% endfor %} }, {% endfor %} ],
-        'songs': [ {% for song in getSongs() %} {
-            'id': '{{ song.id }}',
-            'type': '{{ song.type }}',
-            'visual': '{{ song.visual }}'
-        }, {% endfor %} ],
-        'mixes': [ {% for mix in getMixes() %} {
-            'id': '{{ mix.id }}',
-            'type': '{{ mix.type }}',
-            'visual': '{{ mix.visual }}'
-        }, {% endfor %} ],
-        'eps': [ {% for ep in getEPs() %} {
-            'id': '{{ ep.id }}',
-            'type': '{{ ep.type }}',
-            'visual': '{{ ep.visual }}'
-        }, {% endfor %} ],
-        'posts': { {% for insta in getPosts() %} '{{ loop.index }}': '{{ insta }}', {% endfor %} },
-        'videos': { {% for youtube in getVideos() %} '{{ loop.index }}': '{{ youtube }}', {% endfor %} },
-        'admin': {% if isAdmin() == true %}true{% else %}false{% endif %}
-    };
+    window.__PRELOADED_STATE__ = JSON.parse('{{ getPreLoadedState()|raw }}');
 </script>
+<script type="text/javascript" src="https://w.soundcloud.com/player/api.js"></script>
 <script type="text/javascript" src="https://embed.twitch.tv/embed/v1.js"></script>
 <script type="text/javascript" src="{{ asset('build/runtime.js') }}"></script>
 <script type="text/javascript" src="{{ asset('build/app.js') }}"></script>

@@ -5,8 +5,6 @@ namespace App\Type;
 use App\Entity\Song;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -22,24 +20,9 @@ class SongType extends AbstractType
     {
         $builder
             ->add('soundcloudId', TextType::class)
+            ->add('name', TextType::class)
+            ->add('image', TextType::class)
             ->add('activated', CheckboxType::class)
-            ->add('type', ChoiceType::class, [
-                'choices' => [
-                    'Track' => Song::TYPE_TRACK,
-                    'Playlist' => Song::TYPE_PLAYLIST
-                ]
-            ])
-            ->add('category', ChoiceType::class, [
-                'choices' => [
-                    'Song' => Song::CATEGORY_SONG,
-                    'Mix' => Song::CATEGORY_MIX,
-                    'EP' => Song::CATEGORY_EP
-                ]
-            ])
-            ->add('visual', CheckboxType::class, [
-                'required' => false
-            ])
-            ->add('sort', IntegerType::class)
             ->add('save', SubmitType::class);
     }
 

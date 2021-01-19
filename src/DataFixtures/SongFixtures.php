@@ -12,48 +12,24 @@ class SongFixtures extends Fixture
     {
         $song1 = (new Song())
             ->setSoundcloudId('806509507')
-            ->setType(Song::TYPE_TRACK)
-            ->setCategory(Song::CATEGORY_SONG)
-            ->setSort(0)
-            ->setActivated(true)
-            ->setVisual(false);
+            ->setName('Malaa - Bling Bling (20E Remix)')
+            ->setImage('https://i1.sndcdn.com/artworks-srWVDyeBJcf9OpCr-48zQ5A-t200x200.jpg')
+            ->setActivated(true);
         $manager->persist($song1);
 
         $song2 = (new Song())
             ->setSoundcloudId('806510212')
-            ->setType(Song::TYPE_TRACK)
-            ->setCategory(Song::CATEGORY_SONG)
-            ->setSort(1)
-            ->setActivated(true)
-            ->setVisual(false);
+            ->setName('The Partysquad & Boaz - Oh My (20E Remix)')
+            ->setImage('https://i1.sndcdn.com/artworks-QionKIxYuMDtkAlw-5gGFUA-t200x200.jpg')
+            ->setActivated(true);
         $manager->persist($song2);
 
         $song3 = (new Song())
             ->setSoundcloudId('807610501')
-            ->setType(Song::TYPE_TRACK)
-            ->setCategory(Song::CATEGORY_SONG)
-            ->setSort(2)
-            ->setActivated(true)
-            ->setVisual(false);
+            ->setName('Vicetone & Tony Igy - Astronomia (20E Remix)')
+            ->setImage('https://i1.sndcdn.com/artworks-DlQfTX5kuid45QKi-ou2Lbw-t200x200.jpg')
+            ->setActivated(true);
         $manager->persist($song3);
-
-        $ep1 = (new Song())
-            ->setSoundcloudId('915032833')
-            ->setType(Song::TYPE_PLAYLIST)
-            ->setCategory(Song::CATEGORY_EP)
-            ->setSort(0)
-            ->setActivated(true)
-            ->setVisual(false);
-        $manager->persist($ep1);
-
-        $mix1 = (new Song())
-            ->setSoundcloudId('584304492')
-            ->setType(Song::TYPE_TRACK)
-            ->setCategory(Song::CATEGORY_MIX)
-            ->setSort(0)
-            ->setActivated(true)
-            ->setVisual(false);
-        $manager->persist($mix1);
 
         $manager->flush();
     }

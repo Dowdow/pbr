@@ -4,8 +4,9 @@ import Header from './Header';
 import Footer from './Footer';
 import Home from './Home';
 import Songs from './Songs';
-import Studio from './Studio';
+import Videos from './Videos';
 import Live from './Live';
+import Player from './Player';
 
 const App = () =>
     <div className="app">
@@ -13,9 +14,10 @@ const App = () =>
         <Switch location={location}>
             <Route exact path='/' component={Home} key="home" />
             <Route exact path='/songs' component={Songs} key="songs" />
-            <Route exact path='/studio' component={Studio} key="studio" />
+            <Route exact path='/videos' component={Videos} key="videos" />
             <Route exact path='/live' component={Live} key="live" />
         </Switch>
+        <Player />
         <Footer />
     </div>
     ;

@@ -1,4 +1,4 @@
-import {SET_RANK} from '../actions/rank';
+import { SET_RANK } from '../actions/rank';
 
 export default function rank(state = [], action = {}) {
     switch (action.type) {

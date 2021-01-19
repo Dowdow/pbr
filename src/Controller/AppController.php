@@ -31,9 +31,9 @@ class AppController extends AbstractController
     }
 
     /**
-     * @Route("/studio", name="studio", host="%base_host%")
+     * @Route("/videos", name="videos", host="%base_host%")
      */
-    public function studioAction(): Response
+    public function videosAction(): Response
     {
         return $this->render('base.html.twig');
     }

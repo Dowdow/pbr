@@ -1,0 +1,19 @@
+.player {
+  position: fixed;
+  background-color: $textColor;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 50%;
+  margin: 0 auto;
+
+  & .player-info {
+    display: flex;
+    flex-direction: row;
+
+    & .player-info-side {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}

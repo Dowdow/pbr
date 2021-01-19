@@ -10,7 +10,6 @@ Encore
     .addEntry('app', './assets/js/index.js')
 
     .cleanupOutputBeforeBuild()
-    .enableBuildNotifications()
 
     .enableSourceMaps(!Encore.isProduction())
     .enableVersioning(Encore.isProduction())

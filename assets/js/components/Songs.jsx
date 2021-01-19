@@ -1,47 +1,24 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import Soundcloud from './Soundcloud';
+import { useDispatch, useSelector } from 'react-redux';
+import { setPlayerCurrentSong } from '../actions/player';
 
 const Songs = () => {
+    const dispatch = useDispatch();
+
     const songs = useSelector(state => state.songs);
-    const mixes = useSelector(state => state.mixes);
-    const eps = useSelector(state => state.eps);
+
+    const handleSelectSong = (song) => {
+        dispatch(setPlayerCurrentSong(song));
+    }
 
     return (
         <div className="container song">
-            <section>
-                <h2>Songs</h2>
-                <div>
-                    {songs.map((song, index) =>
-                        <Soundcloud key={index}
-                            width="95%"
-                            height={song.type === 'tracks' ? '166' : '250'}
-                            song={song} />
-                    )}
+            {songs.map((song, index) =>
+                <div key={index} className="song-item" onClick={() => handleSelectSong(song)}>
+                    <img src={song.image} alt={song.name} />
+                    <h3>{song.name}</h3>
                 </div>
-            </section>
-            <section>
-                <h2 className="other">EPs</h2>
-                <div>
-                    {eps.map((ep, index) =>
-                        <Soundcloud key={index}
-                            width="95%"
-                            height={ep.type === 'tracks' ? '166' : '250'}
-                            song={ep} />
-                    )}
-                </div>
-            </section>
-            <section>
-                <h2 className="other">Mixes</h2>
-                <div>
-                    {mixes.map((mix, index) =>
-                        <Soundcloud key={index}
-                            width="95%"
-                            height={mix.type === 'tracks' ? '166' : '250'}
-                            song={mix} />
-                    )}
-                </div>
-            </section>
+            )}
         </div>
     );
 };

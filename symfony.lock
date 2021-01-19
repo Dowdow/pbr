@@ -80,14 +80,8 @@
     "doctrine/sql-formatter": {
         "version": "1.0.1"
     },
-    "guzzlehttp/guzzle": {
-        "version": "6.3.3"
-    },
-    "guzzlehttp/promises": {
-        "version": "v1.3.1"
-    },
-    "guzzlehttp/psr7": {
-        "version": "1.4.2"
+    "friendsofphp/proxy-manager-lts": {
+        "version": "v1.0.3"
     },
     "laminas/laminas-code": {
         "version": "3.4.1"
@@ -104,9 +98,6 @@
     "ocramius/package-versions": {
         "version": "1.3.0"
     },
-    "ocramius/proxy-manager": {
-        "version": "2.2.2"
-    },
     "php": {
         "version": "7.4"
     },
@@ -119,17 +110,8 @@
     "psr/event-dispatcher": {
         "version": "1.0.0"
     },
-    "psr/http-message": {
-        "version": "1.0.1"
-    },
     "psr/log": {
         "version": "1.0.2"
-    },
-    "ralouphie/getallheaders": {
-        "version": "2.0.5"
-    },
-    "roave/security-advisories": {
-        "version": "dev-master"
     },
     "sensio/framework-extra-bundle": {
         "version": "5.2",
@@ -212,6 +194,12 @@
             "ref": "1717e67afa995e4f01a25ba9ae7aca5b2327bcaa"
         }
     },
+    "symfony/http-client": {
+        "version": "v5.2.1"
+    },
+    "symfony/http-client-contracts": {
+        "version": "v2.3.1"
+    },
     "symfony/http-foundation": {
         "version": "v4.1.6"
     },
@@ -241,9 +229,6 @@
     },
     "symfony/polyfill-intl-icu": {
         "version": "v1.10.0"
-    },
-    "symfony/polyfill-intl-idn": {
-        "version": "v1.11.0"
     },
     "symfony/polyfill-intl-normalizer": {
         "version": "v1.18.1"
@@ -370,9 +355,6 @@
     },
     "twig/twig": {
         "version": "v2.5.0"
-    },
-    "webimpress/safe-writer": {
-        "version": "2.0.1"
     },
     "zendframework/zend-code": {
         "version": "3.3.1"

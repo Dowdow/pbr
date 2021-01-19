@@ -6,12 +6,9 @@ use App\Entity\Song;
 use App\Type\SongType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -51,14 +48,6 @@ class AdminSongController extends AbstractController
                 $songToChangeState = $songRepo->find($songId);
                 if ($songToChangeState !== null) {
                     $songToChangeState->setActivated(!$songToChangeState->isActivated());
-                }
-            }
-            // SONG VISUAL
-            if ($request->request->has('visual_song')) {
-                $songId = $request->request->get('visual_song');
-                $songToChangeVisual = $songRepo->find($songId);
-                if ($songToChangeVisual !== null) {
-                    $songToChangeVisual->setVisual(!$songToChangeVisual->isVisual());
                 }
             }
         }
@@ -126,104 +115,5 @@ class AdminSongController extends AbstractController
             'song' => $song,
             'songForm' => $songForm->createView(),
         ]);
-    }
-
-    /**
-     * @Route("/type", name="admin_songs_type")
-     * @IsGranted("IS_AUTHENTICATED_FULLY")
-     * @IsGranted("TWITCH_ID")
-     *
-     * @param Request $request
-     * @return JsonResponse|RedirectResponse
-     */
-    public function songTypeAction(Request $request)
-    {
-        if (!$request->query->has('id') || !$request->query->has('type')) {
-            throw new AccessDeniedHttpException();
-        }
-
-        $id = $request->query->get('id');
-        $type = $request->query->get('type');
-        if (!in_array($type, [Song::TYPE_TRACK, Song::TYPE_PLAYLIST])) {
-            throw new NotFoundHttpException();
-        }
-
-        $em = $this->getDoctrine()->getManager();
-
-        $song = $em->getRepository(Song::class)->find($id);
-        if ($song === null) {
-            throw new NotFoundHttpException();
-        }
-
-        $song->setType($type);
-
-        $em->flush();
-
-        return new JsonResponse(['message' => 'Ok']);
-    }
-
-    /**
-     * @Route("/category", name="admin_songs_category")
-     * @IsGranted("IS_AUTHENTICATED_FULLY")
-     * @IsGranted("TWITCH_ID")
-     *
-     * @param Request $request
-     * @return JsonResponse|RedirectResponse
-     */
-    public function songCategoryAction(Request $request)
-    {
-        if (!$request->query->has('id') || !$request->query->has('category')) {
-            throw new AccessDeniedHttpException();
-        }
-
-        $id = $request->query->get('id');
-        $category = $request->query->get('category');
-        if (!in_array($category, [Song::CATEGORY_MIX, Song::CATEGORY_SONG, Song::CATEGORY_EP])) {
-            throw new NotFoundHttpException();
-        }
-
-        $em = $this->getDoctrine()->getManager();
-
-        $song = $em->getRepository(Song::class)->find($id);
-        if ($song === null) {
-            throw new NotFoundHttpException();
-        }
-
-        $song->setCategory($category);
-
-        $em->flush();
-
-        return new JsonResponse(['message' => 'Ok']);
-    }
-
-    /**
-     * @Route("/sort", name="admin_songs_sort")
-     * @IsGranted("IS_AUTHENTICATED_FULLY")
-     * @IsGranted("TWITCH_ID")
-     *
-     * @param Request $request
-     * @return JsonResponse|RedirectResponse
-     */
-    public function songSortAction(Request $request)
-    {
-        if (!$request->query->has('id') || !$request->query->has('sort')) {
-            throw new AccessDeniedHttpException();
-        }
-
-        $id = $request->query->get('id');
-        $sort = (int)$request->query->get('sort');
-
-        $em = $this->getDoctrine()->getManager();
-
-        $song = $em->getRepository(Song::class)->find($id);
-        if ($song === null) {
-            throw new NotFoundHttpException();
-        }
-
-        $song->setSort($sort);
-
-        $em->flush();
-
-        return new JsonResponse(['message' => 'Ok']);
     }
 }
