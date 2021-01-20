@@ -16,7 +16,7 @@ const Player = () => {
 
     const [player, setPlayer] = useState(null);
     const [transitionIndex, setTransitionIndex] = useState(0);
-    const [progressTime, setProgressTime] = useState('0:00');
+    const [progressTime, setProgressTime] = useState(0);
     const [progressPercent, setProgressPercent] = useState(0);
 
     const playerRef = React.createRef();
@@ -31,6 +31,9 @@ const Player = () => {
     }, []);
 
     useEffect(() => {
+        setProgressTime(0);
+        setProgressPercent(0);
+
         if (song !== null) {
             player.load(`https://api.soundcloud.com/tracks/${song.id}?auto_play=${playing ? 'true' : 'false'}&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false`, { auto_play: playing });
         }
@@ -91,6 +94,7 @@ const Player = () => {
     }
 
     const handleClose = () => {
+        player.pause();
         dispatch(setPlayerCurrentSong(null));
     }
 

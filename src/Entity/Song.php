@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -58,11 +59,19 @@ class Song
     private $activated;
 
     /**
+     * @var DateTime
+     * 
+     * @ORM\Column(name="created_at", type="datetime", nullable=true)
+     */
+    private $createdAt;
+
+    /**
      * Song constructor.
      */
     public function __construct()
     {
         $this->activated = true;
+        $this->createdAt = new DateTime();
     }
 
     /**
@@ -88,24 +97,6 @@ class Song
     public function setSoundcloudId(string $soundcloudId): Song
     {
         $this->soundcloudId = $soundcloudId;
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isActivated(): ?bool
-    {
-        return $this->activated;
-    }
-
-    /**
-     * @param bool $activated
-     * @return Song
-     */
-    public function setActivated(bool $activated): Song
-    {
-        $this->activated = $activated;
         return $this;
     }
 
@@ -142,6 +133,42 @@ class Song
     public function setImage(string $image): Song
     {
         $this->image = $image;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isActivated(): ?bool
+    {
+        return $this->activated;
+    }
+
+    /**
+     * @param bool $activated
+     * @return Song
+     */
+    public function setActivated(bool $activated): Song
+    {
+        $this->activated = $activated;
+        return $this;
+    }
+
+    /**
+     * @return DateTime|null
+     */
+    public function getCreatedAt(): ?DateTime
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param DateTime $createdAt
+     * @return Song
+     */
+    public function setCreatedAt(DateTime $createdAt): Song
+    {
+        $this->createdAt = $createdAt;
         return $this;
     }
 }

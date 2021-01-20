@@ -71,7 +71,7 @@ class Redux extends AbstractExtension
             }
         }
 
-        $songs = $this->entityManager->getRepository(Song::class)->findBy(['activated' => true,], ['id' => 'desc']);
+        $songs = $this->entityManager->getRepository(Song::class)->findBy(['activated' => true,], ['createdAt' => 'desc']);
         foreach ($songs as $song) {
             $state['songs'][] = [
                 'id' => $song->getSoundcloudId(),
