@@ -1,19 +1,62 @@
 .player {
   position: fixed;
-  background-color: $textColor;
+  background-color: $secondaryColor;
+  color: $primaryColor;
   bottom: 0;
   left: 0;
   right: 0;
   width: 50%;
   margin: 0 auto;
 
+  &.hide {
+    display: none;
+  }
+
   & .player-info {
     display: flex;
     flex-direction: row;
 
+    & img {
+      width: 100px;
+      height: 100px;
+    }
+
     & .player-info-side {
       display: flex;
       flex-direction: column;
+      flex-grow: 2;
+
+      & h3 {
+        margin: 10px;
+      }
+    }
+
+    & .player-info-controls {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      margin: 10px;
+
+      & progress {
+        flex-grow: 2;
+      }
+
+      & label {
+        margin-right: 10px;
+      }
+
+      & button {
+        border: none;
+        cursor: pointer;
+        outline: none;
+        color: $primaryColor;
+
+        & svg {
+          height: 20px;
+          width: 20px;
+        }
+      }
     }
   }
 }
