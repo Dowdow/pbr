@@ -32,8 +32,7 @@ const Player = () => {
 
     useEffect(() => {
         if (song !== null) {
-            player.load(`https://api.soundcloud.com/tracks/${song.id}`, { auto_play: playing });
-            player.setVolume(radioMode ? 0 : 100);
+            player.load(`https://api.soundcloud.com/tracks/${song.id}?auto_play=${playing ? 'true' : 'false'}&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false`, { auto_play: playing });
         }
     }, [song]);
 
@@ -41,11 +40,7 @@ const Player = () => {
         if (player !== null && radioMode) {
             player.getDuration(duration => {
                 const timeRemaining = Math.floor(duration / 1000) - progressTime;
-                /*if (progressTime === 0 || timeRemaining === 0) {
-                    player.setVolume(0);
-                } else if (progressTime > 0 && progressTime < 6) {
-                    player.setVolume(progressTime * 20);
-                } else*/ if (timeRemaining > 0 && timeRemaining < 6) {
+                if (timeRemaining > 0 && timeRemaining < 6) {
                     if (timeRemaining === 5) {
                         handlePlayTransition();
                     }
@@ -78,12 +73,31 @@ const Player = () => {
         setProgressPercent(progress.relativePosition * 100);
     }
 
+    const handleProgressClick = (e) => {
+        const rectangle = e.target.getBoundingClientRect();
+        const start = rectangle.left;
+        const end = rectangle.right;
+        const progress = e.pageX;
+
+        const percent = Math.min(Math.max((progress - start) / (end - start), 0), 1);
+
+        player.getDuration(duration => {
+            player.seekTo(Math.floor(duration * percent));
+        });
+    }
+
     const handleFinish = () => {
         dispatch(setNewRandomTrackRadioMode());
     }
 
     const handleClose = () => {
         dispatch(setPlayerCurrentSong(null));
+    }
+
+    window.onresize = () => {
+        if (radioMode && window.innerWidth <= 768) {
+            dispatch(setPlayerRadioMode(false));
+        }
     }
 
     if (songs.length === 0) {
@@ -98,8 +112,8 @@ const Player = () => {
                     <h3>{song !== null ? song.name : ''}</h3>
                     <div className="player-info-controls">
                         <button type="button" onClick={handlePlayPause}><FontAwesomeIcon icon={playing ? faPause : faPlay} /></button>
-                        <label><input type="checkbox" onChange={handleRadioMode} />Radio Mode</label>
-                        <progress value={progressPercent} max="100"></progress>
+                        <label><input type="checkbox" onChange={handleRadioMode} checked={radioMode} />Radio Mode</label>
+                        <progress value={progressPercent} max="100" onClick={handleProgressClick}></progress>
                         <button type="button" onClick={handleClose}><FontAwesomeIcon icon={faTimes} /></button>
                     </div>
                 </div>
@@ -111,8 +125,8 @@ const Player = () => {
                 allow="autoplay"
                 scrolling="no"
                 frameBorder="no"
-                /*style={{ display: 'none' }}*/
-                src={`https://w.soundcloud.com/player/?url=https://api.soundcloud.com/tracks/${songs[0].id}`} />
+                style={{ display: 'none' }}
+                src={`https://w.soundcloud.com/player/?url=https://api.soundcloud.com/tracks/${songs[0].id}?hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false`} />
         </div>
     );
 }
