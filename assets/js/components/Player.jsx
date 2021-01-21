@@ -30,11 +30,8 @@ const Player = () => {
     }, []);
 
     useEffect(() => {
-        setProgressTime(0);
-        setProgressPercent(0);
-
         if (song !== null) {
-            player.load(`https://api.soundcloud.com/tracks/${song.id}?auto_play=${playing ? 'true' : 'false'}&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false`, { auto_play: playing });
+            player.load(`https://api.soundcloud.com/tracks/${song.id}?auto_play=${playing ? 'true' : 'false'}&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false`, { auto_play: playing, callback: handleLoaded });
         }
     }, [song]);
 
@@ -50,7 +47,15 @@ const Player = () => {
                 }
             });
         }
-    }, [progressTime])
+    }, [progressTime]);
+
+    const handleLoaded = () => {
+        setProgressTime(0);
+        setProgressPercent(0);
+        if (playing) {
+            player.play();
+        }
+    }
 
     const handlePlayPause = () => {
         player.toggle();
@@ -96,13 +101,8 @@ const Player = () => {
 
     const handleClose = () => {
         player.pause();
+        dispatch(setPlayerPlaying(false));
         dispatch(setPlayerCurrentSong(null));
-    }
-
-    window.onresize = () => {
-        if (radioMode && window.innerWidth <= 768) {
-            dispatch(setPlayerRadioMode(false));
-        }
     }
 
     if (songs.length === 0) {
@@ -114,13 +114,15 @@ const Player = () => {
             <div className="player-info">
                 <img src={song !== null ? song.image : ''} alt={song !== null ? song.name : ''} />
                 <div className="player-info-side">
-                    <h3>{song !== null ? song.name : ''}</h3>
-                    <div className="player-info-controls">
-                        <button type="button" onClick={handlePlayPause}><FontAwesomeIcon icon={playing ? faPause : faPlay} /></button>
-                        <label><input type="checkbox" onChange={handleRadioMode} checked={radioMode} />Radio Mode</label>
-                        <progress value={progressPercent} max="100" onClick={handleProgressClick}></progress>
+                    <div className="player-info-title">
+                        <h3>{song !== null ? song.name : ''}</h3>
                         <button type="button" onClick={handleClose}><FontAwesomeIcon icon={faTimes} /></button>
                     </div>
+                    <div className="player-info-controls">
+                        <button type="button" onClick={handlePlayPause}><FontAwesomeIcon icon={playing ? faPause : faPlay} /></button>
+                        <progress value={progressPercent} max="100" onClick={handleProgressClick}></progress>
+                    </div>
+                    <label><input type="checkbox" onChange={handleRadioMode} checked={radioMode} />Radio Mode</label>
                 </div>
             </div>
             <iframe

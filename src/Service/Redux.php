@@ -87,7 +87,7 @@ class Redux extends AbstractExtension
             $state['videos'][] = $video->getYoutubeId();
         }
 
-        $transitions = $this->entityManager->getRepository(Transition::class)->findAll();
+        $transitions = $this->entityManager->getRepository(Transition::class)->findBy([], ['id' => 'desc']);
         foreach ($transitions as $transition) {
             $state['transitions'][] = '/transitions/' . $transition->getFileName();
         }

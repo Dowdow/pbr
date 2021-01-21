@@ -5,8 +5,12 @@
   bottom: 0;
   left: 0;
   right: 0;
-  width: 50%;
+  width: 35%;
   margin: 0 auto;
+
+  @media screen and (max-width: $breakLarge) {
+    width: 50%;
+  }
 
   @media screen and (max-width: $breakMedium) {
     width: 60%;
@@ -29,57 +33,70 @@
       height: 100px;
     }
 
+    & button {
+      border: none;
+      cursor: pointer;
+      outline: none;
+      background-color: transparent;
+      color: $primaryColor;
+      padding: 5px;
+      align-self: flex-start;
+
+      & svg {
+        height: 20px;
+        width: 20px;
+      }
+    }
+
     & .player-info-side {
       display: flex;
       flex-direction: column;
       flex-grow: 2;
       justify-content: space-evenly;
 
-      & h3 {
-        font-size: 16px;
+      & .player-info-title {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        & h3 {
+          font-size: 16px;
+          margin: 5px 0 5px 10px;
+
+          @media screen and (max-width: $breakSmall) {
+            font-size: 14px;
+          }
+        }
+      }
+
+      & .player-info-controls {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
         margin: 0 10px;
 
         @media screen and (max-width: $breakSmall) {
-          font-size: 14px;
+          margin-right: 0;
         }
-      }
-    }
 
-    & .player-info-controls {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-      margin: 0 10px;
-
-      @media screen and (max-width: $breakSmall) {
-        margin-right: 0;
-      }
-
-      & progress {
-        flex-grow: 2;
-        height: 20px;
+        & progress {
+          flex-grow: 2;
+          height: 20px;
+          margin-right: 10px;
+          cursor: pointer;
+        }
       }
 
       & label {
-        margin-right: 10px;
-
-        @media screen and (max-width: $breakSmall) {
-          display: none;
-        }
-      }
-
-      & button {
-        border: none;
+        display: flex;
+        align-self: center;
+        align-items: center;
         cursor: pointer;
-        outline: none;
-        background-color: transparent;
-        color: $primaryColor;
-        padding: 5px;
 
-        & svg {
-          height: 20px;
-          width: 20px;
+        & input[type="checkbox"] {
+          flex: none;
         }
       }
     }
