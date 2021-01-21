@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\Song;
+use App\Entity\Transition;
 use App\Entity\User;
 use App\Entity\Video;
 use Doctrine\ORM\EntityManagerInterface;
@@ -57,6 +58,7 @@ class Redux extends AbstractExtension
             'user' => false,
             'songs' => [],
             'videos' => [],
+            'transitions' => [],
         ];
 
         $token = $this->tokenStorage->getToken();
@@ -83,6 +85,11 @@ class Redux extends AbstractExtension
         $videos = $this->entityManager->getRepository(Video::class)->findBy(['activated' => true], ['sort' => 'desc']);
         foreach ($videos as $video) {
             $state['videos'][] = $video->getYoutubeId();
+        }
+
+        $transitions = $this->entityManager->getRepository(Transition::class)->findAll();
+        foreach ($transitions as $transition) {
+            $state['transitions'][] = '/transitions/' . $transition->getFileName();
         }
 
         return json_encode($state);

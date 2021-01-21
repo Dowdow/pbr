@@ -5,7 +5,7 @@ const init = { currentSong: null, playing: false, radioMode: false };
 export default function player(state = init, action = {}) {
     switch (action.type) {
         case SET_PLAYER_CURRENT_SONG:
-            return { ...state, currentSong: action.song };
+            return { ...state, currentSong: action.song, playing: window.innerWidth <= 768 ? false : state.playing };
         case SET_PLAYER_PLAYING:
             return { ...state, playing: action.playing };
         case SET_PLAYER_RADIO_MODE:

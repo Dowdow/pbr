@@ -2,6 +2,7 @@
 
 /.env.local
 /public/bundles/
+/public/transitions/
 /var/
 /vendor/
 

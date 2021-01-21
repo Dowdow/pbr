@@ -30,7 +30,7 @@ const Videos = () => {
     }
 
     return (
-        <div className="videos" style={{ height }}>
+        <div className="videos" style={{ minHeight: height }}>
             <div className="title">
                 <button type="button" className="previous_small" onClick={handlePreviousVideo}>&lt;</button>
                 <h2>{indexVideo}/{videos.length}</h2>

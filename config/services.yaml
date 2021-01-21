@@ -13,6 +13,8 @@ parameters:
   base_host: '%env(BASE_HOST)%'
   shop_host: '%env(SHOP_HOST)%'
 
+  transitions_directory: '%kernel.project_dir%/public/transitions'
+
 services:
   # default configuration for services in *this* file
   _defaults:

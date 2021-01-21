@@ -1,0 +1,41 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block content %}
+    <div style="display: flex; flex-direction: row; justify-content: space-between">
+        <h2>Transitions</h2>
+        <a href="{{ path('admin_transitions_create') }}" style="align-self: center;"
+           class="btn btn-primary active" role="button" aria-pressed="true">Add a transition</a>
+    </div>
+    <div class="row">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Audio</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for transition in transitions %}
+                <tr>
+                    <td>{{ transition.id }}</td>
+                    <td>{{ transition.name }}</td>
+                    <td><audio controls src="{{ asset('transitions/' ~ transition.fileName) }}"></audio></td>
+                    <td>
+                        <a href="{{ path('admin_transitions_edit', {'id': transition.id}) }}"
+                           class="btn btn-primary" role="button" aria-pressed="true">Edit</a>
+                    </td>
+                    <td>
+                        <form method="post">
+                            <button type="submit" name="delete_transition" value="{{ transition.id }}" class="btn btn-danger">Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

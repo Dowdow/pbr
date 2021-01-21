@@ -4,8 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faPause, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { setPlayerCurrentSong, setPlayerPlaying, setPlayerRadioMode, setNewRandomTrackRadioMode } from '../actions/player';
 
-const transitions = ['/audio/transi1.wav', '/audio/transi2.wav', '/audio/transi3.wav'];
-
 const Player = () => {
     const dispatch = useDispatch();
 
@@ -13,6 +11,7 @@ const Player = () => {
     const song = useSelector(state => state.player.currentSong);
     const playing = useSelector(state => state.player.playing);
     const radioMode = useSelector(state => state.player.radioMode);
+    const transitions = useSelector(state => state.transitions);
 
     const [player, setPlayer] = useState(null);
     const [transitionIndex, setTransitionIndex] = useState(0);
