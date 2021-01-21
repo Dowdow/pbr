@@ -58,9 +58,11 @@ const Player = () => {
     }
 
     const handlePlayTransition = () => {
-        const transition = new Audio(transitions[transitionIndex]);
-        transition.play();
-        setTransitionIndex(transitionIndex + 1 === transitions.length ? 0 : transitionIndex + 1);
+        if (transitions.length > 0) {
+            const transition = new Audio(transitions[transitionIndex]);
+            transition.play();
+            setTransitionIndex(transitionIndex + 1 === transitions.length ? 0 : transitionIndex + 1);
+        }
     }
 
     const handleRadioMode = () => {
