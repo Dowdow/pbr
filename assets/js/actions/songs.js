@@ -1,5 +1,8 @@
 export const ADD_SONG_PLAYS = 'ADD_SONG_PLAYS';
 
-export function addSongPlays(id) {
-    return dispatch => dispatch({ type: ADD_SONG_PLAYS, id })
+export function addCurrentSongPlays() {
+    return (dispatch, getState) => {
+        const { currentSong } = getState().player;
+        dispatch({ type: ADD_SONG_PLAYS, id: currentSong.id });
+    }
 }

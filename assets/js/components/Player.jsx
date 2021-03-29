@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faPause, faTimes, faStepForward } from '@fortawesome/free-solid-svg-icons';
 import { setPlayerCurrentSong, setPlayerPlaying, setPlayerShuffle, setNewTrack } from '../actions/player';
-import { addSongPlays } from '../actions/songs';
+import { addCurrentSongPlays } from '../actions/songs';
 
 const Player = () => {
     const dispatch = useDispatch();
@@ -64,7 +64,7 @@ const Player = () => {
     }
 
     const handleNext = () => {
-        dispatch(addSongPlays(song.id));
+        dispatch(addCurrentSongPlays());
         dispatch(setNewTrack());
     }
 
@@ -99,7 +99,7 @@ const Player = () => {
     }
 
     const handleFinish = () => {
-        dispatch(addSongPlays(song.id));
+        dispatch(addCurrentSongPlays());
         dispatch(setNewTrack());
     }
 
