@@ -1,6 +1,6 @@
-import { SET_PLAYER_CURRENT_SONG, SET_PLAYER_PLAYING, SET_PLAYER_RADIO_MODE } from '../actions/player';
+import { SET_PLAYER_CURRENT_SONG, SET_PLAYER_PLAYING, SET_PLAYER_SHUFFLE_MODE } from '../actions/player';
 
-const init = { currentSong: null, playing: false, radioMode: false };
+export const init = { currentSong: null, playing: false, shuffle: false };
 
 export default function player(state = init, action = {}) {
     switch (action.type) {
@@ -8,8 +8,8 @@ export default function player(state = init, action = {}) {
             return { ...state, currentSong: action.song };
         case SET_PLAYER_PLAYING:
             return { ...state, playing: action.playing };
-        case SET_PLAYER_RADIO_MODE:
-            return { ...state, radioMode: action.on };
+        case SET_PLAYER_SHUFFLE_MODE:
+            return { ...state, shuffle: action.on };
         default:
             return state;
     }

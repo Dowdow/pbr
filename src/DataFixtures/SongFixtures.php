@@ -8,7 +8,7 @@ use Doctrine\Persistence\ObjectManager;
 
 class SongFixtures extends Fixture
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $song1 = (new Song())
             ->setSoundcloudId('806509507')

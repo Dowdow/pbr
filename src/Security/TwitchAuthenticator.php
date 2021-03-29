@@ -79,10 +79,9 @@ class TwitchAuthenticator extends AbstractGuardAuthenticator
      *     return new Response('Auth header required', 401);
      *
      * @param Request $request The request that resulted in an AuthenticationException
-     * @param AuthenticationException $authException The exception that started the authentication process
+     * @param AuthenticationException|null $authException The exception that started the authentication process
      *
      * @return RedirectResponse
-     * @throws Exception
      */
     public function start(Request $request, AuthenticationException $authException = null): RedirectResponse
     {
@@ -128,7 +127,7 @@ class TwitchAuthenticator extends AbstractGuardAuthenticator
      *
      * @throws UnexpectedValueException If null is returned
      */
-    public function getCredentials(Request $request)
+    public function getCredentials(Request $request): ?array
     {
         if (!$this->csrfTokenManager->isTokenValid(new CsrfToken('oauth_authorize_state', $request->query->get('state')))) {
             return null;
@@ -163,7 +162,7 @@ class TwitchAuthenticator extends AbstractGuardAuthenticator
      *
      * @throws Exception
      */
-    public function getUser($credentials, UserProviderInterface $userProvider): UserInterface
+    public function getUser($credentials, UserProviderInterface $userProvider): ?UserInterface
     {
         $twitchUser = $this->twitchService->getUser($credentials['token']);
         if ($twitchUser === null) {
@@ -247,7 +246,7 @@ class TwitchAuthenticator extends AbstractGuardAuthenticator
      *
      * @return Response|null
      */
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey): ?Response
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey): ?Response
     {
         return null;
     }

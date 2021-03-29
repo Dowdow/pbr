@@ -8,7 +8,7 @@ use Doctrine\Persistence\ObjectManager;
 
 class VideoFixtures extends Fixture
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $video1 = (new Video())
             ->setYoutubeId('AZEHOuhgwg4')

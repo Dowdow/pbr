@@ -18,7 +18,7 @@ class TwitchIDVoter extends Voter
      *
      * @return bool True if the attribute and subject are supported, false otherwise
      */
-    protected function supports($attribute, $subject)
+    protected function supports(string $attribute, $subject): bool
     {
         return $attribute === 'TWITCH_ID';
     }
@@ -33,7 +33,7 @@ class TwitchIDVoter extends Voter
      *
      * @return bool
      */
-    protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
 
@@ -41,6 +41,6 @@ class TwitchIDVoter extends Voter
             return false;
         }
 
-        return in_array($user->getTwitchId(), self::AUTHORIZED_USERS);
+        return in_array($user->getTwitchId(), self::AUTHORIZED_USERS, true);
     }
 }

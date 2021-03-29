@@ -16,7 +16,7 @@ class TwitchService
 
     /**
      * TwitchService constructor.
-     * 
+     *
      * @param HttpClientInterface $httpClient
      * @param array $twitchParameters
      */
@@ -27,21 +27,21 @@ class TwitchService
     }
 
     /**
-     * @param $authorization_code string
-     * @param $state string
+     * @param string $authorization_code
+     * @param string $state
      * @return mixed
      */
-    public function getAccessToken($authorization_code, $state)
+    public function getAccessToken(string $authorization_code, string $state)
     {
         $response = $this->httpClient->request(
             'POST',
             'https://id.twitch.tv/oauth2/token' .
-                '?client_id=' . $this->twitchParameters['client_id'] .
-                '&client_secret=' . $this->twitchParameters['client_secret'] .
-                '&grant_type=' . 'authorization_code' .
-                '&redirect_uri=' . $this->twitchParameters['redirect'] .
-                '&code=' . $authorization_code .
-                '&state=' . $state
+            '?client_id=' . $this->twitchParameters['client_id'] .
+            '&client_secret=' . $this->twitchParameters['client_secret'] .
+            '&grant_type=' . 'authorization_code' .
+            '&redirect_uri=' . $this->twitchParameters['redirect'] .
+            '&code=' . $authorization_code .
+            '&state=' . $state
         );
 
         return json_decode($response->getContent(), true);
@@ -51,9 +51,9 @@ class TwitchService
      * @param $token
      * @return array
      */
-    public function getUser($token)
+    public function getUser($token): array
     {
-        $response =  $this->httpClient->request(
+        $response = $this->httpClient->request(
             'GET',
             'https://api.twitch.tv/helix/users',
             ['headers' => ['Authorization' => 'Bearer ' . $token, 'Client-Id' => $this->twitchParameters['client_id']]]
@@ -65,7 +65,7 @@ class TwitchService
     /**
      * @return mixed
      */
-    public function isStreamOnline()
+    public function isStreamOnline(): bool
     {
         $cache = new FilesystemAdapter();
         try {

@@ -8,7 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 class RankingService
 {
     /** @var EntityManagerInterface */
-    private $em;
+    private EntityManagerInterface $em;
 
     /**
      * RankingService constructor.
@@ -22,7 +22,7 @@ class RankingService
     /**
      * @return array
      */
-    public function getTop10()
+    public function getTop10(): array
     {
         $ranking = [];
         $users = $this->em->getRepository(User::class)->findRanking();

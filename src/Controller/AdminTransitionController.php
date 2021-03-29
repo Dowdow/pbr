@@ -10,7 +10,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -35,17 +37,15 @@ class AdminTransitionController extends AbstractController
         $transitionRepo = $em->getRepository(Transition::class);
 
         // HANDLE CHANGES
-        if ($request->isMethod(Request::METHOD_POST)) {
-            // TRANSITION DELETE
-            if ($request->request->has('delete_transition')) {
-                $transitionId = $request->request->get('delete_transition');
-                $transitionToDelete = $transitionRepo->find($transitionId);
-                if ($transitionToDelete !== null) {
-                    $filesytem = new Filesystem();
-                    $filesytem->remove($this->getParameter('transitions_directory') . '/' . $transitionToDelete->getFileName());
+        // TRANSITION DELETE
+        if ($request->isMethod(Request::METHOD_POST) && $request->request->has('delete_transition')) {
+            $transitionId = $request->request->get('delete_transition');
+            $transitionToDelete = $transitionRepo->find($transitionId);
+            if ($transitionToDelete !== null) {
+                $filesytem = new Filesystem();
+                $filesytem->remove($this->getParameter('transitions_directory') . '/' . $transitionToDelete->getFileName());
 
-                    $em->remove($transitionToDelete);
-                }
+                $em->remove($transitionToDelete);
             }
         }
 
@@ -65,6 +65,7 @@ class AdminTransitionController extends AbstractController
      *
      * @param Request $request
      * @return Response|RedirectResponse
+     * @throws Exception
      */
     public function createTransitionAction(Request $request)
     {
@@ -79,7 +80,7 @@ class AdminTransitionController extends AbstractController
             $file = $transitionForm->get('file')->getData();
             if ($file) {
                 $transitionDirectory = $this->getParameter('transitions_directory');
-                $filename = 'transition-' . uniqid() . '.' . $file->guessExtension();
+                $filename = 'transition-' . uniqid('', true) . '.' . $file->guessExtension();
 
                 try {
                     $file->move($transitionDirectory, $filename);
@@ -109,6 +110,7 @@ class AdminTransitionController extends AbstractController
      * @param Request $request
      * @param Transition $transition
      * @return Response|RedirectResponse
+     * @throws Exception
      */
     public function updateTransitionAction(Request $request, Transition $transition)
     {
@@ -122,7 +124,7 @@ class AdminTransitionController extends AbstractController
             $file = $transitionForm->get('file')->getData();
             if ($file) {
                 $transitionDirectory = $this->getParameter('transitions_directory');
-                $filename = 'transition-' . uniqid() . '.' . $file->guessExtension();
+                $filename = 'transition-' . uniqid('', true) . '.' . $file->guessExtension();
 
                 try {
                     $file->move($transitionDirectory, $filename);

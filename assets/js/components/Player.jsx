@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlay, faPause, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { setPlayerCurrentSong, setPlayerPlaying, setPlayerRadioMode, setNewRandomTrackRadioMode } from '../actions/player';
+import { faPlay, faPause, faTimes, faStepForward } from '@fortawesome/free-solid-svg-icons';
+import { setPlayerCurrentSong, setPlayerPlaying, setPlayerShuffle, setNewTrack } from '../actions/player';
+import { addSongPlays } from '../actions/songs';
 
 const Player = () => {
     const dispatch = useDispatch();
@@ -10,7 +11,7 @@ const Player = () => {
     const songs = useSelector(state => state.songs);
     const song = useSelector(state => state.player.currentSong);
     const playing = useSelector(state => state.player.playing);
-    const radioMode = useSelector(state => state.player.radioMode);
+    const shuffle = useSelector(state => state.player.shuffle);
     const transitions = useSelector(state => state.transitions);
 
     const [player, setPlayer] = useState(null);
@@ -36,7 +37,7 @@ const Player = () => {
     }, [song]);
 
     useEffect(() => {
-        if (player !== null && radioMode) {
+        if (player !== null) {
             player.getDuration(duration => {
                 const timeRemaining = Math.floor(duration / 1000) - progressTime;
                 if (timeRemaining > 0 && timeRemaining < 6) {
@@ -62,19 +63,21 @@ const Player = () => {
         dispatch(setPlayerPlaying(!playing));
     }
 
+    const handleNext = () => {
+        dispatch(addSongPlays(song.id));
+        dispatch(setNewTrack());
+    }
+
     const handlePlayTransition = () => {
         if (transitions.length > 0) {
-            const transition = new Audio(transitions[transitionIndex]);
+            const transition = new Audio(transitions[transitionIndex]['file']);
             transition.play();
             setTransitionIndex(transitionIndex + 1 === transitions.length ? 0 : transitionIndex + 1);
         }
     }
 
-    const handleRadioMode = () => {
-        if (radioMode) {
-            player.setVolume(100);
-        }
-        dispatch(setPlayerRadioMode(!radioMode));
+    const handleShuffle = () => {
+        dispatch(setPlayerShuffle(!shuffle));
     }
 
     const handleProgress = (progress) => {
@@ -96,7 +99,8 @@ const Player = () => {
     }
 
     const handleFinish = () => {
-        dispatch(setNewRandomTrackRadioMode());
+        dispatch(addSongPlays(song.id));
+        dispatch(setNewTrack());
     }
 
     const handleClose = () => {
@@ -120,9 +124,10 @@ const Player = () => {
                     </div>
                     <div className="player-info-controls">
                         <button type="button" onClick={handlePlayPause}><FontAwesomeIcon icon={playing ? faPause : faPlay} /></button>
+                        <button type="button" onClick={handleNext}><FontAwesomeIcon icon={faStepForward} /></button>
                         <progress value={progressPercent} max="100" onClick={handleProgressClick}></progress>
                     </div>
-                    <label><input type="checkbox" onChange={handleRadioMode} checked={radioMode} />Radio Mode</label>
+                    <label><input type="checkbox" onChange={handleShuffle} checked={shuffle} />Shuffle</label>
                 </div>
             </div>
             <iframe

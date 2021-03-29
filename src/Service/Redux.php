@@ -15,16 +15,16 @@ use Twig\TwigFunction;
 class Redux extends AbstractExtension
 {
     /** @var TokenStorageInterface */
-    private $tokenStorage;
+    private TokenStorageInterface $tokenStorage;
 
     /** @var EntityManagerInterface */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     /** @var RankingService */
-    private $rankingService;
+    private RankingService $rankingService;
 
     /** @var Security */
-    private $security;
+    private Security $security;
 
     /**
      * Redux constructor.
@@ -73,13 +73,17 @@ class Redux extends AbstractExtension
             }
         }
 
+        $i = 0;
         $songs = $this->entityManager->getRepository(Song::class)->findBy(['activated' => true,], ['createdAt' => 'desc']);
         foreach ($songs as $song) {
             $state['songs'][] = [
                 'id' => $song->getSoundcloudId(),
                 'name' => $song->getName(),
                 'image' => $song->getImage(),
+                'order' => $i,
+                'plays' => 0,
             ];
+            $i++;
         }
 
         $videos = $this->entityManager->getRepository(Video::class)->findBy(['activated' => true], ['sort' => 'desc']);
@@ -89,7 +93,10 @@ class Redux extends AbstractExtension
 
         $transitions = $this->entityManager->getRepository(Transition::class)->findBy([], ['id' => 'desc']);
         foreach ($transitions as $transition) {
-            $state['transitions'][] = '/transitions/' . $transition->getFileName();
+            $state['transitions'][] = [
+                'file' => '/transitions/' . $transition->getFileName(),
+                'plays' => 0,
+            ] ;
         }
 
         return json_encode($state);
