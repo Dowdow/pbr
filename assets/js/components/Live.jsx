@@ -19,7 +19,7 @@ const Live = () => {
                 width: '100%',
                 height: 500,
                 layout: 'video',
-                channel: 'painboudinrecord',
+                channel: 'pbdr_music',
                 parent: ['painboudinrecord.fr', 'pbr.local'],
             });
 
@@ -52,7 +52,7 @@ const Live = () => {
                 <div id="twitch-chat">
                     <iframe frameBorder="0"
                         scrolling="no"
-                        src="https://www.twitch.tv/embed/painboudinrecord/chat?parent=www.painboudinrecord.fr&parent=pbr.local"
+                        src="https://www.twitch.tv/embed/pbdr_music/chat?parent=www.painboudinrecord.fr&parent=pbr.local"
                         height="500"
                         width="100%">
                     </iframe>

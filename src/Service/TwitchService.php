@@ -80,7 +80,7 @@ class TwitchService
 
         $response = $this->httpClient->request(
             'GET',
-            'https://api.twitch.tv/helix/streams?user_login=painboudinrecord',
+            'https://api.twitch.tv/helix/streams?user_login=pbdr_music',
             ['headers' => ['Client-ID' => $this->twitchParameters['client_id']]]
         );
 
