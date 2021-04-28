@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { computeHeight } from '../utils/resize';
+import pbdr from '../../img/pbdr.png';
 
 const Home = () => {
     const [height, setHeight] = useState(computeHeight());
@@ -10,9 +11,7 @@ const Home = () => {
 
     return (
         <div className="home" style={{ height }}>
-            <h1>P</h1>
-            <h1>B</h1>
-            <h1>R</h1>
+            <img src={pbdr} alt="Pain Boudin Record Logo" style={{ height: height - 150}}/>
         </div>
     );
 };
