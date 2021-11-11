@@ -261,6 +261,9 @@
     "symfony/orm-pack": {
         "version": "v1.0.5"
     },
+    "symfony/password-hasher": {
+        "version": "v5.3.8"
+    },
     "symfony/polyfill-intl-grapheme": {
         "version": "v1.18.1"
     },
@@ -282,8 +285,8 @@
     "symfony/polyfill-php80": {
         "version": "v1.18.1"
     },
-    "symfony/profiler-pack": {
-        "version": "v1.0.3"
+    "symfony/polyfill-php81": {
+        "version": "v1.23.0"
     },
     "symfony/property-access": {
         "version": "v4.1.6"

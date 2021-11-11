@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 import Home from './Home';
@@ -10,13 +10,13 @@ import Player from './Player';
 
 const App = () =>
     <div className="app">
-        <Route component={Header} />
-        <Switch location={location}>
-            <Route exact path='/' component={Home} key="home" />
-            <Route exact path='/songs' component={Songs} key="songs" />
-            <Route exact path='/videos' component={Videos} key="videos" />
-            <Route exact path='/live' component={Live} key="live" />
-        </Switch>
+        <Header />
+        <Routes location={location}>
+            <Route path='/' element={<Home />} key="home" />
+            <Route path='/songs' element={<Songs />} key="songs" />
+            <Route path='/videos' element={<Videos />} key="videos" />
+            <Route path='/live' element={<Live />} key="live" />
+        </Routes>
         <Player />
         <Footer />
     </div>
