@@ -1,4 +1,6 @@
 security:
+  enable_authenticator_manager: true
+
   providers:
     main:
       entity:
@@ -7,12 +9,10 @@ security:
 
   firewalls:
     main:
-      anonymous: ~
       logout: ~
-      guard:
-        authenticators:
+      custom_authenticators:
         - App\Security\TwitchAuthenticator
 
   access_control:
-  - { path: ^/_wdt/.*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-  - { path: ^/_profiler/.*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/_wdt/.*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/_profiler/.*, roles: IS_AUTHENTICATED_ANONYMOUSLY }

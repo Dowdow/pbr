@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import YouTube from 'react-youtube';
-import { computeHeight } from '../utils/resize';
 
 const Videos = () => {
-    const [height, setHeight] = useState(computeHeight());
     const videos = useSelector(state => state.videos);
 
     const [indexVideo, setIndexVideo] = useState(1);
@@ -25,18 +23,15 @@ const Videos = () => {
         }
     }
 
-    window.onresize = () => {
-        setHeight(computeHeight());
-    }
-
     return (
-        <div className="videos" style={{ minHeight: height }}>
-            <div className="title">
+        <div className="videos">
+            <h2 className="videos-title">VIDEOS</h2>
+            <div className="videos-header">
                 <button type="button" className="previous_small" onClick={handlePreviousVideo}>&lt;</button>
-                <h2>{indexVideo}/{videos.length}</h2>
+                <span>{indexVideo}/{videos.length}</span>
                 <button type="button" className="next_small" onClick={handleNextVideo}>&gt;</button>
             </div>
-            <div className="video">
+            <div className="videos-item">
                 <button type="button" className="previous" onClick={handlePreviousVideo}>&lt;</button>
                 <YouTube videoId={videos[indexVideo - 1]} />
                 <button type="button" className="next" onClick={handleNextVideo}>&gt;</button>

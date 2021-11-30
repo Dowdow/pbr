@@ -1,7 +1,6 @@
 .player {
   position: fixed;
-  background-color: $secondaryColor;
-  color: $primaryColor;
+  background: $textColor;
   bottom: 0;
   left: 0;
   right: 0;
@@ -38,7 +37,6 @@
       cursor: pointer;
       outline: none;
       background-color: transparent;
-      color: $primaryColor;
       padding: 5px;
       align-self: flex-start;
 

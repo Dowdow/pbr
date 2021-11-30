@@ -1,9 +1,88 @@
 .home {
   width: 100%;
+  padding-top: 100px;
+  padding-bottom: 100px;
+  background-color: $homeColor;
 
-  & img {
-    display: block;
-    margin: 0 auto;
-    padding-top: 75px;
+  &-image {
+    width: 100%;
+
+    & img {
+      display: block;
+      margin: 0 auto;
+      width: 50%;
+
+      @media screen and (max-width: $breakLarge) {
+        width: 60%;
+      }
+
+      @media screen and (max-width: $breakMedium) {
+        width: 70%;
+      }
+
+      @media screen and (max-width: $breakSmall) {
+        width: 80%;
+      }
+    }
+  }
+
+  &-connect {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding-top: 10px;
+    padding-right: 10px;
+
+    &-sign {
+      & button {
+        font-size: 20px;
+        font-weight: normal;
+        height: 35px;
+        border: none;
+        cursor: pointer;
+        color: $textColor;
+        background: $twitchColor;
+        border-radius: 2px;
+
+        & span {
+          margin-left: 5px;
+
+          @media screen and (max-width: $breakSmall) {
+            display: none;
+          }
+        }
+      }
+    }
+
+    &-user {
+      display: flex;
+      flex-direction: row;
+
+      & .left {
+        display: flex;
+        flex-direction: column;
+        align-self: center;
+        padding-right: 10px;
+        text-align: right;
+
+        & span {
+          color: $textColor;
+          margin-bottom: 5px;
+        }
+
+        & a {
+          color: $textColor;
+          text-decoration: none;
+          margin-bottom: 5px;
+        }
+      }
+
+      & .right {
+        & img {
+          height: 70px;
+          width: 70px;
+        }
+      }
+    }
   }
 }

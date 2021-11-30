@@ -2,17 +2,15 @@
 
 namespace App\Service;
 
-use Exception;
-use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class TwitchService
 {
     /** @var HttpClientInterface */
-    private $httpClient;
+    private HttpClientInterface $httpClient;
 
     /** @var array */
-    private $twitchParameters;
+    private array $twitchParameters;
 
     /**
      * TwitchService constructor.
@@ -60,41 +58,5 @@ class TwitchService
         );
 
         return json_decode($response->getContent(), true);
-    }
-
-    /**
-     * @return mixed
-     */
-    public function isStreamOnline(): bool
-    {
-        $cache = new FilesystemAdapter();
-        try {
-            $isOnline = $cache->getItem('stream.is_online');
-        } catch (Exception $e) {
-            return false;
-        }
-
-        if ($isOnline->isHit()) {
-            return $isOnline->get();
-        }
-
-        $response = $this->httpClient->request(
-            'GET',
-            'https://api.twitch.tv/helix/streams?user_login=pbdr_music',
-            ['headers' => ['Client-ID' => $this->twitchParameters['client_id']]]
-        );
-
-        $stream = json_decode($response->getContent(), true);
-
-        if ($stream === null || empty($stream['data'])) {
-            $isOnline->set(false);
-        } else {
-            $isOnline->set(true);
-        }
-
-        $isOnline->expiresAfter(600);
-        $cache->save($isOnline);
-
-        return $isOnline->get();
     }
 }

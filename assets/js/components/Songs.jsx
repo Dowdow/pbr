@@ -12,7 +12,8 @@ const Songs = () => {
     }
 
     return (
-        <div className="container song">
+        <div className="song">
+            <h2 className="song-title">SONGS</h2>
             {songs.map((song, index) =>
                 <div key={index} className="song-item" onClick={() => handleSelectSong(song)}>
                     <img src={song.image} alt={song.name} />

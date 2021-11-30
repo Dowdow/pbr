@@ -2,9 +2,7 @@
 
 namespace App\Entity;
 
-use DateTime;
 use Doctrine\ORM\Mapping as ORM;
-use Exception;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -17,55 +15,41 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class User implements UserInterface
 {
     /**
-     * @var int
+     * @var int|null
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @var string
      *
      * @ORM\Column(name="email", type="string", unique=true)
      */
-    private $email;
+    private string $email;
 
     /**
      * @var string
      *
      * @ORM\Column(name="username", type="string")
      */
-    private $username;
+    private string $username;
 
     /**
      * @var string
      *
      * @ORM\Column(name="picture", type="string")
      */
-    private $picture;
+    private string $picture;
 
     /**
      * @var string
      *
      * @ORM\Column(name="twitch_id", type="string", unique=true)
      */
-    private $twitchId;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="score", type="integer")
-     */
-    private $score;
-
-    /**
-     * @var DateTime
-     *
-     * @ORM\Column(name="last_score_update", type="datetime")
-     */
-    private $lastScoreUpdate;
+    private string $twitchId;
 
     /**
      * User constructor.
@@ -73,7 +57,6 @@ class User implements UserInterface
      * @param string $name
      * @param string $picture
      * @param string $twitchId
-     * @throws Exception
      */
     public function __construct(string $email, string $name, string $picture, string $twitchId)
     {
@@ -81,8 +64,6 @@ class User implements UserInterface
         $this->username = $name;
         $this->picture = $picture;
         $this->twitchId = $twitchId;
-        $this->score = 0;
-        $this->lastScoreUpdate = new DateTime();
     }
 
     /**
@@ -162,42 +143,6 @@ class User implements UserInterface
     public function setTwitchId(int $twitchId): User
     {
         $this->twitchId = $twitchId;
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getScore(): int
-    {
-        return $this->score;
-    }
-
-    /**
-     * @param int $score
-     * @return User
-     */
-    public function setScore(int $score): User
-    {
-        $this->score = $score;
-        return $this;
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function getLastScoreUpdate(): ?DateTime
-    {
-        return $this->lastScoreUpdate;
-    }
-
-    /**
-     * @param DateTime $lastScoreUpdate
-     * @return User
-     */
-    public function setLastScoreUpdate(DateTime $lastScoreUpdate): User
-    {
-        $this->lastScoreUpdate = $lastScoreUpdate;
         return $this;
     }
 

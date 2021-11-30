@@ -1,64 +1,23 @@
 .live {
-  &_user {
-    padding: 40px 5% 0;
+  position: relative;
+  width: 100%;
+  padding-top: 100px;
+  padding-bottom: 100px;
+  background-color: $liveColor;
 
-    & img {
-      height: 60px;
-      width: 60px;
-    }
+  &-title {
+		position: absolute;
+		top: 0;
+		right: 0;
+		left: 0;
+		text-align: center;
+		color: rgba($color: $textColor, $alpha: 0.5);
+		margin: 0 auto;
+		font-size: 200px;
+		z-index: 1;
+	}
 
-    & h2 {
-      font-size: 30px;
-      font-weight: bold;
-      margin: 5px 0;
-      color: $textColor;
-
-      @media screen and (max-width: $breakSmall) {
-        font-size: 20px;
-      }
-    }
-
-    & a {
-      font-size: 24px;
-      font-weight: normal;
-      color: $textColor;
-      text-decoration: none;
-
-      @media screen and (max-width: $breakSmall) {
-        font-size: 18px;
-      }
-    }
-
-    & p {
-      font-size: 26px;
-      font-weight: normal;
-      margin: 5px 0;
-      color: $textColor;
-
-      @media screen and (max-width: $breakSmall) {
-        font-size: 16px;
-      }
-    }
-  }
-
-  &_connect {
-    & form {
-      width: 100%;
-
-      & button {
-        font-size: 20px;
-        font-weight: normal;
-        height: 70px;
-        width: 100%;
-        border: none;
-        cursor: pointer;
-        color: $textColor;
-        background: $twitchColor;
-      }
-    }
-  }
-
-  &_players {
+  &-players {
     display: flex;
     flex-direction: row;
 
@@ -68,6 +27,7 @@
 
     #twitch-embed {
       width: 70%;
+      z-index: 2;
 
       @media screen and (max-width: $breakSmall) {
         width: 100%;
@@ -76,54 +36,10 @@
 
     #twitch-chat {
       width: 30%;
+      z-index: 2;
 
       @media screen and (max-width: $breakSmall) {
         width: 100%;
-      }
-    }
-  }
-
-  &_rank {
-    margin: 0;
-    padding: 50px 5% 70px;
-
-    & h2 {
-      font-size: 30px;
-      font-weight: bold;
-      margin: 5px 0;
-      color: $textColor;
-
-      @media screen and (max-width: $breakSmall) {
-        font-size: 20px;
-      }
-    }
-
-    & table {
-      border-collapse: separate;
-      font-weight: normal;
-      font-size: 20px;
-      color: $textColor;
-
-      @media screen and (max-width: $breakSmall) {
-        font-size: 16px;
-      }
-
-      & th {
-        white-space: nowrap;
-        text-align: left;
-        padding: 20px 20px 0 0;
-
-        @media screen and (max-width: $breakSmall) {
-          padding-top: 10px;
-        }
-      }
-
-      & td {
-        padding: 20px 20px 0 0;
-
-        @media screen and (max-width: $breakSmall) {
-          padding-top: 10px;
-        }
       }
     }
   }

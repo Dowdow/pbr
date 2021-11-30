@@ -1,9 +1,15 @@
 @import url("https://fonts.googleapis.com/css?family=Baloo");
 @import url("https://fonts.googleapis.com/css?family=Montserrat");
 
-$primaryColor: #383838;
-$secondaryColor: #eef0f2;
-$textColor: #f7efdc;
+$homeColor: #0466c8;
+$songColor: #0353a4;
+$shopColor: #023e7d;
+$liveColor: #5c677d;
+$videoColor: #7d8597;
+$footerColor: #979dac;
+
+$textColor: #f7f7f7;
+$textColor2: #2e2e2e;
 $twitchColor: #6441a4;
 
 $mainFont: "Montserrat", sans-serif;
@@ -16,7 +22,6 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background: $primaryColor;
   font-family: $mainFont;
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -26,9 +31,9 @@ body::-webkit-scrollbar {
   display: none;
 }
 
-@import "header";
 @import "home";
 @import "song";
+@import "shop";
 @import "video";
 @import "live";
 @import "footer";

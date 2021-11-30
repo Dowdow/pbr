@@ -1,16 +1,28 @@
 .song {
+  position: relative;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
-  margin-top: 80px;
+  padding-top: 100px;
+  padding-bottom: 100px;
+  background-color: $songColor;
 
-  @media screen and (max-width: $breakSmall) {
-    margin-top: 20px;
+  &-title {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    text-align: center;
+    color: rgba($color: $textColor, $alpha: 0.5);
+    margin: 0 auto;
+    font-size: 200px;
+    z-index: 1;
   }
 
-  & .song-item {
+  &-item {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -18,6 +30,7 @@
     width: 25%;
     cursor: pointer;
     margin-bottom: 30px;
+    z-index: 2;
 
     &:hover {
       & img {

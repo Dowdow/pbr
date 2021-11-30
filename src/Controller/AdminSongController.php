@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Song;
 use App\Type\SongType;
+use Doctrine\Persistence\ManagerRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -25,11 +26,12 @@ class AdminSongController extends AbstractController
      * @IsGranted("TWITCH_ID")
      *
      * @param Request $request
-     * @return RedirectResponse|Response
+     * @param ManagerRegistry $managerRegistry
+     * @return Response
      */
-    public function songsAction(Request $request)
+    public function songsAction(Request $request, ManagerRegistry $managerRegistry): Response
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $managerRegistry->getManager();
         $songRepo = $em->getRepository(Song::class);
 
         // HANDLE CHANGES
@@ -67,11 +69,12 @@ class AdminSongController extends AbstractController
      * @IsGranted("TWITCH_ID")
      *
      * @param Request $request
+     * @param ManagerRegistry $managerRegistry
      * @return Response|RedirectResponse
      */
-    public function createSongAction(Request $request)
+    public function createSongAction(Request $request, ManagerRegistry $managerRegistry)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $managerRegistry->getManager();
 
         $song = new Song();
         $songForm = $this->createForm(SongType::class, $song);
@@ -95,12 +98,13 @@ class AdminSongController extends AbstractController
      * @IsGranted("TWITCH_ID")
      *
      * @param Request $request
+     * @param ManagerRegistry $managerRegistry
      * @param Song $song
      * @return Response|RedirectResponse
      */
-    public function updateSongAction(Request $request, Song $song)
+    public function updateSongAction(Request $request, ManagerRegistry $managerRegistry, Song $song)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $managerRegistry->getManager();
 
         $songForm = $this->createForm(SongType::class, $song);
 

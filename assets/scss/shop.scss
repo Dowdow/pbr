@@ -1,0 +1,75 @@
+.shop {
+	position: relative;
+	width: 100%;
+	padding-top: 100px;
+	padding-bottom: 100px;
+	background-color: $shopColor;
+
+	&-title {
+		position: absolute;
+		top: 0;
+		right: 0;
+		left: 0;
+		text-align: center;
+		color: rgba($color: $textColor, $alpha: 0.5);
+		margin: 0 auto;
+		font-size: 200px;
+		z-index: 1;
+	}
+
+	&-slideshow {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
+		overflow: hidden;
+		z-index: 2;
+
+		& img {
+			display: block;
+			max-height: 430px;
+			z-index: 2;
+
+			@media screen and (max-width: $breakLarge) {
+				max-height: 300px;
+			}
+
+			@media screen and (max-width: $breakMedium) {
+				max-height: 200px;
+			}
+
+			@media screen and (max-width: $breakSmall) {
+				max-height: 100px;
+			}
+		}
+	}
+
+	&-link {
+		width: 100%;
+		margin-top: 50px;
+		margin-bottom: 50px;
+		text-align: center;
+		z-index: 2;
+
+		& a {
+			margin: 0 auto;
+			text-decoration: none;
+			background: $textColor;
+			color: $textColor2;
+			font-size: 50px;
+			padding: 10px;
+			border-radius: 5px;
+
+			@media screen and (max-width: $breakLarge) {
+				font-size: 40px;
+			}
+
+			@media screen and (max-width: $breakMedium) {
+				font-size: 30px;
+			}
+
+			@media screen and (max-width: $breakSmall) {
+				font-size: 20px;
+			}
+		}
+	}
+}

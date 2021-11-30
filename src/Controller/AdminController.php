@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -21,9 +20,9 @@ class AdminController extends AbstractController
      * @IsGranted("IS_AUTHENTICATED_FULLY")
      * @IsGranted("TWITCH_ID")
      *
-     * @return RedirectResponse|Response
+     * @return Response
      */
-    public function adminAction()
+    public function adminAction(): Response
     {
         return $this->render('admin/admin.html.twig');
     }

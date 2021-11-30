@@ -1,10 +1,9 @@
 import React from 'react';
-import {hydrate} from 'react-dom';
-import {applyMiddleware, createStore} from 'redux'
-import {Provider} from 'react-redux'
+import { hydrate } from 'react-dom';
+import { applyMiddleware, createStore } from 'redux'
+import { Provider } from 'react-redux'
 import thunkMiddleware from 'redux-thunk';
-import {composeWithDevTools} from 'redux-devtools-extension/developmentOnly';
-import {BrowserRouter} from 'react-router-dom';
+import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import * as ReactGA from 'react-ga';
 import appReducer from './reducers/index';
 import App from './components/App';
@@ -25,9 +24,7 @@ ReactGA.pageview(window.location.pathname + window.location.search);
 
 hydrate(
     <Provider store={store}>
-        <BrowserRouter>
-            <App/>
-        </BrowserRouter>
+        <App />
     </Provider>
     , document.getElementById('root'),
 );

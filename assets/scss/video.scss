@@ -1,15 +1,23 @@
 .videos {
-  & h2 {
-    font-size: 30px;
-    color: $textColor;
-    margin: 0;
+  position: relative;
+  width: 100%;
+  padding-top: 100px;
+  padding-bottom: 100px;
+  background-color: $videoColor;
 
-    @media screen and (max-width: $breakSmall) {
-      font-size: 20px;
-    }
+  &-title {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    text-align: center;
+    color: rgba($color: $textColor, $alpha: 0.5);
+    margin: 0 auto;
+    font-size: 200px;
+    z-index: 1;
   }
 
-  & .title {
+  &-header {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -24,12 +32,26 @@
       padding-top: 10px;
       padding-bottom: 10px;
     }
+
+    & span {
+      font-size: 30px;
+      color: $textColor;
+      margin: 0;
+
+      @media screen and (max-width: $breakSmall) {
+        font-size: 20px;
+      }
+    }
   }
 
-  & .video {
+  &-item {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+
+    & > div {
+      z-index: 2;
+    }
 
     @media screen and (max-width: $breakSmall) {
       justify-content: center;
@@ -49,7 +71,7 @@
     color: $textColor;
     width: 20%;
     border: none;
-    background: $primaryColor;
+    background: transparent;
     cursor: pointer;
     outline: none;
     transition: ease 2s;
@@ -72,7 +94,7 @@
     font-size: 30px;
     color: $textColor;
     border: none;
-    background: $primaryColor;
+    background: transparent;
     cursor: pointer;
     outline: none;
     align-self: flex-start;

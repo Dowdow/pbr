@@ -20,9 +20,6 @@ class Redux extends AbstractExtension
     /** @var EntityManagerInterface */
     private EntityManagerInterface $entityManager;
 
-    /** @var RankingService */
-    private RankingService $rankingService;
-
     /** @var Security */
     private Security $security;
 
@@ -30,18 +27,15 @@ class Redux extends AbstractExtension
      * Redux constructor.
      * @param TokenStorageInterface $tokenStorage
      * @param EntityManagerInterface $entityManager
-     * @param RankingService $rankingService
      * @param Security $security
      */
     public function __construct(
         TokenStorageInterface $tokenStorage,
         EntityManagerInterface $entityManager,
-        RankingService $rankingService,
         Security $security
     ) {
         $this->tokenStorage = $tokenStorage;
         $this->entityManager = $entityManager;
-        $this->rankingService = $rankingService;
         $this->security = $security;
     }
 
@@ -54,7 +48,6 @@ class Redux extends AbstractExtension
     {
         $state = [
             'admin' => $this->security->isGranted('TWITCH_ID'),
-            'rank' => $this->rankingService->getTop10(),
             'user' => false,
             'songs' => [],
             'videos' => [],
@@ -68,7 +61,6 @@ class Redux extends AbstractExtension
                 $state['user'] = [
                     'name' => $user->getUsername(),
                     'picture' => $user->getPicture(),
-                    'score' => $user->getScore(),
                 ];
             }
         }

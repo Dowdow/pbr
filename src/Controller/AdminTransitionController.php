@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Transition;
 use App\Type\TransitionType;
+use Doctrine\Persistence\ManagerRegistry;
 use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,11 +30,12 @@ class AdminTransitionController extends AbstractController
      * @IsGranted("TWITCH_ID")
      *
      * @param Request $request
-     * @return RedirectResponse|Response
+     * @param ManagerRegistry $managerRegistry
+     * @return Response
      */
-    public function transitionsAction(Request $request)
+    public function transitionsAction(Request $request, ManagerRegistry $managerRegistry): Response
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $managerRegistry->getManager();
         $transitionRepo = $em->getRepository(Transition::class);
 
         // HANDLE CHANGES
@@ -64,12 +66,13 @@ class AdminTransitionController extends AbstractController
      * @IsGranted("TWITCH_ID")
      *
      * @param Request $request
+     * @param ManagerRegistry $managerRegistry
      * @return Response|RedirectResponse
      * @throws Exception
      */
-    public function createTransitionAction(Request $request)
+    public function createTransitionAction(Request $request, ManagerRegistry $managerRegistry)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $managerRegistry->getManager();
 
         $transition = new Transition();
         $transitionForm = $this->createForm(TransitionType::class, $transition);
@@ -108,13 +111,14 @@ class AdminTransitionController extends AbstractController
      * @IsGranted("TWITCH_ID")
      *
      * @param Request $request
+     * @param ManagerRegistry $managerRegistry
      * @param Transition $transition
      * @return Response|RedirectResponse
      * @throws Exception
      */
-    public function updateTransitionAction(Request $request, Transition $transition)
+    public function updateTransitionAction(Request $request, ManagerRegistry $managerRegistry, Transition $transition)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $managerRegistry->getManager();
 
         $transitionForm = $this->createForm(TransitionType::class, $transition);
 

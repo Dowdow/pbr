@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Video;
 use App\Type\VideoType;
+use Doctrine\Persistence\ManagerRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -28,11 +29,12 @@ class AdminVideoController extends AbstractController
      * @IsGranted("TWITCH_ID")
      *
      * @param Request $request
-     * @return RedirectResponse|Response
+     * @param ManagerRegistry $managerRegistry
+     * @return Response
      */
-    public function videosAction(Request $request)
+    public function videosAction(Request $request, ManagerRegistry $managerRegistry): Response
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $managerRegistry->getManager();
         $videoRepo = $em->getRepository(Video::class);
 
         // HANDLE CHANGES
@@ -70,11 +72,12 @@ class AdminVideoController extends AbstractController
      * @IsGranted("TWITCH_ID")
      *
      * @param Request $request
+     * @param ManagerRegistry $managerRegistry
      * @return RedirectResponse|Response
      */
-    public function createVideoAction(Request $request)
+    public function createVideoAction(Request $request, ManagerRegistry $managerRegistry)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $managerRegistry->getManager();
 
         $video = new Video();
         $videoForm = $this->createForm(VideoType::class, $video);
@@ -98,12 +101,13 @@ class AdminVideoController extends AbstractController
      * @IsGranted("TWITCH_ID")
      *
      * @param Request $request
+     * @param ManagerRegistry $managerRegistry
      * @param Video $video
      * @return RedirectResponse|Response
      */
-    public function editVideoAction(Request $request, Video $video)
+    public function editVideoAction(Request $request, ManagerRegistry $managerRegistry, Video $video)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $managerRegistry->getManager();
 
         $videoForm = $this->createForm(VideoType::class, $video);
 
@@ -126,9 +130,10 @@ class AdminVideoController extends AbstractController
      * @IsGranted("TWITCH_ID")
      *
      * @param Request $request
-     * @return JsonResponse|RedirectResponse
+     * @param ManagerRegistry $managerRegistry
+     * @return JsonResponse
      */
-    public function videoSortAction(Request $request)
+    public function videoSortAction(Request $request, ManagerRegistry $managerRegistry): JsonResponse
     {
         if (!$request->query->has('id') || !$request->query->has('sort')) {
             throw new AccessDeniedHttpException();
@@ -137,7 +142,7 @@ class AdminVideoController extends AbstractController
         $id = $request->query->get('id');
         $sort = (int)$request->query->get('sort');
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $managerRegistry->getManager();
 
         $video = $em->getRepository(Video::class)->find($id);
         if ($video === null) {
