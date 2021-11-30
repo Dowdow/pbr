@@ -6,6 +6,7 @@
   right: 0;
   width: 35%;
   margin: 0 auto;
+  z-index: 2;
 
   @media screen and (max-width: $breakLarge) {
     width: 50%;

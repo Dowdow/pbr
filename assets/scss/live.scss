@@ -14,7 +14,19 @@
 		color: rgba($color: $textColor, $alpha: 0.5);
 		margin: 0 auto;
 		font-size: 200px;
-		z-index: 1;
+    overflow: hidden;
+
+    @media screen and (max-width: $breakLarge) {
+      font-size: 150px;
+    }
+
+    @media screen and (max-width: $breakMedium) {
+      font-size: 100px;
+    }
+
+    @media screen and (max-width: $breakSmall) {
+      font-size: 75px;
+    }
 	}
 
   &-players {
@@ -27,7 +39,7 @@
 
     #twitch-embed {
       width: 70%;
-      z-index: 2;
+      z-index: 1;
 
       @media screen and (max-width: $breakSmall) {
         width: 100%;
@@ -36,7 +48,7 @@
 
     #twitch-chat {
       width: 30%;
-      z-index: 2;
+      z-index: 1;
 
       @media screen and (max-width: $breakSmall) {
         width: 100%;
