@@ -14,5 +14,5 @@ security:
         - App\Security\TwitchAuthenticator
 
   access_control:
-    - { path: ^/_wdt/.*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/_profiler/.*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/_wdt/.*, roles: PUBLIC_ACCESS }
+    - { path: ^/_profiler/.*, roles: PUBLIC_ACCESS }

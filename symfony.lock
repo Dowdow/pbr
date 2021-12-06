@@ -278,9 +278,6 @@
     "symfony/polyfill-mbstring": {
         "version": "v1.9.0"
     },
-    "symfony/polyfill-php73": {
-        "version": "v1.11.0"
-    },
     "symfony/polyfill-php80": {
         "version": "v1.18.1"
     },
@@ -294,12 +291,12 @@
         "version": "v5.1.5"
     },
     "symfony/routing": {
-        "version": "5.4",
+        "version": "6.0",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "master",
-            "version": "5.3",
-            "ref": "44633353926a0382d7dfb0530922c5c0b30fae11"
+            "version": "6.0",
+            "ref": "ab9ad892b7bba7ac584f6dc2ccdb659d358c63c5"
         },
         "files": [
             "config/packages/routing.yaml",
@@ -325,9 +322,6 @@
         "version": "v4.2.3"
     },
     "symfony/security-csrf": {
-        "version": "v4.2.3"
-    },
-    "symfony/security-guard": {
         "version": "v4.2.3"
     },
     "symfony/security-http": {
@@ -393,12 +387,12 @@
         }
     },
     "symfony/webpack-encore-bundle": {
-        "version": "1.9",
+        "version": "1.13",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "1.9",
-            "ref": "9399a0bfc6ee7a0c019f952bca46d6a6045dd451"
+            "ref": "0f274572ea315eb3b5884518a50ca43f211b4534"
         },
         "files": [
             "assets/app.js",

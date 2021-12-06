@@ -199,4 +199,12 @@ class User implements UserInterface
     public function eraseCredentials(): void
     {
     }
+
+    /**
+     * Returns the identifier for this user (e.g. its username or email address).
+     */
+    public function getUserIdentifier(): string
+    {
+        return $this->id;
+    }
 }

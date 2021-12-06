@@ -7,7 +7,6 @@ use App\Service\TwitchService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -26,9 +25,6 @@ class TwitchAuthenticator extends AbstractAuthenticator
     /** @var CsrfTokenManagerInterface */
     private CsrfTokenManagerInterface $csrfTokenManager;
 
-    /** @var SessionInterface */
-    private SessionInterface $session;
-
     /** @var TwitchService */
     private TwitchService $twitchService;
 
@@ -36,19 +32,16 @@ class TwitchAuthenticator extends AbstractAuthenticator
      * TwitchAuthenticator constructor.
      * @param EntityManagerInterface $entityManager
      * @param CsrfTokenManagerInterface $csrfTokenManager
-     * @param SessionInterface $session
      * @param TwitchService $twitchService
      */
     public function __construct(
         EntityManagerInterface    $entityManager,
         CsrfTokenManagerInterface $csrfTokenManager,
-        SessionInterface          $session,
         TwitchService             $twitchService
     )
     {
         $this->entityManager = $entityManager;
         $this->csrfTokenManager = $csrfTokenManager;
-        $this->session = $session;
         $this->twitchService = $twitchService;
     }
 
@@ -65,10 +58,10 @@ class TwitchAuthenticator extends AbstractAuthenticator
      * @param Request $request
      * @return Passport
      */
-    public function authenticate(Request $request): ?Passport
+    public function authenticate(Request $request): Passport
     {
         if (!$this->csrfTokenManager->isTokenValid(new CsrfToken('oauth_authorize_state', $request->query->get('state')))) {
-            return null;
+            throw new AuthenticationException('');
         }
 
         $res = $this->twitchService->getAccessToken(
@@ -77,14 +70,14 @@ class TwitchAuthenticator extends AbstractAuthenticator
         );
 
         if (!isset($res['access_token'])) {
-            return null;
+            throw new AuthenticationException('');
         }
 
         $accessToken = $res['access_token'];
 
         $twitchUser = $this->twitchService->getUser($accessToken);
         if ($twitchUser === null) {
-            return null;
+            throw new AuthenticationException('');
         }
 
         $twitchUser = $twitchUser['data'][0];
@@ -103,10 +96,8 @@ class TwitchAuthenticator extends AbstractAuthenticator
             $user->setUsername($twitchUser['display_name']);
             $user->setPicture($twitchUser['profile_image_url']);
         }
+
         $this->entityManager->flush();
-
-        $this->session->set('access_token', $accessToken);
-
 
         return new SelfValidatingPassport(
             new UserBadge($user->getEmail())
