@@ -19,7 +19,7 @@ const store = createStore(appReducer, initialState, composeWithDevTools(applyMid
 
 subscribeLocalStorage(store);
 
-ReactGA.initialize('UA-129187589-1');
+ReactGA.initialize('G-0MGL667M43');
 ReactGA.pageview(window.location.pathname + window.location.search);
 
 hydrate(
