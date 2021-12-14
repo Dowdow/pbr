@@ -4,7 +4,7 @@ import { applyMiddleware, createStore } from 'redux'
 import { Provider } from 'react-redux'
 import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
-import * as ReactGA from 'react-ga';
+import ReactGA from 'react-ga4';
 import appReducer from './reducers/index';
 import App from './components/App';
 import { loadState, subscribeLocalStorage } from './utils/localStorage';
@@ -20,7 +20,7 @@ const store = createStore(appReducer, initialState, composeWithDevTools(applyMid
 subscribeLocalStorage(store);
 
 ReactGA.initialize('G-0MGL667M43');
-ReactGA.pageview(window.location.pathname + window.location.search);
+ReactGA.send("pageview");
 
 hydrate(
     <Provider store={store}>
