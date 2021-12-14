@@ -23,30 +23,6 @@ class AppController extends AbstractController
     }
 
     /**
-     * @Route("/songs", name="songs", host="%base_host%")
-     */
-    public function songsAction(): Response
-    {
-        return $this->render('base.html.twig');
-    }
-
-    /**
-     * @Route("/videos", name="videos", host="%base_host%")
-     */
-    public function videosAction(): Response
-    {
-        return $this->render('base.html.twig');
-    }
-
-    /**
-     * @Route("/live", name="live", host="%base_host%")
-     */
-    public function liveAction(): Response
-    {
-        return $this->render('base.html.twig');
-    }
-
-    /**
      * @Route("/", name="shop", host="%shop_host%")
      */
     public function shopAction(): Response
