@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  php-pbr:
+    build: ./docker/php-apache
+    container_name: php-apache-pbr
+    ports:
+      - 80:80
+      - 443:443
+    expose:
+      - 80
+      - 443
+    volumes:
+      - ./:/var/www/html
+
+  mysql-pbr:
+    image: mysql:5.6
+    container_name: mysql-pbr
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: pbr
+      MYSQL_USER: pbr
+      MYSQL_PASSWORD: pbr
+    ports:
+      - 3306
+    expose:
+      - 3306
+    volumes:
+      - pbr-db:/var/lib/mysql
+
+volumes:
+  pbr-db: null

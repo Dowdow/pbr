@@ -47,6 +47,6 @@ class TwitchController extends AbstractController
      */
     public function oauthCallbackAction(): RedirectResponse
     {
-        return $this->redirect($this->generateUrl('live'));
+        return $this->redirect($this->generateUrl('home'));
     }
 }
