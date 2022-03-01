@@ -1,18 +1,11 @@
-@import url("https://fonts.googleapis.com/css?family=Baloo");
-@import url("https://fonts.googleapis.com/css?family=Montserrat");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;700&display=swap");
 
-$homeColor: #0466c8;
-$songColor: #0353a4;
-$shopColor: #023e7d;
-$liveColor: #5c677d;
-$videoColor: #7d8597;
-$footerColor: #979dac;
+$backgroundColor: #ffffff;
 
-$textColor: #f7f7f7;
-$textColor2: #2e2e2e;
-$twitchColor: #6441a4;
+$textColor: #303030;
+$textColor2: #ffffff;
 
-$mainFont: "Montserrat", sans-serif;
+$mainFont: "Inter", sans-serif;
 
 $breakSmall: 768px;
 $breakMedium: 1024px;
@@ -23,15 +16,18 @@ body {
   margin: 0;
   padding: 0;
   font-family: $mainFont;
+  color: $textColor;
+  background-color: $backgroundColor;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  scroll-behavior: smooth;
 }
 
 body::-webkit-scrollbar {
   display: none;
 }
 
-@import "home";
+@import "header";
 @import "song";
 @import "shop";
 @import "video";

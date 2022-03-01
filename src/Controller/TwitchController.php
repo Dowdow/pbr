@@ -37,7 +37,7 @@ class TwitchController extends AbstractController
             );
         }
 
-        return $this->redirect($this->generateUrl('live'));
+        return $this->redirect($this->generateUrl('home'));
     }
 
     /**

@@ -1,75 +1,71 @@
 .shop {
-	position: relative;
-	width: 100%;
 	padding-top: 100px;
 	padding-bottom: 100px;
-	background-color: $shopColor;
-
-	&-title {
-		position: absolute;
-		top: 0;
-		right: 0;
-		left: 0;
-		text-align: center;
-		color: rgba($color: $textColor, $alpha: 0.5);
-		margin: 0 auto;
-		font-size: 200px;
-		overflow: hidden;
-
-    @media screen and (max-width: $breakLarge) {
-      font-size: 150px;
-    }
-
-    @media screen and (max-width: $breakMedium) {
-      font-size: 100px;
-    }
-
-    @media screen and (max-width: $breakSmall) {
-      font-size: 75px;
-    }
-	}
 
 	&-slideshow {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-around;
-		overflow: hidden;
-		z-index: 1;
+		position: relative;
+		min-height: 500px;
+
+		@media screen and (max-width: $breakMedium) {
+			min-height: 350px;
+		}
+
+		@media screen and (max-width: $breakSmall) {
+			min-height: 250px;
+		}
 
 		& img {
-			display: block;
-			max-height: 430px;
-			z-index: 1;
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 500px;
+			width: auto;
+			opacity: 0;
+			animation: fade 20s infinite;
+			margin: 0 auto;
+			cursor: pointer;
 
-			@media screen and (max-width: $breakLarge) {
-				max-height: 300px;
+			&:nth-child(1) {
+				animation-delay: 0s;
+			}
+			&:nth-child(2) {
+				animation-delay: 4s;
+			}
+			&:nth-child(3) {
+				animation-delay: 8s;
+			}
+			&:nth-child(4) {
+				animation-delay: 12s;
+			}
+			&:nth-child(5) {
+				animation-delay: 16s;
 			}
 
 			@media screen and (max-width: $breakMedium) {
-				max-height: 200px;
+				max-height: 350px;
 			}
 
 			@media screen and (max-width: $breakSmall) {
-				max-height: 100px;
+				max-height: 250px;
 			}
 		}
 	}
 
 	&-link {
-		width: 100%;
-		margin-top: 50px;
-		margin-bottom: 50px;
+		margin-top: 20px;
 		text-align: center;
-		z-index: 1;
 
 		& a {
-			margin: 0 auto;
-			text-decoration: none;
-			background: $textColor;
-			color: $textColor2;
-			font-size: 50px;
+			color: $textColor;
+			font-size: 40px;
 			padding: 10px;
-			border-radius: 5px;
+			letter-spacing: 0.75vh;
+			text-decoration: none;
+
+			&:hover {
+				text-decoration: underline;
+			}
 
 			@media screen and (max-width: $breakLarge) {
 				font-size: 40px;
@@ -83,5 +79,23 @@
 				font-size: 20px;
 			}
 		}
+	}
+}
+
+@keyframes fade {
+	0% {
+		opacity: 0;
+	}
+	5% {
+		opacity: 1;
+	}
+	20% {
+		opacity: 1;
+	}
+	25% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 0;
 	}
 }

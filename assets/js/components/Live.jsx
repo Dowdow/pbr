@@ -21,8 +21,7 @@ const Live = () => {
     });
 
     return (
-        <div className="live">
-            <h2 className="live-title">LIVE</h2>
+        <div id="live" className="live">
             <div className="live-players">
                 <div id="twitch-embed" />
                 <div id="twitch-chat">

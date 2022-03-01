@@ -1,33 +1,7 @@
 .videos {
   position: relative;
   width: 100%;
-  padding-top: 100px;
   padding-bottom: 100px;
-  background-color: $videoColor;
-
-  &-title {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    text-align: center;
-    color: rgba($color: $textColor, $alpha: 0.5);
-    margin: 0 auto;
-    font-size: 200px;
-    overflow: hidden;
-
-    @media screen and (max-width: $breakLarge) {
-      font-size: 150px;
-    }
-
-    @media screen and (max-width: $breakMedium) {
-      font-size: 100px;
-    }
-
-    @media screen and (max-width: $breakSmall) {
-      font-size: 75px;
-    }
-  }
 
   &-header {
     display: flex;

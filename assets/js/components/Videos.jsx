@@ -24,8 +24,7 @@ const Videos = () => {
     }
 
     return (
-        <div className="videos">
-            <h2 className="videos-title">VIDEOS</h2>
+        <div id="videos" className="videos">
             <div className="videos-header">
                 <button type="button" className="previous_small" onClick={handlePreviousVideo}>&lt;</button>
                 <span>{indexVideo}/{videos.length}</span>

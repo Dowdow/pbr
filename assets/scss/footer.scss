@@ -1,36 +1,25 @@
 footer {
   display: flex;
-  justify-content: space-between;
+  flex-direction: row;
+  justify-content: space-around;
+  height: 150px;
   width: 90%;
-  height: 300px;
-  margin: 0;
-  padding: 100px 5% 0;
-  background: $footerColor url("../img/footer.png") no-repeat center;
-  background-size: 75%;
-  background-position-y: 30px;
+  margin: 0 auto;
 
-  @media screen and (max-width: $breakSmall) {
-    padding-top: 20px;
-    height: 250px;
+  @media screen and (max-width: $breakLarge) {
+    width: 70%;
   }
 
-  & > :nth-child(2) {
-    text-align: right;
-  }
+  & a {
+    font-weight: bold;
+    font-size: 25px;
+    color: $textColor;
+    text-decoration: none;
+    margin: 10px 0;
 
-  & section {
-    display: flex;
-    flex-direction: column;
-
-    & a {
-      font-weight: bold;
-      font-size: 25px;
-      color: $textColor;
-      text-decoration: none;
-      margin: 10px 0;
-
-      @media screen and (max-width: $breakSmall) {
-        font-size: 18px;
+    & span {
+      @media screen and (max-width: $breakLarge) {
+        display: none;
       }
     }
   }

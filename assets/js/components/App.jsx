@@ -1,24 +1,25 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import Home from './Home';
+import Header from './Header';
 import Songs from './Songs';
 import Videos from './Videos';
 import Live from './Live';
 import Player from './Player';
 import Footer from './Footer';
 import Shop from './Shop';
+import { useIsConnected } from '../hooks/user';
+import { useHasVideos } from '../hooks/video';
 
 const App = () => {
-    const videos = useSelector(state => state.videos);
-    const user = useSelector(state => state.user);
+    const isConnected = useIsConnected();
+    const hasVideos = useHasVideos();
 
     return (
         <div className="app">
-            <Home />
+            <Header />
             <Songs />
             <Shop />
-            {user ? <Live /> : ''}
-            {videos.length > 0 ? <Videos /> : ''}
+            {isConnected ? <Live /> : ''}
+            {hasVideos ? <Videos /> : ''}
             <Player />
             <Footer />
         </div>
