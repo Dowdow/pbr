@@ -8,6 +8,7 @@ import ReactGA from 'react-ga4';
 import appReducer from './reducers/index';
 import App from './components/App';
 import { loadState, subscribeLocalStorage } from './utils/localStorage';
+import { register } from './utils/serviceWorkerRegistration';
 import '../scss/index.scss';
 
 const preloadedState = window.__PRELOADED_STATE__;
@@ -28,3 +29,5 @@ hydrate(
     </Provider>
     , document.getElementById('root'),
 );
+
+register();
