@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlay, faPause, faTimes, faStepForward } from '@fortawesome/free-solid-svg-icons';
-import { setPlayerCurrentSong, setPlayerPlaying, setPlayerShuffle, setNewTrack } from '../actions/player';
+import { faPlay, faPause, faTimes, faStepForward, faVolumeLow } from '@fortawesome/free-solid-svg-icons';
+import { setPlayerCurrentSong, setPlayerPlaying, setPlayerShuffle, setNewTrack, setPlayerVolume } from '../actions/player';
 import { addCurrentSongPlays } from '../actions/songs';
 
 const Player = () => {
@@ -12,6 +12,7 @@ const Player = () => {
     const song = useSelector(state => state.player.currentSong);
     const playing = useSelector(state => state.player.playing);
     const shuffle = useSelector(state => state.player.shuffle);
+    const volume = useSelector(state => state.player.volume);
     const transitions = useSelector(state => state.transitions);
 
     const [player, setPlayer] = useState(null);
@@ -46,11 +47,16 @@ const Player = () => {
                     if (timeRemaining === 5) {
                         handlePlayTransition();
                     }
-                    player.setVolume(timeRemaining * 20);
                 }
             });
         }
     }, [progressTime]);
+
+    useEffect(() => {
+        if (player !== null) {
+            player.setVolume(volume);
+        }
+    }, [volume]);
 
     const handleLoaded = () => {
         setProgressTime(0);
@@ -58,6 +64,7 @@ const Player = () => {
         updatePlaylistData();
         if (playing) {
             player.play();
+            player.setVolume(volume);
         }
     }
 
@@ -81,9 +88,14 @@ const Player = () => {
     const handlePlayTransition = () => {
         if (transitions.length > 0) {
             const transition = new Audio(transitions[transitionIndex]['file']);
+            transition.setVolume(0.7);
             transition.play();
             setTransitionIndex(transitionIndex + 1 === transitions.length ? 0 : transitionIndex + 1);
         }
+    }
+
+    const handleVolume = (e) => {
+        dispatch(setPlayerVolume(e.target.value));
     }
 
     const handleShuffle = () => {
@@ -157,7 +169,10 @@ const Player = () => {
                         <button type="button" onClick={handleNext}><FontAwesomeIcon icon={faStepForward} /></button>
                         <progress value={progressPercent} max="100" onClick={handleProgressClick}></progress>
                     </div>
-                    <label><input type="checkbox" onChange={handleShuffle} checked={shuffle} />Shuffle</label>
+                    <div className="player-info-other">
+                        <label><input type="checkbox" onChange={handleShuffle} checked={shuffle} />Shuffle</label>
+                        <label><FontAwesomeIcon icon={faVolumeLow} /><input type="range" min="0" max="100" value={volume} onChange={handleVolume} /></label>
+                    </div>
                 </div>
             </div>
             <iframe

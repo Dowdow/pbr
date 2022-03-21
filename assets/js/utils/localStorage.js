@@ -28,6 +28,7 @@ export function subscribeLocalStorage(store) {
 
         const player = { ...init };
         player.shuffle = state.player.shuffle;
+        player.volume = state.player.volume;
 
         saveState({
             player,

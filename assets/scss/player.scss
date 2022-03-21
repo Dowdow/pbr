@@ -74,7 +74,7 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        margin: 0 10px;
+        margin: 0 20px 0 10px;
 
         @media screen and (max-width: $breakSmall) {
           margin-right: 0;
@@ -83,19 +83,30 @@
         & progress {
           flex-grow: 2;
           height: 20px;
-          margin-right: 10px;
           cursor: pointer;
         }
       }
 
-      & label {
+      & .player-info-other {
         display: flex;
-        align-self: center;
-        align-items: center;
-        cursor: pointer;
+        flex-direction: row;
+        justify-content: space-between;
+        margin: 0 20px 0 13px;
 
-        & input[type="checkbox"] {
-          flex: none;
+        & label {
+          display: flex;
+          align-self: center;
+          align-items: center;
+          cursor: pointer;
+
+          & input[type="checkbox"] {
+            flex: none;
+          }
+
+          & input[type="range"] {
+            margin: 0 0 0 10px;
+            height: 20px;
+          }
         }
       }
     }
