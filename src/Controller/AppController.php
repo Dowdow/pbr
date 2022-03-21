@@ -29,4 +29,12 @@ class AppController extends AbstractController
     {
         return $this->render('shop.html.twig');
     }
+
+    /**
+     * @Route("/", name="vr", host="%vr_host%")
+     */
+    public function vrAction(): Response
+    {
+        return $this->render('vr.html.twig');
+    }
 }

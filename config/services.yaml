@@ -12,6 +12,7 @@ parameters:
 
     base_host: '%env(BASE_HOST)%'
     shop_host: '%env(SHOP_HOST)%'
+    vr_host: '%env(VR_HOST)%'
 
     transitions_directory: '%kernel.project_dir%/public/transitions'
 

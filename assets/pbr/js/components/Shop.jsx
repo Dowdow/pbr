@@ -7,7 +7,7 @@ import shop_5 from '../../img/shop/shop_5.jpg';
 import shop_10 from '../../img/shop/shop_10.jpg';
 
 const Shop = () => {
-	const shopUrl = process.env.NODE_ENV === 'production' ? 'https://shop.painboudinrecord.fr' : 'http://shop.pbr.local';
+	const shopUrl = process.env.NODE_ENV === 'production' ? 'https://shop.painboudinrecord.fr' : 'https://shop.pbr.local';
 
 	const handleClick = () => {
 		window.open(shopUrl, '_blank').focus();

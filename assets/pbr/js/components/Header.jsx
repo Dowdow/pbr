@@ -1,10 +1,12 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMusic, faRightFromBracket, faRightToBracket, faShirt, faUnlockKeyhole } from '@fortawesome/free-solid-svg-icons';
+import { faMusic, faRightFromBracket, faRightToBracket, faShirt, faUnlockKeyhole, faVrCardboard } from '@fortawesome/free-solid-svg-icons';
 import { useIsAdmin, useIsConnected } from '../hooks/user';
 import pbdr from '../../img/pbdr.png';
 
 const Header = () => {
+  const vrUrl = process.env.NODE_ENV === 'production' ? 'https://vr.painboudinrecord.fr' : 'https://vr.pbr.local';
+
   const isAdmin = useIsAdmin();
   const isConnected = useIsConnected();
 
@@ -16,6 +18,7 @@ const Header = () => {
       <div className="header-nav">
         <a href="#songs"><FontAwesomeIcon icon={faMusic} /><span>SONGS</span></a>
         <a href="#shop"><FontAwesomeIcon icon={faShirt} /><span>SHOP</span></a>
+        <a href={vrUrl}><FontAwesomeIcon icon={faVrCardboard} /><span>VR</span></a>
 
         {!isConnected ?
           <form method="post" action="/authorize">

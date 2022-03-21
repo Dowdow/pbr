@@ -12,7 +12,13 @@ Encore
     .enableSingleRuntimeChunk()
     .enableReactPreset()
     .enableSassLoader()
-    .addEntry('app', './assets/js/index.js')
+    .addEntry('app', './assets/pbr/js/index.js')
+    .addEntry('vr', './assets/vr/js/index.js')
+
+    .copyFiles({
+        from: './assets/vr/models',
+        to: 'models/[path][name].[ext]',
+    })
 
     .cleanupOutputBeforeBuild()
 

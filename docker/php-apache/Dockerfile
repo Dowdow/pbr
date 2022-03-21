@@ -20,6 +20,8 @@ RUN mv composer.phar /usr/local/bin/composer
 
 # SSL Certificates
 RUN openssl req -x509 -out /etc/ssl/certs/pbr.crt -keyout /etc/ssl/private/pbr.key -newkey rsa:2048 -nodes -sha256 -subj "/C=FR/ST=Paris/L=Paris/O=Security/OU=Development/CN=pbr.local"
+RUN openssl req -x509 -out /etc/ssl/certs/shop.crt -keyout /etc/ssl/private/shop.key -newkey rsa:2048 -nodes -sha256 -subj "/C=FR/ST=Paris/L=Paris/O=Security/OU=Development/CN=shop.pbr.local"
+RUN openssl req -x509 -out /etc/ssl/certs/vr.crt -keyout /etc/ssl/private/vr.key -newkey rsa:2048 -nodes -sha256 -subj "/C=FR/ST=Paris/L=Paris/O=Security/OU=Development/CN=vr.pbr.local"
 
 # Apache vhosts
 RUN a2enmod ssl
