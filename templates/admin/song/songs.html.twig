@@ -1,56 +1,59 @@
 {% extends 'admin/base.html.twig' %}
 
 {% block content %}
-    <div style="display: flex; flex-direction: row; justify-content: space-between">
-        <h2>Songs</h2>
-        <a href="{{ path('admin_songs_create') }}" style="align-self: center;"
-           class="btn btn-primary active" role="button" aria-pressed="true">Add a song</a>
-    </div>
-    <div class="row">
-        <table class="table">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Image</th>
-                <th>Soundcloud ID</th>
-                <th>Name</th>
-                <th>Activated</th>
-                <th>Edit</th>
-                <th>Delete</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for song in songs %}
-                <tr>
-                    <td>{{ song.id }}</td>
-                    <td><img src="{{ song.image }}" alt="{{ song.name }}" style="width:50px;height:50px;"/>
-                    <td>{{ song.soundcloudId }}</td>
-                    <td>{{ song.name }}
-                    </td>
-                    <td>
-                        <form method="post">
-                            <button type="submit" name="activation_song" value="{{ song.id }}" class="btn btn-primary">
-                                {% if song.activated %}
-                                    Deactivate
-                                {% else %}
-                                    Activate
-                                {% endif %}
-                            </button>
-                        </form>
-                    </td>
-                    <td>
-                        <a href="{{ path('admin_songs_edit', {'id': song.id}) }}"
-                           class="btn btn-primary" role="button" aria-pressed="true">Edit</a>
-                    </td>
-                    <td>
-                        <form method="post">
-                            <button type="submit" name="delete_song" value="{{ song.id }}" class="btn btn-danger">Delete
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
+	<div class="d-flex flex-row justify-content-between mt-4 mb-4">
+		<h2>Songs</h2>
+		<a href="{{ path('admin_songs_create') }}" class="btn btn-primary active align-self-center" role="button" aria-pressed="true">Add a song</a>
+	</div>
+	<div class="row">
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">Image</th>
+					<th scope="col">Soundcloud ID</th>
+					<th scope="col">Name</th>
+					<th scope="col">Playlist</th>
+					<th scope="col">Activated</th>
+					<th scope="col">Edit</th>
+					<th scope="col">Delete</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for song in songs %}
+					<tr>
+						<th scope="row">{{ song.id }}</th>
+						<td><img src="{{ song.image }}" alt="{{ song.name }}" style="width:50px;height:50px;"/>
+						</td>
+						<td>{{ song.soundcloudId }}</td>
+						<td>{{ song.name }}</td>
+						<td>
+							{% if song.playlist %}Oui{% else %}Non
+							{% endif %}
+						</td>
+						<td>
+							<form method="post">
+								<button type="submit" name="activation_song" value="{{ song.id }}" class="btn btn-primary">
+									{% if song.activated %}
+										Deactivate
+									{% else %}
+										Activate
+									{% endif %}
+								</button>
+							</form>
+						</td>
+						<td>
+							<a href="{{ path('admin_songs_edit', {'id': song.id}) }}" class="btn btn-primary" role="button" aria-pressed="true">Edit</a>
+						</td>
+						<td>
+							<form method="post">
+								<button type="submit" name="delete_song" value="{{ song.id }}" class="btn btn-danger">Delete
+								</button>
+							</form>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
 {% endblock %}

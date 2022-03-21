@@ -1,16 +1,12 @@
-<div class="row">
-    {{ form_start(transitionForm) }}
-    <div class="form-group">
-        {{ form_label(transitionForm.name) }}
-        {{ form_widget(transitionForm.name, {'attr': {'class': 'form-control'}}) }}
-    </div>
-    <div class="form-group">
-         {{ form_label(transitionForm.file) }}
-         {{ form_widget(transitionForm.file, {'attr': {'class': 'form-control-file'}}) }}
-    </div>
-    <div class="form-group">
-        {{ form_widget(transitionForm.save, {'attr': {'class': 'btn btn-primary'}}) }}
-        <a href="{{ path('admin_transitions') }}">Back</a>
-    </div>
-    {{ form_end(transitionForm) }}
+{{ form_start(transitionForm) }}
+<div class="mb-3">
+	{{ form_label(transitionForm.name) }}
+	{{ form_widget(transitionForm.name, {'attr': {'class': 'form-control'}}) }}
 </div>
+<div class="mb-3">
+	{{ form_label(transitionForm.file) }}
+	{{ form_widget(transitionForm.file, {'attr': {'class': 'form-control'}}) }}
+</div>
+{{ form_widget(transitionForm.save, {'attr': {'class': 'btn btn-primary'}}) }}
+<a href="{{ path('admin_transitions') }}">Back</a>
+{{ form_end(transitionForm) }}

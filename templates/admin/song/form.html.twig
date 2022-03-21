@@ -1,24 +1,24 @@
-<div class="row">
-    {{ form_start(songForm) }}
-    <div class="form-group">
-        {{ form_label(songForm.soundcloudId) }}
-        {{ form_widget(songForm.soundcloudId, {'attr': {'class': 'form-control'}}) }}
-    </div>
-    <div class="form-group">
-        {{ form_label(songForm.name) }}
-        {{ form_widget(songForm.name, {'attr': {'class': 'form-control'}}) }}
-    </div>
-    <div class="form-group">
-        {{ form_label(songForm.image) }}
-        {{ form_widget(songForm.image, {'attr': {'class': 'form-control'}}) }}
-    </div>
-    <div class="form-group form-check">
-        {{ form_widget(songForm.activated, {'attr': {'class': 'form-check-input'}}) }}
-        {{ form_label(songForm.activated, 'Activated', {'label_attr': {'class': 'form-check-label'}}) }}
-    </div>
-    <div class="form-group">
-        {{ form_widget(songForm.save, {'attr': {'class': 'btn btn-primary'}}) }}
-        <a href="{{ path('admin_songs') }}">Back</a>
-    </div>
-    {{ form_end(songForm) }}
+{{ form_start(songForm) }}
+<div class="mb-3">
+	{{ form_label(songForm.soundcloudId) }}
+	{{ form_widget(songForm.soundcloudId, {'attr': {'class': 'form-control'}}) }}
 </div>
+<div class="mb-3">
+	{{ form_label(songForm.name) }}
+	{{ form_widget(songForm.name, {'attr': {'class': 'form-control'}}) }}
+</div>
+<div class="mb-3">
+	{{ form_label(songForm.image) }}
+	{{ form_widget(songForm.image, {'attr': {'class': 'form-control'}}) }}
+</div>
+<div class="mb-3 form-check">
+	{{ form_widget(songForm.playlist, {'attr': {'class': 'form-check-input'}}) }}
+	{{ form_label(songForm.playlist, 'Playlist', {'label_attr': {'class': 'form-check-label'}}) }}
+</div>
+<div class="mb-3 form-check">
+	{{ form_widget(songForm.activated, {'attr': {'class': 'form-check-input'}}) }}
+	{{ form_label(songForm.activated, 'Activated', {'label_attr': {'class': 'form-check-label'}}) }}
+</div>
+{{ form_widget(songForm.save, {'attr': {'class': 'btn btn-primary'}}) }}
+<a href="{{ path('admin_songs') }}">Back</a>
+{{ form_end(songForm) }}

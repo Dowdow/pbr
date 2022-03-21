@@ -70,6 +70,7 @@ class Redux extends AbstractExtension
                 'id' => $song->getSoundcloudId(),
                 'name' => $song->getName(),
                 'image' => $song->getImage(),
+                'playlist' => $song->isPlaylist(),
                 'order' => $i,
                 'plays' => 0,
             ];

@@ -53,6 +53,13 @@ class Song
 
     /**
      * @var boolean
+     * 
+     * @ORM\Column(name="playlist", type="boolean", nullable=false)
+     */
+    private $playlist;
+
+    /**
+     * @var boolean
      *
      * @ORM\Column(name="activated", type="boolean", nullable=false)
      */
@@ -133,6 +140,24 @@ class Song
     public function setImage(string $image): Song
     {
         $this->image = $image;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPlaylist(): ?bool
+    {
+        return $this->playlist;
+    }
+
+    /**
+     * @param bool $playlist
+     * @return Song
+     */
+    public function setPlaylist(bool $playlist): Song
+    {
+        $this->playlist = $playlist;
         return $this;
     }
 
