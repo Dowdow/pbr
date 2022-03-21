@@ -70,6 +70,7 @@ const Player = () => {
 
     const handlePlayPause = () => {
         player.toggle();
+        player.setVolume(volume);
         dispatch(setPlayerPlaying(!playing));
     }
 
@@ -88,7 +89,7 @@ const Player = () => {
     const handlePlayTransition = () => {
         if (transitions.length > 0) {
             const transition = new Audio(transitions[transitionIndex]['file']);
-            transition.setVolume(0.7);
+            transition.volume = volume / 100;
             transition.play();
             setTransitionIndex(transitionIndex + 1 === transitions.length ? 0 : transitionIndex + 1);
         }
@@ -122,15 +123,15 @@ const Player = () => {
 
     function handleFinish() {
         this.getCurrentSoundIndex(i => {
-            if (i !== playlistTotal - 1) {
-                this.next();
-                this.getSounds(sounds => {
+            this.getSounds(sounds => {
+                if (i !== sounds.length - 1) {
+                    this.next();
                     setPlaylistCurrentName(sounds[i + 1].title);
-                });
-            } else {
-                dispatch(addCurrentSongPlays());
-                dispatch(setNewTrack());
-            }
+                } else {
+                    dispatch(addCurrentSongPlays());
+                    dispatch(setNewTrack());
+                }
+            });
         });
     }
 
