@@ -30,3 +30,4 @@ RUN a2ensite pbr.conf
 # NodeJS
 RUN curl -fsSL https://deb.nodesource.com/setup_17.x | bash - && apt-get install -y nodejs
 RUN npm i -g npm
+RUN npm i -g gltf-pipeline

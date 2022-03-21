@@ -1,12 +1,10 @@
 import React from 'react';
 import { useIsAdmin, useIsConnected } from '../hooks/user';
-import { useHasVideos } from '../hooks/video';
 import pbdr from '../../img/pbdr.png';
 
 const Header = () => {
   const isAdmin = useIsAdmin();
   const isConnected = useIsConnected();
-  const hasVideos = useHasVideos();
 
   return (
     <header>
@@ -16,8 +14,6 @@ const Header = () => {
       <div className="header-nav">
         <a href="#songs">SONGS</a>
         <a href="#shop">SHOP</a>
-        {isConnected ? <a href="#live">LIVE</a> : ''}
-        {hasVideos ? <a href="#videos">VIDEOS</a> : ''}
 
         {!isConnected ?
           <form method="post" action="/authorize">

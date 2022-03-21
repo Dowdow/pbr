@@ -5,7 +5,6 @@ namespace App\Service;
 use App\Entity\Song;
 use App\Entity\Transition;
 use App\Entity\User;
-use App\Entity\Video;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Security;
@@ -50,7 +49,6 @@ class Redux extends AbstractExtension
             'admin' => $this->security->isGranted('TWITCH_ID'),
             'user' => false,
             'songs' => [],
-            'videos' => [],
             'transitions' => [],
         ];
 
@@ -76,11 +74,6 @@ class Redux extends AbstractExtension
                 'plays' => 0,
             ];
             $i++;
-        }
-
-        $videos = $this->entityManager->getRepository(Video::class)->findBy(['activated' => true], ['sort' => 'desc']);
-        foreach ($videos as $video) {
-            $state['videos'][] = $video->getYoutubeId();
         }
 
         $transitions = $this->entityManager->getRepository(Transition::class)->findBy([], ['id' => 'desc']);
