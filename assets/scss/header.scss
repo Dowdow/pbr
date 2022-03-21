@@ -16,9 +16,18 @@ header {
     margin-right: 2.5%;
   }
 
+  @media screen and (max-width: $breakSmall) {
+    margin-right: 0;
+  }
+
   & .header-img {
     display: flex;
     align-items: center;
+
+    @media screen and (max-width: $breakSmall) {
+      margin-right: 2.5%;
+    }
+  
 
     &:hover {
       opacity: 0.75;
@@ -49,16 +58,26 @@ header {
       letter-spacing: 0.5vh;
     }
 
-
-    @media screen and (max-width: $breakSmall) {
-      display: none;
-    }
-
     & a {
       color: $textColor;
       text-decoration: none;
+
+      & svg {
+        display: none;
+      }
+
       &:hover {
         color: rgba($color: $textColor, $alpha: 0.75);
+      }
+
+      @media screen and (max-width: $breakSmall) {
+        & span {
+          display: none;
+        }
+
+        & svg {
+          display: block;
+        }
       }
     }
 
@@ -69,6 +88,20 @@ header {
       font-weight: 700;
       letter-spacing: 0.75vh;
       cursor: pointer;
+
+      & svg {
+        display: none;
+      }
+
+      @media screen and (max-width: $breakSmall) {
+        & span {
+          display: none;
+        }
+
+        & svg {
+          display: block;
+        }
+      }
 
       &:hover {
         color: rgba($color: $textColor, $alpha: 0.75);

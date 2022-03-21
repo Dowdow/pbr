@@ -1,4 +1,6 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMusic, faRightFromBracket, faRightToBracket, faShirt, faUnlockKeyhole } from '@fortawesome/free-solid-svg-icons';
 import { useIsAdmin, useIsConnected } from '../hooks/user';
 import pbdr from '../../img/pbdr.png';
 
@@ -12,17 +14,17 @@ const Header = () => {
         <img src={pbdr} alt="Pain Boudin Record Logo" />
       </div>
       <div className="header-nav">
-        <a href="#songs">SONGS</a>
-        <a href="#shop">SHOP</a>
+        <a href="#songs"><FontAwesomeIcon icon={faMusic} /><span>SONGS</span></a>
+        <a href="#shop"><FontAwesomeIcon icon={faShirt} /><span>SHOP</span></a>
 
         {!isConnected ?
           <form method="post" action="/authorize">
-            <button type="submit">SIGN-IN</button>
+            <button type="submit"><FontAwesomeIcon icon={faRightToBracket} /><span>SIGN-IN</span></button>
           </form>
           :
-          <a href="/logout">SIGN-OUT</a>
+          <a href="/logout"><FontAwesomeIcon icon={faRightFromBracket} /><span>SIGN-OUT</span></a>
         }
-        {isAdmin ? <a href="/admin">ADMIN</a> : ''}
+        {isAdmin ? <a href="/admin"><FontAwesomeIcon icon={faUnlockKeyhole} /><span>ADMIN</span></a> : ''}
       </div>
     </header>
   )

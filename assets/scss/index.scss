@@ -18,6 +18,7 @@ body {
   font-family: $mainFont;
   color: $textColor;
   background-color: $backgroundColor;
+  outline: none;
   -ms-overflow-style: none;
   scrollbar-width: none;
   scroll-behavior: smooth;
