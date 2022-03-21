@@ -18,6 +18,8 @@ const Player = () => {
     const [transitionIndex, setTransitionIndex] = useState(0);
     const [progressTime, setProgressTime] = useState(0);
     const [progressPercent, setProgressPercent] = useState(0);
+    const [playlistTotal, setPlaylistTotal] = useState(0);
+    const [playlistCurrentName, setPlaylistCurrentName] = useState('');
 
     const playerRef = React.createRef();
 
@@ -32,7 +34,7 @@ const Player = () => {
 
     useEffect(() => {
         if (song !== null) {
-            player.load(`https://api.soundcloud.com/tracks/${song.id}?auto_play=${playing ? 'true' : 'false'}&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false`, { auto_play: playing, callback: handleLoaded });
+            player.load(`https://api.soundcloud.com/${song.playlist ? 'playlists' : 'tracks'}/${song.id}?auto_play=${playing ? 'true' : 'false'}&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false`, { auto_play: playing, callback: handleLoaded });
         }
     }, [song]);
 
@@ -53,6 +55,7 @@ const Player = () => {
     const handleLoaded = () => {
         setProgressTime(0);
         setProgressPercent(0);
+        updatePlaylistData();
         if (playing) {
             player.play();
         }
@@ -64,8 +67,15 @@ const Player = () => {
     }
 
     const handleNext = () => {
-        dispatch(addCurrentSongPlays());
-        dispatch(setNewTrack());
+        player.getCurrentSoundIndex(i => {
+            if (i !== playlistTotal - 1) {
+                player.next();
+                updatePlaylistData();
+            } else {
+                dispatch(addCurrentSongPlays());
+                dispatch(setNewTrack());
+            }
+        });
     }
 
     const handlePlayTransition = () => {
@@ -98,15 +108,35 @@ const Player = () => {
         });
     }
 
-    const handleFinish = () => {
-        dispatch(addCurrentSongPlays());
-        dispatch(setNewTrack());
+    function handleFinish() {
+        this.getCurrentSoundIndex(i => {
+            if (i !== playlistTotal - 1) {
+                this.next();
+                this.getSounds(sounds => {
+                    setPlaylistCurrentName(sounds[i + 1].title);
+                });
+            } else {
+                dispatch(addCurrentSongPlays());
+                dispatch(setNewTrack());
+            }
+        });
     }
 
     const handleClose = () => {
         player.pause();
         dispatch(setPlayerPlaying(false));
         dispatch(setPlayerCurrentSong(null));
+    }
+
+    const updatePlaylistData = () => {
+        if (player !== null) {
+            player.getSounds(sounds => {
+                setPlaylistTotal(sounds.length);
+                player.getCurrentSoundIndex(i => {
+                    setPlaylistCurrentName(sounds[i].title);
+                });
+            });
+        }
     }
 
     if (songs.length === 0) {
@@ -119,7 +149,7 @@ const Player = () => {
                 <img src={song !== null ? song.image : ''} alt={song !== null ? song.name : ''} />
                 <div className="player-info-side">
                     <div className="player-info-title">
-                        <h3>{song !== null ? song.name : ''}</h3>
+                        <h3>{song !== null ? song.name : ''}{song !== null && song.playlist ? ` / ${playlistCurrentName}` : ''}</h3>
                         <button type="button" onClick={handleClose}><FontAwesomeIcon icon={faTimes} /></button>
                     </div>
                     <div className="player-info-controls">
@@ -138,7 +168,7 @@ const Player = () => {
                 scrolling="no"
                 frameBorder="no"
                 style={{ display: 'none' }}
-                src={`https://w.soundcloud.com/player/?url=https://api.soundcloud.com/tracks/${songs[0].id}?hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false`} />
+                src={`https://w.soundcloud.com/player/?url=https://api.soundcloud.com/${songs[0].playlist ? 'playlists' : 'tracks'}/${songs[0].id}?hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false`} />
         </div>
     );
 }
