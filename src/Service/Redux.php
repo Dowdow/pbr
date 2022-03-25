@@ -88,6 +88,34 @@ class Redux extends AbstractExtension
         return json_encode($state);
     }
 
+     /**
+     * Get the json encoded pre loaded redux state
+     *
+     * @return string
+     */
+    public function getPreLoadedStateVr(): string
+    {
+        $state = [
+            'songs' => [],
+        ];
+
+        $i = 0;
+        $songs = $this->entityManager->getRepository(Song::class)->findBy(['activated' => true,], ['createdAt' => 'desc']);
+        foreach ($songs as $song) {
+            $state['songs'][] = [
+                'id' => $song->getSoundcloudId(),
+                'name' => $song->getName(),
+                'image' => $song->getImage(),
+                'playlist' => $song->isPlaylist(),
+                'order' => $i,
+                'plays' => 0,
+            ];
+            $i++;
+        }
+
+        return json_encode($state);
+    }
+
     /**
      * @return array|TwigFunction[]
      */
@@ -95,6 +123,7 @@ class Redux extends AbstractExtension
     {
         return [
             'getPreLoadedState' => new TwigFunction('getPreLoadedState', [$this, 'getPreLoadedState']),
+            'getPreLoadedStateVr' => new TwigFunction('getPreLoadedStateVr', [$this, 'getPreLoadedStateVr']),
         ];
     }
 
