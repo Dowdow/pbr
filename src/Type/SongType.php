@@ -22,8 +22,12 @@ class SongType extends AbstractType
             ->add('soundcloudId', TextType::class)
             ->add('name', TextType::class)
             ->add('image', TextType::class)
-            ->add('playlist', CheckboxType::class)
-            ->add('activated', CheckboxType::class)
+            ->add('playlist', CheckboxType::class, [
+                'required' => false,
+            ])
+            ->add('activated', CheckboxType::class, [
+                'required' => false,
+            ])
             ->add('save', SubmitType::class);
     }
 

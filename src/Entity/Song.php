@@ -77,6 +77,7 @@ class Song
      */
     public function __construct()
     {
+        $this->playlist = false;
         $this->activated = true;
         $this->createdAt = new DateTime();
     }
