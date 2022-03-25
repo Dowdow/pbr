@@ -1,4 +1,4 @@
-export default function transitions(state = [], action = {}) {
+export default function songs(state = [], action = {}) {
   switch (action.type) {
     default:
       return state;

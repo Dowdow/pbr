@@ -1,30 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta name="Description" content="Pain Boudin Record"/>
-    <meta name="theme-color" content="#ffffff"/>
-    <meta property="og:title" content="Pain Boudin Record"/>
-    <meta property="og:description" content="Music producer and live performer"/>
-    <meta property="og:site_name" content="Pain Boudin Record"/>
-    <meta property="og:type" content="website"/>
-    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}"/>
-    <link rel="manifest" href="{{ asset('manifest.json') }}"/>
-    <link rel="stylesheet" href="{{ asset('build/app.css') }}"/>
-    <title>{% block title %}Pain Boudin Record{% endblock %}</title>
-</head>
-<body>
-<noscript>
-    You need to enable JavaScript to run this app.
-</noscript>
-<div id="root"></div>
-<script>
-    window.__PRELOADED_STATE__ = {{ getPreLoadedState()|raw }};
-</script>
-<script type="text/javascript" src="https://w.soundcloud.com/player/api.js"></script>
-<script type="text/javascript" src="{{ asset('build/runtime.js') }}"></script>
-<script type="text/javascript" src="{{ asset('build/app.js') }}"></script>
-{% block body %}{% endblock %}
-</body>
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<meta name="Description" content="Pain Boudin Record"/>
+		<meta name="theme-color" content="#ffffff"/>
+		<meta property="og:title" content="Pain Boudin Record"/>
+		<meta property="og:description" content="Music producer and live performer"/>
+		<meta property="og:site_name" content="Pain Boudin Record"/>
+		<meta property="og:type" content="website"/>
+		<link rel="icon" type="image/png" href="{{ asset('favicon.png') }}"/>
+		<link rel="manifest" href="{{ asset('manifest.json') }}"/>
+		<link rel="stylesheet" href="{{ asset('build/app.css') }}"/>
+		<title>
+			{% block title %}Pain Boudin Record
+			{% endblock %}
+		</title>
+	</head>
+	<body>
+		<noscript>
+			You need to enable JavaScript to run this app.
+		</noscript>
+		<div id="root"></div>
+		<script>
+			window.PRELOADED_STATE = {{ getPreLoadedState()|raw }};
+		</script>
+		<script type="text/javascript" src="https://w.soundcloud.com/player/api.js"></script>
+		<script type="text/javascript" src="{{ asset('build/runtime.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('build/app.js') }}"></script>
+		{% block body %}{% endblock %}
+	</body>
 </html>

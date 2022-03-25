@@ -5,14 +5,14 @@ import Player from './Player';
 import Footer from './Footer';
 import Shop from './Shop';
 
-const App = () =>
+export default function App() {
+  return (
     <div className="app">
-        <Header />
-        <Songs />
-        <Shop />
-        <Player />
-        <Footer />
+      <Header />
+      <Songs />
+      <Shop />
+      <Player />
+      <Footer />
     </div>
-    ;
-
-export default App;
+  );
+}
