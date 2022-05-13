@@ -14,6 +14,7 @@ Encore
   .enableSassLoader()
   .addEntry('app', './assets/pbr/js/index.jsx')
   .addEntry('vr', './assets/vr/js/index.jsx')
+  .addEntry('midi', './assets/midi/js/index.jsx')
 
   .cleanupOutputBeforeBuild()
 

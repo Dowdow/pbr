@@ -37,4 +37,12 @@ class AppController extends AbstractController
     {
         return $this->render('vr.html.twig');
     }
+
+    /**
+     * @Route("/", name="midi", host="%midi_host%")
+     */
+    public function midiAction(): Response
+    {
+        return $this->render('midi.html.twig');
+    }
 }

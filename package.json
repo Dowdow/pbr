@@ -9,7 +9,7 @@
     "dev": "encore dev",
     "watch": "encore dev --watch",
     "prod": "encore production",
-    "eslint": "eslint --ext .js --ext .jsx assets/pbr/js assets/vr/js"
+    "eslint": "eslint --ext .js --ext .jsx assets/pbr/js assets/vr/js assets/midi/js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1",

@@ -5,41 +5,42 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     twitch:
-        client_id: '%env(TWITCH_CLIENT_ID)%'
-        client_secret: '%env(TWITCH_CLIENT_SECRET)%'
-        redirect: '%env(TWITCH_REDIRECT)%'
+        client_id: "%env(TWITCH_CLIENT_ID)%"
+        client_secret: "%env(TWITCH_CLIENT_SECRET)%"
+        redirect: "%env(TWITCH_REDIRECT)%"
         scope: ["user:read:email"]
 
-    base_host: '%env(BASE_HOST)%'
-    shop_host: '%env(SHOP_HOST)%'
-    vr_host: '%env(VR_HOST)%'
+    base_host: "%env(BASE_HOST)%"
+    shop_host: "%env(SHOP_HOST)%"
+    vr_host: "%env(VR_HOST)%"
+    midi_host: "%env(MIDI_HOST)%"
 
-    transitions_directory: '%kernel.project_dir%/public/transitions'
+    transitions_directory: "%kernel.project_dir%/public/transitions"
 
 services:
     # default configuration for services in *this* file
     _defaults:
-        autowire: true      # Automatically injects dependencies in your services.
+        autowire: true # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:
-        resource: '../src/'
+        resource: "../src/"
         exclude:
-            - '../src/DependencyInjection/'
-            - '../src/Entity/'
-            - '../src/Kernel.php'
+            - "../src/DependencyInjection/"
+            - "../src/Entity/"
+            - "../src/Kernel.php"
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
     App\Controller\:
-        resource: '../src/Controller/'
-        tags: ['controller.service_arguments']
+        resource: "../src/Controller/"
+        tags: ["controller.service_arguments"]
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
     App\Service\TwitchService:
         arguments:
-            $twitchParameters: '%twitch%'
+            $twitchParameters: "%twitch%"
