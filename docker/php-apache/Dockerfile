@@ -1,4 +1,4 @@
-FROM php:8.0-apache
+FROM php:8.1-apache
 
 # Updates
 RUN apt-get update && apt-get -y upgrade
@@ -30,6 +30,6 @@ COPY pbr.conf /etc/apache2/sites-available/pbr.conf
 RUN a2ensite pbr.conf
 
 # NodeJS
-RUN curl -fsSL https://deb.nodesource.com/setup_17.x | bash - && apt-get install -y nodejs
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && apt-get install -y nodejs
 RUN npm i -g npm
 RUN npm i -g gltf-pipeline

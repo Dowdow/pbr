@@ -1,5 +1,5 @@
 import React from 'react';
-import { hydrate } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { applyMiddleware, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
@@ -23,11 +23,11 @@ subscribeLocalStorage(store);
 ReactGA.initialize('G-0MGL667M43');
 ReactGA.send('pageview');
 
-hydrate(
+const root = createRoot(document.getElementById('root'));
+root.render(
   <Provider store={store}>
     <App />
   </Provider>,
-  document.getElementById('root'),
 );
 
 register();
