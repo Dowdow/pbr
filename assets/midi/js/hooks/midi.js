@@ -74,7 +74,7 @@ export function useMidiSend() {
     rules.forEach((rule) => {
       const { midiMessageType, midiMessageChannel, midiMessageValue1, midiMessageValue2, type, typeValue } = rule;
       if (type === buttonType && typeValue === buttonIndex) {
-        if (midiMessageType === 0 && buttonValue === 1) { // Note On
+        if (midiMessageType === 0) { // Note On
           if (buttonValue === 0) {
             sendMidiNoteOffMessage(selected, midiMessageChannel, midiMessageValue1, midiMessageValue2);
           } else {
