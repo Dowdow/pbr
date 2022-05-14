@@ -6,9 +6,14 @@ import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import App from './components/App';
 import appReducer from './reducers';
+import { loadState, subscribeLocalStorage } from './utils/localStorage';
 import '../scss/index.scss';
 
-const store = createStore(appReducer, {}, composeWithDevTools(applyMiddleware(thunkMiddleware)));
+const initialState = { ...loadState() };
+
+const store = createStore(appReducer, initialState, composeWithDevTools(applyMiddleware(thunkMiddleware)));
+
+subscribeLocalStorage(store);
 
 const root = createRoot(document.getElementById('root'));
 root.render(
