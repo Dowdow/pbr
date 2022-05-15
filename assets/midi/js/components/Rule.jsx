@@ -1,22 +1,54 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { removeRule } from '../actions/rules';
+import { removeRule, toggleRuleActivated } from '../actions/rules';
 
 export default function Rule({ rule }) {
   const dispatch = useDispatch();
 
+  const handleToggleActivated = () => {
+    dispatch(toggleRuleActivated(rule.id));
+  };
+
   const handleRemove = () => {
     dispatch(removeRule(rule.id));
   };
+
+  let midiMessage = 'Unknown';
+  if (rule.midiMessageType === 0) {
+    midiMessage = 'Note On';
+  } else if (rule.midiMessageType === 1) {
+    midiMessage = 'Note Off';
+  } else if (rule.midiMessageType === 2) {
+    midiMessage = 'CC';
+  }
+
   return (
-    <div>
-      <span>{rule.midiMessageType}</span>
-      <span>{`Channel: ${rule.midiMessageChannel}`}</span>
-      <span>{`Message Value 1: ${rule.midiMessageValue1}`}</span>
-      <span>{`Message Value 2: ${rule.midiMessageValue2}`}</span>
-      <span>{`Trigger: ${rule.type === 0 ? 'Button' : 'Axe'}`}</span>
-      <span>{`N°: ${rule.typeValue}`}</span>
-      <button type="button" onClick={handleRemove}>Remove</button>
+    <div className={`flex flex-col w-36 p-2 mx-2 mb-4 bg-gray-200 border-t-4 ${rule.activated ? 'border-green-400' : 'border-red-500'}`}>
+      <div className="flex flex-row justify-between">
+        <h4 className="font-bold">{midiMessage}</h4>
+        <span>
+          CH
+          <span className="font-bold ml-1">{rule.midiMessageChannel + 1}</span>
+        </span>
+      </div>
+      <div className="flex flex-row justify-between">
+        <span className="mr-2">
+          V1
+          <span className="font-bold ml-1">{rule.midiMessageValue1}</span>
+        </span>
+        <span>
+          V2
+          <span className="font-bold ml-1">{rule.midiMessageValue2}</span>
+        </span>
+      </div>
+      <span className="self-center">
+        {rule.type === 0 ? 'B' : 'Axe '}
+        <span className="font-bold">{rule.typeValue}</span>
+      </span>
+      <div className="flex flex-row justify-between mt-2">
+        <button type="button" onClick={handleToggleActivated} className="underline">{rule.activated ? 'Stop' : 'Start'}</button>
+        <button type="button" onClick={handleRemove} className="underline">Remove</button>
+      </div>
     </div>
   );
 }

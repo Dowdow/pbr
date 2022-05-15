@@ -72,7 +72,10 @@ export function useMidiSend() {
 
   function send(buttonType, buttonIndex, buttonValue) {
     rules.forEach((rule) => {
-      const { midiMessageType, midiMessageChannel, midiMessageValue1, midiMessageValue2, type, typeValue } = rule;
+      const { activated, midiMessageType, midiMessageChannel, midiMessageValue1, midiMessageValue2, type, typeValue } = rule;
+
+      if (!activated) return;
+
       if (type === buttonType && typeValue === buttonIndex) {
         if (midiMessageType === 0) { // Note On
           if (buttonValue === 0) {

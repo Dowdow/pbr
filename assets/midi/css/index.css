@@ -4,4 +4,21 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {}
+@layer base {
+  :root {
+    --color-fill: #ffffff;
+    --color-text: #303030;
+  }
+
+  body {
+    @apply font-inter text-skin-base bg-skin-fill;
+  }
+
+  select {
+    @apply bg-gray-200 p-2 text-lg;
+  }
+
+  form select {
+    @apply p-1 text-base;
+  }
+}

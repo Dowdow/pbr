@@ -24,9 +24,14 @@ export default function Gamepad({ index }) {
   }
 
   return (
-    <div>
-      {gamepad.buttons.map((button, i) => <Button key={`button-${index}-${i}`} type={0} index={i} value={button.value} />)}
-      {gamepad.axes.map((axe, i) => <Button key={`axe-${index}-${i}`} type={1} index={i} value={axe} />)}
+    <div className="flex flex-col mt-5">
+      <h3 className="text-lg font-bold mx-2 mb-4">{gamepad.id}</h3>
+      <div className="flex flex-row flex-wrap">
+        {gamepad.buttons.map((button, i) => <Button key={`button-${index}-${i}`} type={0} index={i} value={button.value} />)}
+      </div>
+      <div className="flex flex-row flex-wrap mt-2">
+        {gamepad.axes.map((axe, i) => <Button key={`axe-${index}-${i}`} type={1} index={i} value={axe} />)}
+      </div>
     </div>
   );
 }
