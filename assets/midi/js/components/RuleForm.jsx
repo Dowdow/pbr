@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addRule } from '../actions/rules';
+import { MIDI_TYPE_CC, MIDI_TYPE_NOTE_OFF, MIDI_TYPE_NOTE_ON } from '../utils/midi';
 
 export default function RuleForm() {
   const dispatch = useDispatch();
 
-  const [midiMessageType, setMidiMessageType] = useState(0);
+  const [midiMessageType, setMidiMessageType] = useState(MIDI_TYPE_NOTE_ON);
   const [midiMessageChannel, setMidiMessageChannel] = useState(0);
   const [midiMessageValue1, setMidiMessageValue1] = useState(127);
   const [midiMessageValue2, setMidiMessageValue2] = useState(127);
@@ -59,9 +60,9 @@ export default function RuleForm() {
           <div className="flex flex-col mr-4">
             <label>MIDI Message</label>
             <select value={midiMessageType} onChange={handleMidiMessageTypeChange}>
-              <option value={0}>Note ON</option>
-              <option value={1}>Note OFF</option>
-              <option value={2}>Continuous Control</option>
+              <option value={MIDI_TYPE_NOTE_ON}>Note ON</option>
+              <option value={MIDI_TYPE_NOTE_OFF}>Note OFF</option>
+              <option value={MIDI_TYPE_CC}>Continuous Control</option>
             </select>
           </div>
           <div className="flex flex-col mr-4">

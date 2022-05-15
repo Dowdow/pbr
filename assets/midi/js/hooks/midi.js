@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { addLog } from '../actions/logs';
 import { addMidiOutput, removeMidiOutput } from '../actions/midiOutputs';
+import { MIDI_TYPE_CC, MIDI_TYPE_NOTE_OFF, MIDI_TYPE_NOTE_ON } from '../utils/midi';
 
 let MIDIAccess = null;
 
@@ -10,6 +12,15 @@ function createDataFromMIDIPort(port) {
     manufacturer: port.manufacturer,
     name: port.name,
     version: port.version,
+  };
+}
+
+function createLog(type, channel, value1, value2, buttonType, buttonValue) {
+  return {
+    id: Date.now(),
+    data: {
+      type, channel, value1, value2, buttonType, buttonValue,
+    },
   };
 }
 
@@ -67,30 +78,39 @@ export default function useMidiOutputs() {
 }
 
 export function useMidiSend() {
+  const dispatch = useDispatch();
+
   const selected = useSelector((state) => state.midiOutputs.selected);
   const rules = useSelector((state) => state.rules);
 
   function send(buttonType, buttonIndex, buttonValue) {
+    if (selected === null) return;
+
     rules.forEach((rule) => {
       const { activated, midiMessageType, midiMessageChannel, midiMessageValue1, midiMessageValue2, type, typeValue } = rule;
 
       if (!activated) return;
 
       if (type === buttonType && typeValue === buttonIndex) {
-        if (midiMessageType === 0) { // Note On
+        if (midiMessageType === MIDI_TYPE_NOTE_ON) { // Note On
           if (buttonValue === 0) {
             sendMidiNoteOffMessage(selected, midiMessageChannel, midiMessageValue1, midiMessageValue2);
+            dispatch(addLog(createLog(MIDI_TYPE_NOTE_OFF, midiMessageChannel, midiMessageValue1, midiMessageValue2, type, typeValue)));
           } else {
             sendMidiNoteOnMessage(selected, midiMessageChannel, midiMessageValue1, midiMessageValue2);
+            dispatch(addLog(createLog(MIDI_TYPE_NOTE_ON, midiMessageChannel, midiMessageValue1, midiMessageValue2, type, typeValue)));
           }
-        } else if (midiMessageType === 1) { // Note Off
+        } else if (midiMessageType === MIDI_TYPE_NOTE_OFF) { // Note Off
           if (buttonValue === 0) {
             sendMidiNoteOnMessage(selected, midiMessageChannel, midiMessageValue1, midiMessageValue2);
+            dispatch(addLog(createLog(MIDI_TYPE_NOTE_ON, midiMessageChannel, midiMessageValue1, midiMessageValue2, type, typeValue)));
           } else {
             sendMidiNoteOffMessage(selected, midiMessageChannel, midiMessageValue1, midiMessageValue2);
+            dispatch(addLog(createLog(MIDI_TYPE_NOTE_OFF, midiMessageChannel, midiMessageValue1, midiMessageValue2, type, typeValue)));
           }
-        } else if (midiMessageType === 2) { // CC
+        } else if (midiMessageType === MIDI_TYPE_CC) { // CC
           sendMidiCCMessage(selected, midiMessageChannel, midiMessageValue1, Math.round(buttonValue * 127));
+          dispatch(addLog(createLog(MIDI_TYPE_CC, midiMessageChannel, midiMessageValue1, Math.round(buttonValue * 127), type, typeValue)));
         }
       }
     });

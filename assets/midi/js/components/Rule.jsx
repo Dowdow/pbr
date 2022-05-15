@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { removeRule, toggleRuleActivated } from '../actions/rules';
+import { midiTypeNameFromId } from '../utils/midi';
 
 export default function Rule({ rule }) {
   const dispatch = useDispatch();
@@ -13,19 +14,10 @@ export default function Rule({ rule }) {
     dispatch(removeRule(rule.id));
   };
 
-  let midiMessage = 'Unknown';
-  if (rule.midiMessageType === 0) {
-    midiMessage = 'Note On';
-  } else if (rule.midiMessageType === 1) {
-    midiMessage = 'Note Off';
-  } else if (rule.midiMessageType === 2) {
-    midiMessage = 'CC';
-  }
-
   return (
     <div className={`flex flex-col w-36 p-2 mx-2 mb-4 bg-gray-200 border-t-4 ${rule.activated ? 'border-green-400' : 'border-red-500'}`}>
       <div className="flex flex-row justify-between">
-        <h4 className="font-bold">{midiMessage}</h4>
+        <h4 className="font-bold">{midiTypeNameFromId(rule.midiMessageType)}</h4>
         <span>
           CH
           <span className="font-bold ml-1">{rule.midiMessageChannel + 1}</span>
