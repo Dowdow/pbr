@@ -6,7 +6,6 @@ import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import appReducer from './reducers';
 import App from './components/App';
-import '../scss/index.scss';
 
 const preloadedState = window.PRELOADED_STATE;
 delete window.PRELOADED_STATE;

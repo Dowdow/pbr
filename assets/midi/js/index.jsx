@@ -7,7 +7,6 @@ import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import App from './components/App';
 import appReducer from './reducers';
 import { loadState, subscribeLocalStorage } from './utils/localStorage';
-import '../scss/index.scss';
 
 const initialState = { ...loadState() };
 

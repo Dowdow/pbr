@@ -11,10 +11,12 @@ Encore
 
   .enableSingleRuntimeChunk()
   .enableReactPreset()
-  .enableSassLoader()
   .addEntry('app', './assets/pbr/js/index.jsx')
   .addEntry('vr', './assets/vr/js/index.jsx')
   .addEntry('midi', './assets/midi/js/index.jsx')
+  .addStyleEntry('appStyle', './assets/pbr/css/index.css')
+  .addStyleEntry('vrStyle', './assets/vr/css/index.css')
+  .addStyleEntry('midiStyle', './assets/midi/css/index.css')
 
   .cleanupOutputBeforeBuild()
 
@@ -24,6 +26,12 @@ Encore
 
   .enableSourceMaps(!Encore.isProduction())
   .enableVersioning(Encore.isProduction())
+
+  .enablePostCssLoader((options) => {
+    options.postcssOptions = {
+      config: './postcss.config.js',
+    };
+  })
 
   .addPlugin(new WorkboxPlugin.GenerateSW({
     swDest: '../service-worker.js',

@@ -11,43 +11,43 @@ export default function Header() {
   const isConnected = useIsConnected();
 
   return (
-    <header>
-      <div className="header-img">
-        <img src={pbdr} alt="Pain Boudin Record Logo" />
+    <header className="flex flex-row justify-between h-24 container mx-auto px-2">
+      <div className="flex items-center hover:opacity-75">
+        <img src={pbdr} alt="Pain Boudin Record Logo" className="h-14 object-cover" />
       </div>
-      <div className="header-nav">
-        <a href="#songs">
-          <FontAwesomeIcon icon={faMusic} />
-          <span>SONGS</span>
+      <div className="flex flex-row justify-around items-center w-2/3 md:w-4/5 text-2xl font-bold tracking-wide md:tracking-wider lg:tracking-widest">
+        <a href="#songs" className="hover:opacity-75">
+          <FontAwesomeIcon icon={faMusic} className="md:hidden" />
+          <span className="hidden md:flex">SONGS</span>
         </a>
-        <a href="#shop">
-          <FontAwesomeIcon icon={faShirt} />
-          <span>SHOP</span>
+        <a href="#shop" className="hover:opacity-75">
+          <FontAwesomeIcon icon={faShirt} className="md:hidden" />
+          <span className="hidden md:flex">SHOP</span>
         </a>
-        <a href={vrUrl}>
-          <FontAwesomeIcon icon={faVrCardboard} />
-          <span>VR</span>
+        <a href={vrUrl} className="hover:opacity-75">
+          <FontAwesomeIcon icon={faVrCardboard} className="md:hidden" />
+          <span className="hidden md:flex">VR</span>
         </a>
 
         {!isConnected
           ? (
             <form method="post" action="/authorize">
-              <button type="submit">
-                <FontAwesomeIcon icon={faRightToBracket} />
-                <span>SIGN-IN</span>
+              <button type="submit" className="hover:opacity-75">
+                <FontAwesomeIcon icon={faRightToBracket} className="md:hidden" />
+                <span className="hidden md:flex font-bold">SIGN-IN</span>
               </button>
             </form>
           )
           : (
-            <a href="/logout">
-              <FontAwesomeIcon icon={faRightFromBracket} />
-              <span>SIGN-OUT</span>
+            <a href="/logout" className="hover:opacity-75">
+              <FontAwesomeIcon icon={faRightFromBracket} className="md:hidden" />
+              <span className="hidden md:flex">SIGN-OUT</span>
             </a>
           )}
         {isAdmin ? (
-          <a href="/admin">
-            <FontAwesomeIcon icon={faUnlockKeyhole} />
-            <span>ADMIN</span>
+          <a href="/admin" className="hover:opacity-75">
+            <FontAwesomeIcon icon={faUnlockKeyhole} className="md:hidden" />
+            <span className="hidden md:flex">ADMIN</span>
           </a>
         ) : ''}
       </div>

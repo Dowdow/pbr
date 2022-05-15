@@ -157,29 +157,35 @@ export default function Player() {
   }
 
   return (
-    <div className={`player${song === null ? ' hide' : ''}`}>
-      <div className="player-info">
-        <img src={song !== null ? song.image : ''} alt={song !== null ? song.name : ''} />
-        <div className="player-info-side">
-          <div className="player-info-title">
-            <h3>
+    <div className={`fixed bg-skin-fill bottom-0 left-0 right-0 w-full md:w-3/5 lg:w-1/2 xl:w-1/3 mx-auto z-10 ${song === null ? 'hidden' : ''}`}>
+      <div className="flex flex-row">
+        <img src={song !== null ? song.image : ''} alt={song !== null ? song.name : ''} className="w-24 h-24 object-cover" />
+        <div className="flex flex-col justify-evenly grow">
+          <div className="flex flex-row justify-between items-center mx-2">
+            <h3 className="font-bold">
               {song !== null ? song.name : ''}
               {song !== null && song.playlist ? ` / ${playlistCurrentName}` : ''}
             </h3>
-            <button type="button" onClick={handleClose}><FontAwesomeIcon icon={faTimes} /></button>
+            <button type="button" onClick={handleClose}>
+              <FontAwesomeIcon icon={faTimes} />
+            </button>
           </div>
-          <div className="player-info-controls">
-            <button type="button" onClick={handlePlayPause}><FontAwesomeIcon icon={playing ? faPause : faPlay} /></button>
-            <button type="button" onClick={handleNext}><FontAwesomeIcon icon={faStepForward} /></button>
-            <progress value={progressPercent} max="100" onClick={handleProgressClick} />
+          <div className="flex flex-row justify-between items-center mx-2">
+            <button type="button" onClick={handlePlayPause} className="mr-2">
+              <FontAwesomeIcon icon={playing ? faPause : faPlay} className="h-5 w-5" />
+            </button>
+            <button type="button" onClick={handleNext} className="mr-2">
+              <FontAwesomeIcon icon={faStepForward} className="h-5 w-5" />
+            </button>
+            <progress value={progressPercent} max="100" onClick={handleProgressClick} className="grow h-5 rounded" />
           </div>
-          <div className="player-info-other">
-            <label>
-              <input type="checkbox" onChange={handleShuffle} checked={shuffle} />
+          <div className="flex flex-row justify-between items-center mx-2">
+            <label className="flex items-center">
+              <input type="checkbox" onChange={handleShuffle} checked={shuffle} className="mr-1" />
               Shuffle
             </label>
-            <label>
-              <FontAwesomeIcon icon={faVolumeLow} />
+            <label className="flex items-center">
+              <FontAwesomeIcon icon={faVolumeLow} className="mr-2" />
               <input type="range" min="0" max="100" value={volume} onChange={handleVolume} />
             </label>
           </div>
@@ -193,7 +199,7 @@ export default function Player() {
         scrolling="no"
         frameBorder="no"
         title="player"
-        style={{ display: 'none' }}
+        className="hidden"
         src={`https://w.soundcloud.com/player/?url=https://api.soundcloud.com/${songs[0].playlist ? 'playlists' : 'tracks'}/${songs[0].id}?hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false`}
       />
     </div>

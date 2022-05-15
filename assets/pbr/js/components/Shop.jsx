@@ -14,16 +14,16 @@ export default function Shop() {
   };
 
   return (
-    <div id="shop" className="shop">
-      <div className="shop-slideshow" onClick={handleClick} role="presentation">
-        <img src={shop1} alt="Shop 1" />
-        <img src={shop10} alt="Shop 2" />
-        <img src={shop4} alt="Shop 3" />
-        <img src={shop2} alt="Shop 4" />
-        <img src={shop5} alt="Shop 5" />
+    <div id="shop" className="pt-24 pb-10">
+      <div className="relative h-96" onClick={handleClick} role="presentation">
+        <img src={shop1} alt="Shop 1" className="absolute h-96 opacity-0 top-0 left-0 right-0 mx-auto animate-shop-0 object-cover" />
+        <img src={shop10} alt="Shop 2" className="absolute h-96 opacity-0 top-0 left-0 right-0 mx-auto animate-shop-4 object-cover" />
+        <img src={shop4} alt="Shop 3" className="absolute h-96 opacity-0 top-0 left-0 right-0 mx-auto animate-shop-8 object-cover" />
+        <img src={shop2} alt="Shop 4" className="absolute h-96 opacity-0 top-0 left-0 right-0 mx-auto animate-shop-12 object-cover" />
+        <img src={shop5} alt="Shop 5" className="absolute h-96 opacity-0 top-0 left-0 right-0 mx-auto animate-shop-16 object-cover" />
       </div>
-      <div className="shop-link">
-        <a href={shopUrl} target="_blank" rel="noopener noreferrer">SHOP NOW</a>
+      <div className="mt-5 text-center">
+        <a href={shopUrl} target="_blank" rel="noopener noreferrer" className="text-4xl tracking-widest hover:underline">SHOP NOW</a>
       </div>
     </div>
   );

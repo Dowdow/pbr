@@ -9,7 +9,6 @@ import appReducer from './reducers/index';
 import App from './components/App';
 import { loadState, subscribeLocalStorage } from './utils/localStorage';
 import { register } from './utils/serviceWorkerRegistration';
-import '../scss/index.scss';
 
 const preloadedState = window.PRELOADED_STATE;
 delete window.PRELOADED_STATE;

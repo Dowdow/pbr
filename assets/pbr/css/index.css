@@ -1,0 +1,40 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-fill: #ffffff;
+    --color-text: #303030;
+    --color-songs: #efefef;
+    --color-song-hover: #3030307F;
+  }
+
+  body {
+    @apply font-inter text-skin-base bg-skin-fill outline-none scroll-smooth;
+  }
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes fade {
+	0% {
+		opacity: 0;
+	}
+	5% {
+		opacity: 1;
+	}
+	20% {
+		opacity: 1;
+	}
+	25% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 0;
+	}
+}
