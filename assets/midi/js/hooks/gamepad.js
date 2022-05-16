@@ -9,12 +9,12 @@ export default function useGamepads() {
 
   function gamepadConnected(event) {
     const { gamepad } = event;
-    dispatch(addGamepad({ id: gamepad.id, index: gamepad.index }));
+    dispatch(addGamepad({ id: gamepad.id, index: gamepad.index, activated: true }));
   }
 
   function gamepadDisconnected(event) {
     const { gamepad } = event;
-    dispatch(removeGamepad({ id: gamepad.id, index: gamepad.index }));
+    dispatch(removeGamepad(gamepad.index));
   }
 
   useEffect(() => {

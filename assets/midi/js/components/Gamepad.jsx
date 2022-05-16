@@ -1,36 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Button from './Button';
 
-export default function Gamepad({ index }) {
-  const [gamepad, setGamepad] = useState(null);
-
-  useEffect(() => {
-    let interval = null;
-    if (index !== null) {
-      interval = setInterval(() => {
-        setGamepad(navigator.getGamepads()[index]);
-      }, 10);
-    }
-
-    return () => {
-      if (interval !== null) {
-        clearInterval(interval);
-      }
-    };
-  }, [index]);
-
-  if (index === null || gamepad === null) {
+export default function Gamepad({ activated, data }) {
+  if (data === null) {
     return null;
   }
 
   return (
     <div className="flex flex-col mt-5">
-      <h3 className="text-lg font-bold mx-2 mb-4">{gamepad.id}</h3>
+      <h3 className="text-lg font-bold mx-2 mb-4">{data.id}</h3>
       <div className="flex flex-row flex-wrap">
-        {gamepad.buttons.map((button, i) => <Button key={`button-${index}-${i}`} type={0} index={i} value={button.value} />)}
+        {data.buttons.map((button, i) => <Button key={`button-${data.index}-${i}`} type={0} activated={activated} controllerIndex={data.index} index={i} value={button.value} />)}
       </div>
       <div className="flex flex-row flex-wrap mt-2">
-        {gamepad.axes.map((axe, i) => <Button key={`axe-${index}-${i}`} type={1} index={i} value={axe} />)}
+        {data.axes.map((axe, i) => <Button key={`axe-${data.index}-${i}`} type={1} activated={activated} controllerIndex={data.index} index={i} value={axe} />)}
       </div>
     </div>
   );

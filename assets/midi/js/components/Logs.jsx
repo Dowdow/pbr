@@ -13,7 +13,7 @@ export default function Logs() {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 w-full md:w-1/2 lg:w-1/3 h-72 bg-gray-200">
+    <div className="fixed bottom-0 right-0 w-full md:w-1/2 lg:w-1/3 h-72 bg-gray-200">
       <div className="flex flex-row justify-between mx-2">
         <h4 className="font-bold">Logs</h4>
         <button type="button" onClick={handleClearLogs} className="underline">Clear</button>
@@ -32,11 +32,12 @@ function Log({ id, data }) {
   return (
     <div className="flex flex-row justify-between px-2">
       <span className="w-28 text-blue-600">{`${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}:${date.getMilliseconds().toString().padStart(3, '0')}`}</span>
-      <span className="w-20 uppercase">{midiTypeNameFromId(data.type)}</span>
-      <span className="w-9">{`CH${data.channel}`}</span>
-      <span className="w-8 text-center">{data.value1}</span>
-      <span className="w-8 text-center">{data.value2}</span>
-      <span className="w-8">{`${data.buttonType === 0 ? 'B' : 'A'}${data.buttonValue}`}</span>
+      <span className="w-8">{`C${data.controllerIndex}`}</span>
+      <span className="w-8">{`${data.buttonType === 0 ? 'B' : 'A'}${data.buttonIndex}`}</span>
+      <span className="w-20 uppercase">{midiTypeNameFromId(data.midiMessageType)}</span>
+      <span className="w-9">{`CH${data.midiMessageChannel}`}</span>
+      <span className="w-8 text-center">{data.midiMessageValue1}</span>
+      <span className="w-8 text-center">{data.midiMessageValue2}</span>
     </div>
   );
 }

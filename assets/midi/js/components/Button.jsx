@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useMidiSend } from '../hooks/midi';
 
-export default function Button({ type, index, value }) {
+export default function Button({ activated, controllerIndex, type, index, value }) {
   const send = useMidiSend();
 
   const [previous, setPrevious] = useState(null);
@@ -9,8 +9,8 @@ export default function Button({ type, index, value }) {
   const cappedValue = type === 0 ? Math.min(Math.max(value, 0), 1) : Math.min(Math.max(value, -1), 1);
 
   useEffect(() => {
-    if (previous !== null && previous !== value) {
-      send(type, index, type === 0 ? cappedValue : ((cappedValue + 1) / 2));
+    if (previous !== null && previous !== value && activated) {
+      send(controllerIndex, type, index, type === 0 ? cappedValue : ((cappedValue + 1) / 2));
     }
     setPrevious(value);
   }, [value]);

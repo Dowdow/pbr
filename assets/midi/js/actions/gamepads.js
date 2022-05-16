@@ -1,15 +1,15 @@
-export const GAMEPAD_SELECT = 'GAMEPAD_SELECT';
 export const GAMEPAD_ADD = 'GAMEPAD_ADD';
 export const GAMEPAD_REMOVE = 'GAMEPAD_REMOVE';
-
-export function selectGamepad(index) {
-  return (dispatch) => dispatch({ type: GAMEPAD_SELECT, index });
-}
+export const GAMEPAD_TOGGLE_ACTIVATED = 'GAMEPAD_TOGGLE_ACTIVATED';
 
 export function addGamepad(gamepad) {
   return (dispatch) => dispatch({ type: GAMEPAD_ADD, gamepad });
 }
 
-export function removeGamepad(gamepad) {
-  return (dispatch) => dispatch({ type: GAMEPAD_REMOVE, gamepad });
+export function removeGamepad(index) {
+  return (dispatch) => dispatch({ type: GAMEPAD_REMOVE, index });
+}
+
+export function toggleGamepadActivated(index) {
+  return (dispatch) => dispatch({ type: GAMEPAD_TOGGLE_ACTIVATED, index });
 }

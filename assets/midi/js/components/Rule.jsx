@@ -33,10 +33,16 @@ export default function Rule({ rule }) {
           <span className="font-bold ml-1">{rule.midiMessageValue2}</span>
         </span>
       </div>
-      <span className="self-center">
-        {rule.type === 0 ? 'B' : 'Axe '}
-        <span className="font-bold">{rule.typeValue}</span>
-      </span>
+      <div className="flex flex-row justify-center">
+        <span className="mr-4">
+          C
+          <span className="font-bold">{rule.controllerIndex}</span>
+        </span>
+        <span>
+          {rule.buttonType === 0 ? 'B' : 'Axe '}
+          <span className="font-bold">{rule.buttonIndex}</span>
+        </span>
+      </div>
       <div className="flex flex-row justify-between mt-2">
         <button type="button" onClick={handleToggleActivated} className="underline">{rule.activated ? 'Stop' : 'Start'}</button>
         <button type="button" onClick={handleRemove} className="underline">Remove</button>

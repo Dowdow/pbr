@@ -1,19 +1,22 @@
-import { GAMEPAD_ADD, GAMEPAD_REMOVE, GAMEPAD_SELECT } from '../actions/gamepads';
+import { GAMEPAD_ADD, GAMEPAD_REMOVE, GAMEPAD_TOGGLE_ACTIVATED } from '../actions/gamepads';
 
-const init = { selected: null, gamepads: [] };
-
-export default function gamepads(state = init, action = {}) {
+export default function gamepads(state = [], action = {}) {
   switch (action.type) {
-    case GAMEPAD_SELECT:
-      return { ...state, selected: action.index };
     case GAMEPAD_ADD:
-      return { ...state, gamepads: [...state.gamepads, action.gamepad] };
+      return [...state, action.gamepad];
     case GAMEPAD_REMOVE:
-      return {
-        ...state,
-        selected: state.selected === action.gamepad.index ? null : state.selected,
-        gamepads: state.gamepads.filter((g) => g.index !== action.gamepad.index),
-      };
+      return [...state.filter((g) => g.index !== action.index)];
+    case GAMEPAD_TOGGLE_ACTIVATED: {
+      const indexGamepad = state.findIndex((g) => g.index === action.index);
+      if (indexGamepad !== -1) {
+        const gamepad = { ...state[indexGamepad] };
+        state.splice(indexGamepad, 1);
+        gamepad.activated = !gamepad.activated;
+        return [...state, gamepad];
+      }
+      return state;
+    }
+
     default:
       return state;
   }

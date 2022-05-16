@@ -11,8 +11,9 @@ export default function RuleForm() {
   const [midiMessageValue1, setMidiMessageValue1] = useState(127);
   const [midiMessageValue2, setMidiMessageValue2] = useState(127);
 
-  const [type, setType] = useState(0);
-  const [typeValue, setTypeValue] = useState(0);
+  const [controllerIndex, setControllerIndex] = useState(0);
+  const [buttonType, setButtonType] = useState(0);
+  const [buttonIndex, setButtonIndex] = useState(0);
 
   const handleMidiMessageTypeChange = (event) => {
     setMidiMessageType(parseInt(event.target.value, 10));
@@ -30,12 +31,16 @@ export default function RuleForm() {
     setMidiMessageValue2(parseInt(event.target.value, 10));
   };
 
-  const handleTypeChange = (event) => {
-    setType(parseInt(event.target.value, 10));
+  const handleControllerIndexChange = (event) => {
+    setControllerIndex(parseInt(event.target.value, 10));
   };
 
-  const handleTypeValueChange = (event) => {
-    setTypeValue(parseInt(event.target.value, 10));
+  const handleButtonTypeChange = (event) => {
+    setButtonType(parseInt(event.target.value, 10));
+  };
+
+  const handleButtonIndexChange = (event) => {
+    setButtonIndex(parseInt(event.target.value, 10));
   };
 
   const handleSubmit = (event) => {
@@ -47,8 +52,9 @@ export default function RuleForm() {
       midiMessageChannel,
       midiMessageValue1,
       midiMessageValue2,
-      type,
-      typeValue,
+      controllerIndex,
+      buttonType,
+      buttonIndex,
     }));
   };
 
@@ -86,15 +92,19 @@ export default function RuleForm() {
         </div>
         <div className="flex flex-row justify-center">
           <div className="flex flex-col mr-4">
-            <label>Trigger</label>
-            <select value={type} onChange={handleTypeChange}>
+            <label>Controller Number</label>
+            <input type="number" min={0} value={controllerIndex} step={1} onChange={handleControllerIndexChange} className="p-1 w-36 bg-gray-200" />
+          </div>
+          <div className="flex flex-col mr-4">
+            <label>Button or Axe</label>
+            <select value={buttonType} onChange={handleButtonTypeChange}>
               <option value={0}>Button</option>
               <option value={1}>Axe</option>
             </select>
           </div>
           <div className="flex flex-col">
-            <label>Trigger Number</label>
-            <input type="number" min={0} value={typeValue} step={1} onChange={handleTypeValueChange} className="p-1 bg-gray-200" />
+            <label>Button/Axe Number</label>
+            <input type="number" min={0} value={buttonIndex} step={1} onChange={handleButtonIndexChange} className="p-1 w-36 bg-gray-200" />
           </div>
         </div>
         <button type="submit" className="bg-gray-300 text-lg font-bold p-2 mt-4">Add</button>
