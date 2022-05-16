@@ -1,5 +1,4 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import Gamepads from './Gamepads';
 import Logs from './Logs';
 import MIDIOutputs from './MIDIOutputs';

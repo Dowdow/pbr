@@ -11,7 +11,9 @@ export default function MIDIOutputs() {
       <h2 className="text-center text-lg font-bold">MIDI Output</h2>
       {midiOutputs.length === 0 ? <h5 className="text-center mt-2">No MIDI Outputs found</h5> : null}
       <div className="flex flex-row flex-wrap justify-evenly mt-2">
-        {midiOutputs.map((mo) => <MIDIOutput key={mo.id} id={mo.id} activated={mo.activated} manufacturer={mo.manufacturer} name={mo.name} version={mo.version} />)}
+        {midiOutputs
+          .sort((a, b) => { if (a.id > b.id) return 1; if (a.id < b.id) return -1; return 0; })
+          .map((mo) => <MIDIOutput key={mo.id} id={mo.id} activated={mo.activated} manufacturer={mo.manufacturer} name={mo.name} version={mo.version} />)}
       </div>
     </div>
   );
