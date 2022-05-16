@@ -12,41 +12,35 @@ function createDataFromMIDIPort(port) {
     manufacturer: port.manufacturer,
     name: port.name,
     version: port.version,
+    activated: false,
   };
 }
 
-function createLog(midiMessageType, midiMessageChannel, midiMessageValue1, midiMessageValue2, controllerIndex, buttonType, buttonIndex) {
-  return {
-    id: Date.now(),
-    data: {
-      midiMessageType, midiMessageChannel, midiMessageValue1, midiMessageValue2, controllerIndex, buttonType, buttonIndex,
-    },
-  };
+function sendMidiMessage(MIDIOutputIds, byte1, byte2, byte3) {
+  MIDIOutputIds.forEach((id) => {
+    const output = MIDIAccess.outputs.get(id);
+    if (output) {
+      output.send([byte1, byte2, byte3]);
+    }
+  });
 }
 
-function sendMidiMessage(MIDIOutputId, byte1, byte2, byte3) {
-  const output = MIDIAccess.outputs.get(MIDIOutputId);
-  if (output) {
-    output.send([byte1, byte2, byte3]);
-  }
+function sendMidiNoteOnMessage(MIDIOutputIds, channel, value1, value2) {
+  sendMidiMessage(MIDIOutputIds, 144 + channel, value1, value2);
 }
 
-function sendMidiNoteOnMessage(MIDIOutputId, channel, value1, value2) {
-  sendMidiMessage(MIDIOutputId, 144 + channel, value1, value2);
+function sendMidiNoteOffMessage(MIDIOutputIds, channel, value1, value2) {
+  sendMidiMessage(MIDIOutputIds, 128 + channel, value1, value2);
 }
 
-function sendMidiNoteOffMessage(MIDIOutputId, channel, value1, value2) {
-  sendMidiMessage(MIDIOutputId, 128 + channel, value1, value2);
-}
-
-function sendMidiCCMessage(MIDIOutputId, channel, value1, value2) {
-  sendMidiMessage(MIDIOutputId, 176 + channel, value1, value2);
+function sendMidiCCMessage(MIDIOutputIds, channel, value1, value2) {
+  sendMidiMessage(MIDIOutputIds, 176 + channel, value1, value2);
 }
 
 export default function useMidiOutputs() {
   const dispatch = useDispatch();
 
-  const { selected, midiOutputs } = useSelector((state) => state.midiOutputs);
+  const midiOutputs = useSelector((state) => state.midiOutputs);
 
   function onMIDIAccessStateChange(event) {
     const { port } = event;
@@ -74,17 +68,18 @@ export default function useMidiOutputs() {
     navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
   }, []);
 
-  return { selected, midiOutputs };
+  return midiOutputs;
 }
 
 export function useMidiSend() {
   const dispatch = useDispatch();
 
-  const selected = useSelector((state) => state.midiOutputs.selected);
+  const activatedMIDIOutputs = useSelector((state) => state.midiOutputs.filter((mo) => mo.activated === true));
+
   const rules = useSelector((state) => state.rules);
 
   function send(controllerIndexParam, buttonTypeParam, buttonIndexParam, buttonValueParam) {
-    if (selected === null) return;
+    if (activatedMIDIOutputs.length === 0) return;
 
     rules.forEach((rule) => {
       const { activated, midiMessageType, midiMessageChannel, midiMessageValue1, midiMessageValue2, controllerIndex, buttonType, buttonIndex } = rule;
@@ -93,25 +88,15 @@ export function useMidiSend() {
       if (controllerIndex !== controllerIndexParam) return;
       if (buttonType !== buttonTypeParam || buttonIndex !== buttonIndexParam) return;
 
-      if (midiMessageType === MIDI_TYPE_NOTE_ON) { // Note On
-        if (buttonValueParam === 0) {
-          sendMidiNoteOffMessage(selected, midiMessageChannel, midiMessageValue1, midiMessageValue2);
-          dispatch(addLog(createLog(MIDI_TYPE_NOTE_OFF, midiMessageChannel, midiMessageValue1, midiMessageValue2, controllerIndex, buttonType, buttonIndex)));
-        } else {
-          sendMidiNoteOnMessage(selected, midiMessageChannel, midiMessageValue1, midiMessageValue2);
-          dispatch(addLog(createLog(MIDI_TYPE_NOTE_ON, midiMessageChannel, midiMessageValue1, midiMessageValue2, controllerIndex, buttonType, buttonIndex)));
-        }
-      } else if (midiMessageType === MIDI_TYPE_NOTE_OFF) { // Note Off
-        if (buttonValueParam === 0) {
-          sendMidiNoteOnMessage(selected, midiMessageChannel, midiMessageValue1, midiMessageValue2);
-          dispatch(addLog(createLog(MIDI_TYPE_NOTE_ON, midiMessageChannel, midiMessageValue1, midiMessageValue2, controllerIndex, buttonType, buttonIndex)));
-        } else {
-          sendMidiNoteOffMessage(selected, midiMessageChannel, midiMessageValue1, midiMessageValue2);
-          dispatch(addLog(createLog(MIDI_TYPE_NOTE_OFF, midiMessageChannel, midiMessageValue1, midiMessageValue2, controllerIndex, buttonType, buttonIndex)));
-        }
-      } else if (midiMessageType === MIDI_TYPE_CC) { // CC
-        sendMidiCCMessage(selected, midiMessageChannel, midiMessageValue1, Math.round(buttonValueParam * 127));
-        dispatch(addLog(createLog(MIDI_TYPE_CC, midiMessageChannel, midiMessageValue1, Math.round(buttonValueParam * 127), controllerIndex, buttonType, buttonIndex)));
+      if ((midiMessageType === MIDI_TYPE_NOTE_ON && buttonValueParam === 1) || (midiMessageType === MIDI_TYPE_NOTE_OFF && buttonValueParam === 0)) {
+        sendMidiNoteOnMessage(activatedMIDIOutputs, midiMessageChannel, midiMessageValue1, midiMessageValue2);
+        dispatch(addLog(MIDI_TYPE_NOTE_ON, midiMessageChannel, midiMessageValue1, midiMessageValue2, controllerIndex, buttonType, buttonIndex));
+      } else if ((midiMessageType === MIDI_TYPE_NOTE_ON && buttonValueParam === 0) || (midiMessageType === MIDI_TYPE_NOTE_OFF && buttonValueParam === 1)) {
+        sendMidiNoteOffMessage(activatedMIDIOutputs, midiMessageChannel, midiMessageValue1, midiMessageValue2);
+        dispatch(addLog(MIDI_TYPE_NOTE_OFF, midiMessageChannel, midiMessageValue1, midiMessageValue2, controllerIndex, buttonType, buttonIndex));
+      } else if (midiMessageType === MIDI_TYPE_CC) {
+        sendMidiCCMessage(activatedMIDIOutputs, midiMessageChannel, midiMessageValue1, Math.round(buttonValueParam * 127));
+        dispatch(addLog(MIDI_TYPE_CC, midiMessageChannel, midiMessageValue1, Math.round(buttonValueParam * 127), controllerIndex, buttonType, buttonIndex));
       }
     });
   }

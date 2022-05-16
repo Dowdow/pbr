@@ -16,7 +16,6 @@ export default function gamepads(state = [], action = {}) {
       }
       return state;
     }
-
     default:
       return state;
   }

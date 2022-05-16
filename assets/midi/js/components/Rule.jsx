@@ -15,38 +15,34 @@ export default function Rule({ rule }) {
   };
 
   return (
-    <div className={`flex flex-col w-36 p-2 mx-2 mb-4 bg-gray-200 border-t-4 ${rule.activated ? 'border-green-400' : 'border-red-500'}`}>
-      <div className="flex flex-row justify-between">
-        <h4 className="font-bold">{midiTypeNameFromId(rule.midiMessageType)}</h4>
-        <span>
-          CH
-          <span className="font-bold ml-1">{rule.midiMessageChannel + 1}</span>
-        </span>
-      </div>
-      <div className="flex flex-row justify-between">
-        <span className="mr-2">
-          V1
-          <span className="font-bold ml-1">{rule.midiMessageValue1}</span>
-        </span>
-        <span>
-          V2
-          <span className="font-bold ml-1">{rule.midiMessageValue2}</span>
-        </span>
-      </div>
-      <div className="flex flex-row justify-center">
-        <span className="mr-4">
-          C
-          <span className="font-bold">{rule.controllerIndex}</span>
-        </span>
-        <span>
-          {rule.buttonType === 0 ? 'B' : 'Axe '}
-          <span className="font-bold">{rule.buttonIndex}</span>
-        </span>
-      </div>
-      <div className="flex flex-row justify-between mt-2">
+    <tr className={`border-l-4 ${rule.activated ? 'border-green-400' : 'border-red-500'}`}>
+      <td className="p-2 border-b border-r">
+        C
+        <span className="font-bold">{rule.controllerIndex}</span>
+      </td>
+      <td className="p-2 border-b border-r">
+        {rule.buttonType === 0 ? 'B' : 'Axe '}
+        <span className="font-bold">{rule.buttonIndex}</span>
+      </td>
+      <td className="p-2 border-b border-r font-bold">{midiTypeNameFromId(rule.midiMessageType)}</td>
+      <td className="p-2 border-b border-r">
+        CH
+        <span className="font-bold ml-1">{rule.midiMessageChannel + 1}</span>
+      </td>
+      <td className="p-2 border-b border-r">
+        V1
+        <span className="font-bold ml-1">{rule.midiMessageValue1}</span>
+      </td>
+      <td className="p-2 border-b border-r">
+        V2
+        <span className="font-bold ml-1">{rule.midiMessageValue2}</span>
+      </td>
+      <td className="p-2 border-b border-r">
         <button type="button" onClick={handleToggleActivated} className="underline">{rule.activated ? 'Stop' : 'Start'}</button>
+      </td>
+      <td className="p-2 border-b border-r">
         <button type="button" onClick={handleRemove} className="underline">Remove</button>
-      </div>
-    </div>
+      </td>
+    </tr>
   );
 }
