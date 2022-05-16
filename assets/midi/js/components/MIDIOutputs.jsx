@@ -9,7 +9,7 @@ export default function MIDIOutputs() {
   return (
     <div className="flex flex-col">
       <h2 className="text-center text-lg font-bold">MIDI Output</h2>
-      {midiOutputs.length === 0 ? <h5 className="text-center text-lg font-bold mt-2">No MIDI Outputs found</h5> : null}
+      {midiOutputs.length === 0 ? <h5 className="text-center mt-2">No MIDI Outputs found</h5> : null}
       <div className="flex flex-row flex-wrap justify-evenly mt-2">
         {midiOutputs.map((mo) => <MIDIOutput key={mo.id} id={mo.id} activated={mo.activated} manufacturer={mo.manufacturer} name={mo.name} version={mo.version} />)}
       </div>
