@@ -16,25 +16,25 @@ function createDataFromMIDIPort(port) {
   };
 }
 
-function sendMidiMessage(MIDIOutputIds, byte1, byte2, byte3) {
-  MIDIOutputIds.forEach((id) => {
-    const output = MIDIAccess.outputs.get(id);
+function sendMidiMessage(MIDIOutputs, byte1, byte2, byte3) {
+  MIDIOutputs.forEach((mo) => {
+    const output = MIDIAccess.outputs.get(mo.id);
     if (output) {
       output.send([byte1, byte2, byte3]);
     }
   });
 }
 
-function sendMidiNoteOnMessage(MIDIOutputIds, channel, value1, value2) {
-  sendMidiMessage(MIDIOutputIds, 144 + channel, value1, value2);
+function sendMidiNoteOnMessage(MIDIOutputs, channel, value1, value2) {
+  sendMidiMessage(MIDIOutputs, 144 + channel, value1, value2);
 }
 
-function sendMidiNoteOffMessage(MIDIOutputIds, channel, value1, value2) {
-  sendMidiMessage(MIDIOutputIds, 128 + channel, value1, value2);
+function sendMidiNoteOffMessage(MIDIOutputs, channel, value1, value2) {
+  sendMidiMessage(MIDIOutputs, 128 + channel, value1, value2);
 }
 
-function sendMidiCCMessage(MIDIOutputIds, channel, value1, value2) {
-  sendMidiMessage(MIDIOutputIds, 176 + channel, value1, value2);
+function sendMidiCCMessage(MIDIOutputs, channel, value1, value2) {
+  sendMidiMessage(MIDIOutputs, 176 + channel, value1, value2);
 }
 
 export default function useMidiOutputs() {
@@ -48,7 +48,7 @@ export default function useMidiOutputs() {
       if (port.state === 'connected') {
         dispatch(addMidiOutput(createDataFromMIDIPort(port)));
       } else {
-        dispatch(removeMidiOutput({ id: port.id }));
+        dispatch(removeMidiOutput(port.id));
       }
     }
   }
