@@ -27,6 +27,9 @@ module.exports = {
           fill: 'var(--color-fill)',
         },
       },
+      width: {
+        160: '40rem',
+      },
     },
   },
   plugins: [],

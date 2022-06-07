@@ -1,7 +1,6 @@
 export const SET_PLAYER_CURRENT_SONG = 'SET_PLAYER_CURRENT_SONG';
 export const SET_PLAYER_PLAYING = 'SET_PLAYER_PLAYING';
 export const SET_PLAYER_SHUFFLE_MODE = 'SET_PLAYER_SHUFFLE_MODE';
-export const SET_PLAYER_VOLUME = 'SET_PLAYER_VOLUME';
 
 export function setPlayerCurrentSong(song) {
   return (dispatch) => dispatch({ type: SET_PLAYER_CURRENT_SONG, song });
@@ -13,10 +12,6 @@ export function setPlayerPlaying(playing) {
 
 export function setPlayerShuffle(on) {
   return (dispatch) => dispatch({ type: SET_PLAYER_SHUFFLE_MODE, on });
-}
-
-export function setPlayerVolume(volume) {
-  return (dispatch) => dispatch({ type: SET_PLAYER_VOLUME, volume });
 }
 
 export function setNewTrack() {
