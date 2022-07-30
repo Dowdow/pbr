@@ -11,11 +11,11 @@ export default function Tools() {
         <div className="my-5">
           <a href={midiUrl} target="_blank" rel="noreferrer" className="font-bold text-3xl hover:underline">Gamepad inputs to MIDI</a>
           <p className="mt-2">
-            Connect any gamepad to your computer, write some MIDI rules and activate your MIDI output, and let the magic do the rest.
+            Connect any gamepad to your computer, write some MIDI rules, activate your MIDI output, and let the magic do the rest.
             <br className="mt-1" />
-            You can connect up to 4 gamepads and activate as much output as you want.
+            You can connect up to 4 gamepads and activate as many outputs as you want.
             <br className="mt1" />
-            Debug your rules througth the logs and do your thing in your preffered software.
+            Debug your rules through logs and get your work done in your favorite DAW.
           </p>
         </div>
       </div>
