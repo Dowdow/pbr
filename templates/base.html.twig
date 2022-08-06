@@ -1,33 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<title>PBdR - lofi music producer</title>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "PBdR",
+      "email": "jlou@painboudinrecord.fr",
+      "gender": "male",
+      "jobTitle": "lofi music producer"
+    }
+    </script>
+
 		<meta charset="UTF-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
-		<meta name="Description" content="Pain Boudin Record"/>
 		<meta name="theme-color" content="#ffffff"/>
-		<meta property="og:title" content="Pain Boudin Record"/>
-		<meta property="og:description" content="Music producer and live performer"/>
-		<meta property="og:site_name" content="Pain Boudin Record"/>
+		<meta name="Description" content="PBdR is a music producer based in Lyon, France. Multi-instrumentalist from a young age, he started producing his own music since 2017 with Ableton Live. Today he creates lo-fi hip-hop music with his bass, guitar and synths."/>
+
+		<meta property="og:title" content="PBdR - lofi music producer"/>
+		<meta property="og:description" content="PBdR is a music producer based in Lyon, France. Multi-instrumentalist from a young age, he started producing his own music since 2017 with Ableton Live. Today he creates lo-fi hip-hop music with his bass, guitar and synths."/>
 		<meta property="og:type" content="website"/>
+
 		<link rel="icon" type="image/png" href="{{ asset('favicon.png') }}"/>
 		<link rel="manifest" href="{{ asset('manifest.json') }}"/>
 		<link rel="stylesheet" href="{{ asset('build/appStyle.css') }}"/>
-		<title>
-			{% block title %}Pain Boudin Record
-			{% endblock %}
-		</title>
+
+		<script type="text/javascript">
+			window.PRELOADED_STATE = {{ getPreLoadedState()|raw }};
+		</script>
+		<script async type="text/javascript" src="https://w.soundcloud.com/player/api.js"></script>
+		<script defer type="text/javascript" src="{{ asset('build/runtime.js') }}"></script>
+		<script defer type="text/javascript" src="{{ asset('build/app.js') }}"></script>
 	</head>
 	<body>
+		<div id="root"></div>
 		<noscript>
 			You need to enable JavaScript to run this app.
 		</noscript>
-		<div id="root"></div>
-		<script>
-			window.PRELOADED_STATE = {{ getPreLoadedState()|raw }};
-		</script>
-		<script type="text/javascript" src="https://w.soundcloud.com/player/api.js"></script>
-		<script type="text/javascript" src="{{ asset('build/runtime.js') }}"></script>
-		<script type="text/javascript" src="{{ asset('build/app.js') }}"></script>
-		{% block body %}{% endblock %}
 	</body>
 </html>

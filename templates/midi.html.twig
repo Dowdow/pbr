@@ -1,29 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<title>PBdR MIDI Tools - lofi music producer</title>
+
 		<meta charset="UTF-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
-		<meta name="Description" content="Send MIDI events from a gamepad"/>
 		<meta name="theme-color" content="#ffffff"/>
-		<meta property="og:title" content="PBR Gamepad MIDI System"/>
-		<meta property="og:description" content="Send MIDI events from a gamepad"/>
-		<meta property="og:site_name" content="PBR Gamepad MIDI System"/>
+		<meta name="Description" content="Connect any gamepad to your computer, write some MIDI rules, activate your MIDI output, and let the magic happens."/>
+
+		<meta property="og:title" content="PBdR MIDI Tools - lofi music producer"/>
+		<meta property="og:description" content="Connect any gamepad to your computer, write some MIDI rules, activate your MIDI output, and let the magic happens."/>
 		<meta property="og:type" content="website"/>
+
 		<link rel="icon" type="image/png" href="{{ asset('favicon.png') }}"/>
 		<link rel="manifest" href="{{ asset('manifest.json') }}"/>
 		<link rel="stylesheet" href="{{ asset('build/midiStyle.css') }}"/>
-		<title>
-			{% block title %}PBR Gamepad MIDI System
-			{% endblock %}
-		</title>
+
+		<script defer type="text/javascript" src="{{ asset('build/runtime.js') }}"></script>
+		<script defer type="text/javascript" src="{{ asset('build/midi.js') }}"></script>
 	</head>
 	<body>
+		<div id="root"></div>
 		<noscript>
 			You need to enable JavaScript to run this app.
 		</noscript>
-		<div id="root"></div>
-		<script type="text/javascript" src="{{ asset('build/runtime.js') }}"></script>
-		<script type="text/javascript" src="{{ asset('build/midi.js') }}"></script>
-		{% block body %}{% endblock %}
 	</body>
 </html>

@@ -12,7 +12,7 @@ export default function Header() {
       <div className="flex items-center hover:opacity-75">
         <img src="/images/pbdr.png" alt="Pain Boudin Record Logo" loading="lazy" className="h-14 object-cover" />
       </div>
-      <div className="flex flex-row justify-around items-center w-2/3 md:w-4/5 text-2xl font-bold tracking-wide md:tracking-wider lg:tracking-widest">
+      <nav className="flex flex-row justify-around items-center w-2/3 md:w-4/5 text-2xl font-bold tracking-wide md:tracking-wider lg:tracking-widest">
         <a href="#songs" className="hover:opacity-75">
           <FontAwesomeIcon icon={faMusic} className="md:hidden" />
           <span className="hidden md:flex">SONGS</span>
@@ -47,7 +47,7 @@ export default function Header() {
             <span className="hidden md:flex">ADMIN</span>
           </a>
         ) : ''}
-      </div>
+      </nav>
     </header>
   );
 }
