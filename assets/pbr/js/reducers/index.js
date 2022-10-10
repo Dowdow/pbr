@@ -1,16 +1,13 @@
-import { combineReducers } from 'redux';
 import admin from './admin';
 import player from './player';
 import songs from './songs';
 import transitions from './transitions';
 import user from './user';
 
-const appReducer = combineReducers({
+export default {
   admin,
   player,
   songs,
   transitions,
   user,
-});
-
-export default appReducer;
+};

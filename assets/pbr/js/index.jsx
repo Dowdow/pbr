@@ -1,21 +1,23 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { applyMiddleware, createStore } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
-import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import ReactGA from 'react-ga4';
-import appReducer from './reducers/index';
+import reducers from './reducers/index';
 import App from './components/App';
 import { loadState, subscribeLocalStorage } from './utils/localStorage';
-import { register } from './utils/serviceWorkerRegistration';
+import '../css/index.css';
 
 const preloadedState = window.PRELOADED_STATE;
 delete window.PRELOADED_STATE;
 
-const initialState = { ...preloadedState, ...loadState() };
-
-const store = createStore(appReducer, initialState, composeWithDevTools(applyMiddleware(thunkMiddleware)));
+const store = configureStore({
+  reducer: reducers,
+  preloadedState: { ...loadState(), ...preloadedState },
+  middleware: [thunkMiddleware],
+  devTools: process.env.NODE_ENV === 'development',
+});
 
 subscribeLocalStorage(store);
 
@@ -28,5 +30,3 @@ root.render(
     <App />
   </Provider>,
 );
-
-register();

@@ -25,14 +25,15 @@
 
 		<link rel="icon" type="image/png" href="{{ asset('favicon.png') }}"/>
 		<link rel="manifest" href="{{ asset('manifest.json') }}"/>
-		<link rel="stylesheet" href="{{ asset('build/appStyle.css') }}"/>
+		<link rel="stylesheet" href="{{ asset('build/index.css') }}"/>
+
+		<link rel"canonical" href="https://painboudinrecord.fr"/>
 
 		<script type="text/javascript">
 			window.PRELOADED_STATE = {{ getPreLoadedState()|raw }};
 		</script>
 		<script async type="text/javascript" src="https://w.soundcloud.com/player/api.js"></script>
-		<script defer type="text/javascript" src="{{ asset('build/runtime.js') }}"></script>
-		<script defer type="text/javascript" src="{{ asset('build/app.js') }}"></script>
+		<script defer type="text/javascript" src="{{ asset('build/index.js') }}"></script>
 	</head>
 	<body>
 		<div id="root"></div>

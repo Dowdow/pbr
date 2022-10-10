@@ -1,16 +1,19 @@
 import React from 'react';
-import { applyMiddleware, createStore } from 'redux';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
-import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
+import { configureStore } from '@reduxjs/toolkit';
 import App from './components/App';
-import appReducer from './reducers';
+import reducers from './reducers';
 import { loadState, subscribeLocalStorage } from './utils/localStorage';
+import '../css/index.css';
 
-const initialState = { ...loadState() };
-
-const store = createStore(appReducer, initialState, composeWithDevTools(applyMiddleware(thunkMiddleware)));
+const store = configureStore({
+  reducer: reducers,
+  preloadedState: { ...loadState() },
+  middleware: [thunkMiddleware],
+  devTools: process.env.NODE_ENV === 'development',
+});
 
 subscribeLocalStorage(store);
 

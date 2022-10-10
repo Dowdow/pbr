@@ -1,41 +1,52 @@
-const Encore = require('@symfony/webpack-encore');
-const WorkboxPlugin = require('workbox-webpack-plugin');
+const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const WebpackAssetsManifest = require('webpack-assets-manifest');
 
-if (!Encore.isRuntimeEnvironmentConfigured()) {
-  Encore.configureRuntimeEnvironment(process.env.NODE_ENV || 'dev');
-}
+const config = {
+  entry: {
+    index: path.resolve(__dirname, './assets/pbr/js/index.jsx'),
+    midi: path.resolve(__dirname, './assets/midi/js/index.jsx'),
+    vr: path.resolve(__dirname, './assets/vr/js/index.jsx'),
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: ['babel-loader'],
+      },
+      {
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: ['file-loader'],
+      },
+    ],
+  },
+  resolve: {
+    extensions: ['*', '.js', '.jsx'],
+  },
+  output: {
+    path: path.resolve(__dirname, './public/build'),
+    filename: '[name].js',
+    clean: true,
+  },
+  plugins: [
+    new MiniCssExtractPlugin(),
+    new WebpackAssetsManifest(),
+  ],
+};
 
-Encore
-  .setOutputPath('public/build/')
-  .setPublicPath('/build')
+module.exports = (env, argv) => {
+  if (argv.mode === 'development') {
+    config.devtool = 'eval-source-map';
+  }
 
-  .enableSingleRuntimeChunk()
-  .enableReactPreset()
-  .addEntry('app', './assets/pbr/js/index.jsx')
-  .addEntry('vr', './assets/vr/js/index.jsx')
-  .addEntry('midi', './assets/midi/js/index.jsx')
-  .addStyleEntry('appStyle', './assets/pbr/css/index.css')
-  .addStyleEntry('vrStyle', './assets/vr/css/index.css')
-  .addStyleEntry('midiStyle', './assets/midi/css/index.css')
+  if (argv.mode === 'production') {
+    config.devtool = false;
+  }
 
-  .cleanupOutputBeforeBuild()
-
-  .configureManifestPlugin((options) => {
-    options.fileName = 'assets_manifest.json';
-  })
-
-  .enableSourceMaps(!Encore.isProduction())
-  .enableVersioning(Encore.isProduction())
-
-  .enablePostCssLoader((options) => {
-    options.postcssOptions = {
-      config: './postcss.config.js',
-    };
-  })
-
-  .addPlugin(new WorkboxPlugin.GenerateSW({
-    swDest: '../service-worker.js',
-    inlineWorkboxRuntime: true,
-  }));
-
-module.exports = Encore.getWebpackConfig();
+  return config;
+};

@@ -1,7 +1,8 @@
 import React, { Suspense } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { VRCanvas, DefaultXRControllers } from '@react-three/xr';
+import { Controllers, XR } from '@react-three/xr';
 import { OrbitControls, Sky } from '@react-three/drei';
+import { Canvas } from '@react-three/fiber';
 import Cassette from './Cassette';
 import Floor from './Floor';
 import Button from './Button';
@@ -32,19 +33,21 @@ export default function App() {
 
   return (
     <div>
-      <VRCanvas style={{ height }}>
-        <Sky distance={2000} rayleigh={0.1} sunPosition={[0, 1, 0]} turbidity={1} />
-        <ambientLight />
-        <Floor />
-        <Button selected={selectedSong !== null} playing={playing} handleButton={handleButton} />
-        {songs.map((song, index) => (
-          <Suspense key={song.id} fallback={null}>
-            <Cassette song={song} index={index} total={songs.length} selected={selectedSong && song.id === selectedSong.id} handleSelected={handleSelected} />
-          </Suspense>
-        ))}
-        <OrbitControls />
-        <DefaultXRControllers />
-      </VRCanvas>
+      <Canvas style={{ height }}>
+        <XR>
+          <Sky distance={2000} rayleigh={0.1} sunPosition={[0, 1, 0]} turbidity={1} />
+          <ambientLight />
+          <Floor />
+          <Button selected={selectedSong !== null} playing={playing} handleButton={handleButton} />
+          {songs.map((song, index) => (
+            <Suspense key={song.id} fallback={null}>
+              <Cassette song={song} index={index} total={songs.length} selected={selectedSong && song.id === selectedSong.id} handleSelected={handleSelected} />
+            </Suspense>
+          ))}
+          <OrbitControls />
+          <Controllers />
+        </XR>
+      </Canvas>
       <Player />
     </div>
   );

@@ -6,10 +6,11 @@
   "author": "Léo Riera",
   "license": "MIT",
   "scripts": {
-    "dev": "encore dev",
-    "watch": "encore dev --watch",
-    "prod": "encore production",
-    "eslint": "eslint --ext .js --ext .jsx assets/pbr/js assets/vr/js assets/midi/js"
+    "dev": "webpack --mode=development --config webpack.config.js",
+    "prod": "webpack --mode=production --config webpack.config.js",
+    "watch": "webpack --mode=development --config webpack.config.js --watch",
+    "eslint": "eslint --ext .js --ext .jsx assets/pbr/js assets/vr/js assets/midi/js",
+    "stats": "webpack --json > stats.json"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1",
@@ -18,29 +19,34 @@
     "@fortawesome/react-fontawesome": "^0.2",
     "@react-three/drei": "^9.18",
     "@react-three/fiber": "^8.2",
-    "@react-three/xr": "^4.1",
+    "@react-three/xr": "^5.0",
+    "@reduxjs/toolkit": "^1.8.6",
     "prop-types": "^15.6",
     "react": "^18.2",
     "react-dom": "^18.2",
     "react-ga4": "^1.4",
     "react-redux": "^8.0",
     "redux": "^4.0",
-    "redux-devtools-extension": "^2.13",
     "redux-thunk": "^2.3",
-    "three": "^0.143"
+    "three": "^0.145"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.19.3",
     "@babel/preset-react": "^7.18",
-    "@symfony/webpack-encore": "^3.0",
     "autoprefixer": "^10.4",
+    "babel-loader": "^8.2.5",
     "confusing-browser-globals": "^1.0",
+    "css-loader": "^6.7.1",
     "eslint": "^8.5",
     "eslint-config-airbnb": "^19.0",
     "eslint-plugin-react": "^7.27",
+    "mini-css-extract-plugin": "^2.6.1",
     "postcss": "^8.4",
-    "postcss-import": "^14.0",
+    "postcss-import": "^15.0",
     "postcss-loader": "^7.0",
     "tailwindcss": "^3.1",
-    "workbox-webpack-plugin": "^6.5"
+    "webpack": "^5.74.0",
+    "webpack-assets-manifest": "^5.1.0",
+    "webpack-cli": "^4.10.0"
   }
 }
